@@ -1,9 +1,46 @@
-import { GoogleGenAI, Type } from '@google/genai';
+import dotenv from 'dotenv';
+import { GoogleGenAI, ThinkingLevel, Type } from '@google/genai';
 import { AI_ASSISTANTS } from './data';
+import {
+  buildSmartBlueprint,
+  buildSmartContextualReply,
+  buildSmartSuggestionEvaluation,
+} from './ai-fallback';
+
+// Ensure .env.local and .env are loaded in local dev and standalone serverless invocations
+try {
+  dotenv.config({ path: '.env.local' });
+  dotenv.config();
+} catch {
+  // Ignore if dotenv file reading is restricted in edge/serverless runtime
+}
+
+function resolveApiKey(): string | null {
+  const candidates = [
+    process.env.GEMINI_API_KEY,
+    process.env.GOOGLE_API_KEY,
+    process.env.NEXT_PUBLIC_GEMINI_API_KEY,
+    process.env.VITE_GEMINI_API_KEY,
+  ];
+
+  for (const raw of candidates) {
+    if (!raw) continue;
+    const cleaned = raw.trim().replace(/^["']|["']$/g, '');
+    if (
+      cleaned &&
+      cleaned !== 'MY_GEMINI_API_KEY' &&
+      cleaned !== 'your_free_gemini_api_key' &&
+      cleaned !== 'YOUR_GEMINI_API_KEY'
+    ) {
+      return cleaned;
+    }
+  }
+  return null;
+}
 
 export function getGenAIClient(): GoogleGenAI | null {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
+  const apiKey = resolveApiKey();
+  if (!apiKey) {
     return null;
   }
   return new GoogleGenAI({
@@ -14,6 +51,58 @@ export function getGenAIClient(): GoogleGenAI | null {
       },
     },
   });
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error(`Gemini request timed out after ${ms}ms`));
+    }, ms);
+    promise
+      .then((val) => {
+        clearTimeout(timer);
+        resolve(val);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
+async function generateWithModelFallback(
+  ai: GoogleGenAI,
+  contents: string,
+  config: Record<string, any>
+) {
+  const start = Date.now();
+  try {
+    return await withTimeout(
+      ai.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents,
+        config: {
+          ...config,
+          thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
+        },
+      }),
+      5500
+    );
+  } catch (primaryErr) {
+    const elapsed = Date.now() - start;
+    // Only attempt secondary model if primary failed quickly (e.g. 404 model not found on external key)
+    if (elapsed < 3000) {
+      return await withTimeout(
+        ai.models.generateContent({
+          model: 'gemini-flash-latest',
+          contents,
+          config,
+        }),
+        4500
+      );
+    }
+    throw primaryErr;
+  }
 }
 
 export const AKVIORA_SYSTEM_INSTRUCTION = `You are the official Akviora AI Solutions Architect & Assistant (always refer to yourself as "Akviora AI", never "Gemini").
@@ -60,9 +149,9 @@ export async function generateChatReply(params: {
             .join('\n')
         : '';
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: `${personaContext}
+      const response = await generateWithModelFallback(
+        ai,
+        `${personaContext}
 
 Recent Conversation:
 ${recentHistory}
@@ -73,7 +162,7 @@ Respond in JSON with:
 1. "reply": Clear, helpful, well-structured response (use bullet points where helpful, max 140 words).
 2. "suggestedFollowUps": Array of 3 short follow-up questions or actions the user can click next.
 3. "recommendedService": The single most relevant Akviora service or assistant name.`,
-        config: {
+        {
           systemInstruction: AKVIORA_SYSTEM_INSTRUCTION,
           responseMimeType: 'application/json',
           responseSchema: {
@@ -88,8 +177,8 @@ Respond in JSON with:
             },
             required: ['reply', 'suggestedFollowUps', 'recommendedService'],
           },
-        },
-      });
+        }
+      );
 
       if (response.text) {
         return JSON.parse(response.text.trim());
@@ -99,20 +188,7 @@ Respond in JSON with:
     }
   }
 
-  const activeTitle = persona ? persona.title : 'Akviora AI Solutions Architect';
-  return {
-    reply: `As your **${activeTitle}**, here is how we approach "${message.slice(0, 80)}":\n\n• **Workflow First**: We map where your team or customers lose time across spreadsheets, WhatsApp, or manual forms.\n• **Connected Architecture**: We deploy a tailored ${
-      persona ? persona.title : 'Akviora AI-powered layer'
-    } integrated directly with your Next.js + Node.js database and approval flows.\n• **Measurable Impact**: Typical deployments launch in 3–6 weeks and reduce manual triage by 60%+.\n\nWould you like me to generate a step-by-step **Automation Blueprint** or capture a suggestion for your workflow?`,
-    suggestedFollowUps: [
-      'Generate a 4-step automation blueprint for my business',
-      'How long does it take to build and launch?',
-      'Show me similar case studies like TrackPayout or TenderItNow',
-    ],
-    recommendedService: persona
-      ? persona.title
-      : 'AI Solutions & Business Automation',
-  };
+  return buildSmartContextualReply({ message, personaId, history });
 }
 
 export async function evaluateUserSuggestion(params: {
@@ -122,16 +198,16 @@ export async function evaluateUserSuggestion(params: {
   businessGoal?: string;
 }) {
   const { authorName, category, suggestionText, businessGoal } = params;
-  let aiAssessment =
-    'Strong practical workflow opportunity. We recommend starting with a 4-day Discovery sprint to map data inputs, user permissions, and automated notification triggers.';
-  let recommendedPillar = 'AI Solutions + Business Automation';
+  const fallback = buildSmartSuggestionEvaluation(params);
+  let aiAssessment = fallback.aiAssessment;
+  let recommendedPillar = fallback.recommendedPillar;
 
   const ai = getGenAIClient();
   if (ai) {
     try {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: `A user submitted this workflow/product suggestion to Akviora Technologies:
+      const response = await generateWithModelFallback(
+        ai,
+        `A user submitted this workflow/product suggestion to Akviora Technologies:
 Author: ${authorName || 'Founder'}
 Category: ${category || 'AI Workflow'}
 Suggestion: ${suggestionText}
@@ -140,7 +216,7 @@ Business Goal: ${businessGoal || 'Improve operational speed'}
 Return a JSON object with:
 1. "aiAssessment": A concise 2-sentence architectural assessment explaining how Akviora can build or automate this for maximum ROI.
 2. "recommendedPillar": Which Akviora service pillar + AI assistant fits best (e.g., "AI Solutions (Document Assistant) + Web & SaaS").`,
-        config: {
+        {
           systemInstruction: AKVIORA_SYSTEM_INSTRUCTION,
           responseMimeType: 'application/json',
           responseSchema: {
@@ -151,8 +227,8 @@ Return a JSON object with:
             },
             required: ['aiAssessment', 'recommendedPillar'],
           },
-        },
-      });
+        }
+      );
 
       if (response.text) {
         const parsed = JSON.parse(response.text.trim());
@@ -186,17 +262,17 @@ export async function generateInquirySummary(params: {
   const ai = getGenAIClient();
   if (ai) {
     try {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: `Summarize this new client inquiry for Akviora Technologies into a 2-sentence actionable Discovery Call preparation note:
+      const response = await generateWithModelFallback(
+        ai,
+        `Summarize this new client inquiry for Akviora Technologies into a 2-sentence actionable Discovery Call preparation note:
 Client: ${name} (${company || 'Startup'})
 Service: ${serviceInterest}
 Timeline: ${timeline}, Budget: ${budgetRange}
 Problem Statement: ${problemStatement}`,
-        config: {
+        {
           systemInstruction: AKVIORA_SYSTEM_INSTRUCTION,
-        },
-      });
+        }
+      );
       if (response.text) {
         aiSummary = response.text.trim();
       }
@@ -216,9 +292,9 @@ export async function generateWorkflowBlueprint(params: {
   const ai = getGenAIClient();
   if (ai) {
     try {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: `Create a practical Akviora Technologies AI & Automation Blueprint for:
+      const response = await generateWithModelFallback(
+        ai,
+        `Create a practical Akviora Technologies AI & Automation Blueprint for:
 Business Type: ${businessType}
 Workflow Bottleneck: ${bottleneck}
 
@@ -228,7 +304,7 @@ Return a structured JSON blueprint with:
 - workflowSteps (array of 4 steps with stepNumber, title, detail)
 - estimatedEfficiencyGain (concrete time/cost/conversion metric)
 - recommendedStack (array of 4 technologies)`,
-        config: {
+        {
           systemInstruction: AKVIORA_SYSTEM_INSTRUCTION,
           responseMimeType: 'application/json',
           responseSchema: {
@@ -262,8 +338,8 @@ Return a structured JSON blueprint with:
               'recommendedStack',
             ],
           },
-        },
-      });
+        }
+      );
 
       if (response.text) {
         return JSON.parse(response.text.trim());
@@ -273,42 +349,5 @@ Return a structured JSON blueprint with:
     }
   }
 
-  return {
-    diagnosis: `Manual handoffs and fragmented data in ${businessType} are creating avoidable response delays and limiting owner visibility.`,
-    recommendedAssistant: 'Operations Assistant + Custom Next.js Portal',
-    workflowSteps: [
-      {
-        stepNumber: 1,
-        title: 'Centralize Intake & Data Capture',
-        detail:
-          'Replace scattered WhatsApp messages and spreadsheets with a structured web intake & webhook pipeline.',
-      },
-      {
-        stepNumber: 2,
-        title: 'Deploy Grounded AI Triage',
-        detail:
-          'Use an Akviora AI-powered Assistant to classify requests, extract key fields, and answer routine queries immediately.',
-      },
-      {
-        stepNumber: 3,
-        title: 'Automated Approval & Notification Routing',
-        detail:
-          'Route exceptions to decision-makers with one-click mobile approval and instant customer status updates.',
-      },
-      {
-        stepNumber: 4,
-        title: 'Live Owner Visibility Dashboard',
-        detail:
-          'Track turnaround times, conversion rates, and SLA bottlenecks in real time.',
-      },
-    ],
-    estimatedEfficiencyGain:
-      '15–22 hours saved per week · 3x faster customer turnaround',
-    recommendedStack: [
-      'Akviora AI Engine',
-      'Next.js App Router',
-      'Node.js Automation API',
-      'Relational Database',
-    ],
-  };
+  return buildSmartBlueprint({ businessType, bottleneck });
 }

@@ -1,4 +1,5 @@
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import {
   AIBlueprint,
@@ -14,6 +15,9 @@ interface DatabaseSchema {
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'akviora_db.json');
+const TMP_DB_FILE = path.join(os.tmpdir(), 'akviora_db.json');
+
+let memoryStore: DatabaseSchema | null = null;
 
 const INITIAL_SUGGESTIONS: UserSuggestion[] = [
   {
@@ -126,46 +130,62 @@ const INITIAL_BLUEPRINTS: AIBlueprint[] = [
 ];
 
 function ensureDbFile(): DatabaseSchema {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (memoryStore) {
+    return memoryStore;
   }
-  if (!fs.existsSync(DB_FILE)) {
-    const initialData: DatabaseSchema = {
-      inquiries: INITIAL_INQUIRIES,
-      suggestions: INITIAL_SUGGESTIONS,
-      blueprints: INITIAL_BLUEPRINTS,
-    };
-    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
-    return initialData;
+
+  const candidateFiles = [TMP_DB_FILE, DB_FILE];
+  for (const filePath of candidateFiles) {
+    try {
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
+        memoryStore = {
+          inquiries: Array.isArray(parsed.inquiries)
+            ? parsed.inquiries
+            : [...INITIAL_INQUIRIES],
+          suggestions: Array.isArray(parsed.suggestions)
+            ? parsed.suggestions
+            : [...INITIAL_SUGGESTIONS],
+          blueprints: Array.isArray(parsed.blueprints)
+            ? parsed.blueprints
+            : [...INITIAL_BLUEPRINTS],
+        };
+        return memoryStore;
+      }
+    } catch {
+      // Ignore read errors and try next candidate
+    }
   }
-  try {
-    const raw = fs.readFileSync(DB_FILE, 'utf-8');
-    const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
-    return {
-      inquiries: Array.isArray(parsed.inquiries)
-        ? parsed.inquiries
-        : INITIAL_INQUIRIES,
-      suggestions: Array.isArray(parsed.suggestions)
-        ? parsed.suggestions
-        : INITIAL_SUGGESTIONS,
-      blueprints: Array.isArray(parsed.blueprints)
-        ? parsed.blueprints
-        : INITIAL_BLUEPRINTS,
-    };
-  } catch {
-    return {
-      inquiries: INITIAL_INQUIRIES,
-      suggestions: INITIAL_SUGGESTIONS,
-      blueprints: INITIAL_BLUEPRINTS,
-    };
-  }
+
+  memoryStore = {
+    inquiries: [...INITIAL_INQUIRIES],
+    suggestions: [...INITIAL_SUGGESTIONS],
+    blueprints: [...INITIAL_BLUEPRINTS],
+  };
+  saveDbFile(memoryStore);
+  return memoryStore;
 }
 
 function saveDbFile(data: DatabaseSchema): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  memoryStore = data;
+  const serialized = JSON.stringify(data, null, 2);
+
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(DB_FILE, serialized, 'utf-8');
+    return;
+  } catch {
+    // Primary directory is read-only (e.g., Vercel /var/task); fall back to os.tmpdir()
   }
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+
+  try {
+    fs.writeFileSync(TMP_DB_FILE, serialized, 'utf-8');
+  } catch {
+    // Keep state in memoryStore if both paths are non-writable
+  }
 }
 
 export const db = {

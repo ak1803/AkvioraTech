@@ -16,6 +16,7 @@ import {
   POST as postInquiry,
 } from './app/api/inquiries/route.ts';
 
+dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const PORT = 3000;

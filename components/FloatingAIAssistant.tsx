@@ -19,6 +19,10 @@ import {
 } from '../lib/types';
 import { AI_ASSISTANTS } from '../lib/data';
 import {
+  buildSmartContextualReply,
+  buildSmartSuggestionEvaluation,
+} from '../lib/ai-fallback';
+import {
   AnimatedSelect,
   COMPACT_INPUT_FIELD_CLASSES,
   FocusBeam,
@@ -152,46 +156,65 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
     if (!textToSend) setInput('');
     setIsLoading(true);
 
+    const recentHistory = messages.slice(-6).map((m) => ({
+      role: m.role,
+      content: m.content,
+    }));
+
     try {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 8500);
       const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: query,
           personaId: selectedPersona,
-          history: messages.slice(-6).map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
+          history: recentHistory,
         }),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
 
       const data = await response.json();
+      const fallback = buildSmartContextualReply({
+        message: query,
+        personaId: selectedPersona,
+        history: recentHistory,
+      });
       const assistantMsg: ChatMessage = {
         id: `ai-${Date.now()}`,
         role: 'assistant',
         personaId: selectedPersona,
-        content:
-          data.reply ||
-          'We can design a custom workflow around your requirements. Would you like to explore our AI Solutions or start a discovery brief?',
+        content: data.reply || fallback.reply,
         timestamp: new Date().toISOString(),
         suggestions: Array.isArray(data.suggestedFollowUps)
           ? data.suggestedFollowUps
-          : ['Start a project inquiry', 'Explore AI Assistants'],
-        recommendedService: data.recommendedService || 'AI Solutions',
+          : fallback.suggestedFollowUps,
+        recommendedService:
+          data.recommendedService || fallback.recommendedService,
       };
       setMessages((prev) => [...prev, assistantMsg]);
     } catch {
+      const fallback = buildSmartContextualReply({
+        message: query,
+        personaId: selectedPersona,
+        history: recentHistory,
+      });
       setMessages((prev) => [
         ...prev,
         {
-          id: `err-${Date.now()}`,
+          id: `ai-${Date.now()}`,
           role: 'assistant',
           personaId: selectedPersona,
-          content:
-            'I captured your request. You can also submit your workflow idea in the **Share Suggestion** tab or book a discovery call on our Contact page.',
+          content: fallback.reply,
           timestamp: new Date().toISOString(),
-          suggestions: ['Open Contact Page', 'Explore Case Studies'],
+          suggestions: fallback.suggestedFollowUps,
+          recommendedService: fallback.recommendedService,
         },
       ]);
     } finally {
@@ -209,31 +232,56 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
       return;
     }
 
+    const cleanAuthor = authorName.trim() || 'Website Visitor';
+    const cleanText = suggestionText.trim();
+    const cleanGoal =
+      businessGoal.trim() ||
+      'Automate operations and improve user experience';
+
     setSubmittingSuggestion(true);
     try {
       const res = await fetch('/api/suggestions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          authorName: authorName.trim() || 'Website Visitor',
+          authorName: cleanAuthor,
           category,
-          suggestionText: suggestionText.trim(),
-          businessGoal:
-            businessGoal.trim() ||
-            'Automate operations and improve user experience',
+          suggestionText: cleanText,
+          businessGoal: cleanGoal,
         }),
       });
-      const data = await res.json();
       if (!res.ok) {
-        setSuggestionError(data.error || 'Could not submit suggestion.');
-      } else if (data.suggestion) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.suggestion) {
         setLatestSavedSuggestion(data.suggestion);
         onNewSuggestionSaved(data.suggestion);
         setSuggestionText('');
         setBusinessGoal('');
       }
     } catch {
-      setSuggestionError('Network error while saving your suggestion.');
+      const evalResult = buildSmartSuggestionEvaluation({
+        authorName: cleanAuthor,
+        category,
+        suggestionText: cleanText,
+        businessGoal: cleanGoal,
+      });
+      const localSuggestion: UserSuggestion = {
+        id: `sug-${Date.now()}`,
+        authorName: cleanAuthor,
+        category,
+        suggestionText: cleanText,
+        businessGoal: cleanGoal,
+        aiAssessment: evalResult.aiAssessment,
+        recommendedPillar: evalResult.recommendedPillar,
+        upvotes: 1,
+        createdAt: new Date().toISOString(),
+      };
+      setLatestSavedSuggestion(localSuggestion);
+      onNewSuggestionSaved(localSuggestion);
+      setSuggestionText('');
+      setBusinessGoal('');
     } finally {
       setSubmittingSuggestion(false);
     }

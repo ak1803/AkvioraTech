@@ -18,9 +18,10 @@ Requirements: **Node.js v18+** installed on your machine.
 # 1. Install dependencies
 npm install
 
-# 2. Create your .env file and add your free Google Gemini API key
+# 2. Create your .env or .env.local file and add your Google Gemini API key
 cp .env.example .env
-# Edit .env and set: GEMINI_API_KEY="your_free_gemini_api_key"
+# Edit .env (or .env.local) and set: GEMINI_API_KEY="your_gemini_api_key"
+# For Vercel deployments, add GEMINI_API_KEY in Vercel Project Settings -> Environment Variables.
 
 # 3. Start the full-stack server (Frontend + Node.js API + Database)
 npm run dev

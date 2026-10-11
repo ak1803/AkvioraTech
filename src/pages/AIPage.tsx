@@ -15,6 +15,10 @@ import {
 } from '../types/akviora';
 import { AI_ASSISTANTS } from '../data/akvioraData';
 import {
+  buildSmartBlueprint,
+  buildSmartSuggestionEvaluation,
+} from '../../lib/ai-fallback';
+import {
   FadeUpReveal,
   KineticHeadline,
   SpotlightBentoTile,
@@ -98,25 +102,45 @@ export const AIPage: React.FC<AIPageProps> = ({
       return;
     }
 
+    const cleanBusiness = businessType.trim();
+    const cleanBottleneck = bottleneck.trim();
+
     setGeneratingBlueprint(true);
     try {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 8500);
       const res = await fetch('/api/ai/blueprint', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          businessType: businessType.trim(),
-          bottleneck: bottleneck.trim(),
+          businessType: cleanBusiness,
+          bottleneck: cleanBottleneck,
         }),
+        signal: controller.signal,
       });
-      const data = await res.json();
+      window.clearTimeout(timeoutId);
       if (!res.ok) {
-        setBlueprintError(data.error || 'Could not generate blueprint.');
-      } else if (data.blueprint) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.blueprint) {
         setActiveBlueprint(data.blueprint);
         onNewBlueprintSaved(data.blueprint);
       }
     } catch {
-      setBlueprintError('Network error while contacting Akviora AI server.');
+      const generated = buildSmartBlueprint({
+        businessType: cleanBusiness,
+        bottleneck: cleanBottleneck,
+      });
+      const fallbackBp: AIBlueprint = {
+        id: `bp-${Date.now()}`,
+        businessType: cleanBusiness,
+        bottleneck: cleanBottleneck,
+        ...generated,
+        createdAt: new Date().toISOString(),
+      };
+      setActiveBlueprint(fallbackBp);
+      onNewBlueprintSaved(fallbackBp);
     } finally {
       setGeneratingBlueprint(false);
     }
@@ -131,30 +155,55 @@ export const AIPage: React.FC<AIPageProps> = ({
       return;
     }
 
+    const cleanAuthor = sugAuthor.trim() || 'Founder / Team Lead';
+    const cleanText = sugText.trim();
+    const cleanGoal =
+      sugGoal.trim() || 'Automate repetitive tasks and speed up customer response';
+
     setSubmittingSug(true);
     try {
       const res = await fetch('/api/suggestions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          authorName: sugAuthor.trim() || 'Founder / Team Lead',
+          authorName: cleanAuthor,
           category: sugCategory,
-          suggestionText: sugText.trim(),
-          businessGoal:
-            sugGoal.trim() || 'Automate repetitive tasks and speed up customer response',
+          suggestionText: cleanText,
+          businessGoal: cleanGoal,
         }),
       });
-      const data = await res.json();
       if (!res.ok) {
-        setSugError(data.error || 'Could not submit suggestion.');
-      } else if (data.suggestion) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.suggestion) {
         onNewSuggestionSaved(data.suggestion);
         setSugText('');
         setSugGoal('');
         setSugSuccess(true);
       }
     } catch {
-      setSugError('Network error while saving suggestion.');
+      const evalResult = buildSmartSuggestionEvaluation({
+        authorName: cleanAuthor,
+        category: sugCategory,
+        suggestionText: cleanText,
+        businessGoal: cleanGoal,
+      });
+      const localSuggestion: UserSuggestion = {
+        id: `sug-${Date.now()}`,
+        authorName: cleanAuthor,
+        category: sugCategory,
+        suggestionText: cleanText,
+        businessGoal: cleanGoal,
+        aiAssessment: evalResult.aiAssessment,
+        recommendedPillar: evalResult.recommendedPillar,
+        upvotes: 1,
+        createdAt: new Date().toISOString(),
+      };
+      onNewSuggestionSaved(localSuggestion);
+      setSugText('');
+      setSugGoal('');
+      setSugSuccess(true);
     } finally {
       setSubmittingSug(false);
     }
