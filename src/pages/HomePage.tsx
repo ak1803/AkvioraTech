@@ -1091,8 +1091,12 @@ export const HomePage: React.FC<HomePageProps> = ({
           <MagneticButton
             variant="gradient"
             onClick={() => onNavigate('ai')}
+            className="px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
           >
-            Open Interactive AI Studio &amp; Suggestion Hub →
+            <span className="sm:hidden">Open AI Studio →</span>
+            <span className="hidden sm:inline">
+              Open Interactive AI Studio &amp; Suggestion Hub →
+            </span>
           </MagneticButton>
 
           <button

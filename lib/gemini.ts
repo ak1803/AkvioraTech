@@ -75,34 +75,39 @@ async function generateWithModelFallback(
   contents: string,
   config: Record<string, any>
 ) {
-  const start = Date.now();
-  try {
-    return await withTimeout(
-      ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents,
-        config: {
-          ...config,
-          thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
-        },
-      }),
-      5500
-    );
-  } catch (primaryErr) {
-    const elapsed = Date.now() - start;
-    // Only attempt secondary model if primary failed quickly (e.g. 404 model not found on external key)
-    if (elapsed < 3000) {
+  const modelsToTry: { model: string; extraConfig?: Record<string, any> }[] = [
+    {
+      model: 'gemini-3.8-flash',
+      extraConfig: { thinkingConfig: { thinkingLevel: ThinkingLevel.LOW } },
+    },
+    {
+      model: 'gemini-flash-latest',
+    },
+    {
+      model: 'gemini-3.1-flash-lite',
+      extraConfig: { thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL } },
+    },
+  ];
+
+  let lastError: unknown;
+  for (const candidate of modelsToTry) {
+    try {
       return await withTimeout(
         ai.models.generateContent({
-          model: 'gemini-flash-latest',
+          model: candidate.model,
           contents,
-          config,
+          config: {
+            ...config,
+            ...(candidate.extraConfig || {}),
+          },
         }),
-        4500
+        24000
       );
+    } catch (err) {
+      lastError = err;
     }
-    throw primaryErr;
   }
+  throw lastError;
 }
 
 export const AKVIORA_SYSTEM_INSTRUCTION = `You are the official Akviora AI Solutions Architect & Assistant (always refer to yourself as "Akviora AI", never "Gemini").

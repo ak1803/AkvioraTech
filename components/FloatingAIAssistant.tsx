@@ -163,7 +163,7 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
 
     try {
       const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 8500);
+      const timeoutId = window.setTimeout(() => controller.abort(), 30000);
       const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

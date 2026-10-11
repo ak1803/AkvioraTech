@@ -108,7 +108,7 @@ export const AIPage: React.FC<AIPageProps> = ({
     setGeneratingBlueprint(true);
     try {
       const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 8500);
+      const timeoutId = window.setTimeout(() => controller.abort(), 30000);
       const res = await fetch('/api/ai/blueprint', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
