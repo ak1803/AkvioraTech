@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #060B14;
+  --fg: #EAF4F8;
+  --mut: #8EA6B4;
+  --a: #5CE1E6;
+  --b: #7A86FF;
+  --ln: rgba(255, 255, 255, 0.11);
+  box-sizing: border-box;
+}
+
+@theme {
+  --font-display: "Bricolage Grotesque", Georgia, sans-serif;
+  --font-sans: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body {
+    background:
+      radial-gradient(60vw 50vh at 70% 10%, rgba(92, 225, 230, 0.18), transparent),
+      radial-gradient(50vw 50vh at 10% 60%, rgba(122, 134, 255, 0.16), transparent),
+      var(--bg);
+    color: var(--fg);
+    font: 400 17px/1.6 "Figtree", system-ui, sans-serif;
+    overflow-x: clip;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* Custom Akviora Theme Scrollbar for inner scrollable containers (modals, assistant, panels) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(6, 11, 20, 0.78);
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--a) 0%, var(--b) 100%);
+    border-radius: 9999px;
+    border: 1px solid rgba(6, 11, 20, 0.55);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #82eef2 0%, #99a3ff 100%);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+    display: none !important;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    *:not(html):not(body) {
+      scrollbar-width: thin;
+      scrollbar-color: var(--a) rgba(6, 11, 20, 0.85);
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+    display: none !important;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: "Bricolage Grotesque", Georgia, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--a);
+    outline-offset: 4px;
+  }
+
+  input:focus,
+  input:focus-visible,
+  textarea:focus,
+  textarea:focus-visible,
+  select:focus,
+  select:focus-visible {
+    outline: none;
+  }
+}
+
+@keyframes akviora-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes akviora-float-a {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes akviora-float-b {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(9px);
+  }
+}
+
+@keyframes akviora-dash-flow {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+
+@keyframes akviora-pulse-glow {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes akviora-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.akviora-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.akviora-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(92, 225, 230, 0.09) 35%,
+    rgba(122, 134, 255, 0.16) 50%,
+    rgba(92, 225, 230, 0.09) 65%,
+    transparent 100%
+  );
+  animation: akviora-shimmer 1.65s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.animate-akviora-marquee {
+  display: flex;
+  gap: 56px;
+  width: max-content;
+  animation: akviora-marquee 32s linear infinite;
+  font: 300 clamp(28px, 4vw, 54px) "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.animate-akviora-marquee span {
+  white-space: nowrap;
+}
+
+.animate-akviora-marquee span::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--a);
+  margin-left: 56px;
+  vertical-align: middle;
+}
+
+.akviora-btn-gradient {
+  background: linear-gradient(120deg, var(--a), var(--b));
+  color: #04121c;
+  font-weight: 500;
+}
+
+.akviora-bento-tile {
+  position: relative;
+  border: 1px solid var(--ln);
+  border-radius: 24px;
+  background:
+    radial-gradient(320px circle at var(--x, 50%) var(--y, 0%), rgba(92, 225, 230, 0.18), transparent 70%),
+    rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.akviora-service-panel {
+  border-radius: 28px;
+  border: 1px solid var(--ln);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+}
+
+.akviora-service-panel::before {
+  content: "";
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  right: -20%;
+  top: -30%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c, #5CE1E6), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-akviora-marquee {
+    animation: none !important;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

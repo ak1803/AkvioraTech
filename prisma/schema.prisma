@@ -1,0 +1,47 @@
+// Prisma Schema for Akviora Technologies (Local & Global SQLite / Relational DB)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ProjectInquiry {
+  id               String   @id @default(cuid())
+  name             String
+  email            String
+  company          String
+  serviceInterest  String
+  budgetRange      String
+  timeline         String
+  problemStatement String
+  aiSummary        String?
+  status           String   @default("New")
+  createdAt        DateTime @default(now())
+}
+
+model UserSuggestion {
+  id                String   @id @default(cuid())
+  authorName        String
+  category          String
+  suggestionText    String
+  businessGoal      String
+  aiAssessment      String
+  recommendedPillar String
+  upvotes           Int      @default(1)
+  createdAt         DateTime @default(now())
+}
+
+model AIBlueprint {
+  id                      String   @id @default(cuid())
+  businessType            String
+  bottleneck              String
+  diagnosis               String
+  recommendedAssistant    String
+  workflowStepsJson       String
+  estimatedEfficiencyGain String
+  recommendedStackJson    String
+  createdAt               DateTime @default(now())
+}

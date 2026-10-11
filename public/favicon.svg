@@ -1,0 +1,15 @@
+<svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="38" fill="#060B14"/>
+  <path d="M126 10C126 23.5 129.5 27 143 27C129.5 27 126 30.5 126 44C126 30.5 122.5 27 109 27C122.5 27 126 23.5 126 10Z" fill="#FFFFFF"/>
+  <line x1="114" y1="15" x2="117.5" y2="18.5" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="138" y1="15" x2="134.5" y2="18.5" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="138" y1="39" x2="134.5" y2="35.5" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="114" y1="39" x2="117.5" y2="35.5" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M119 42L83 58L93.5 63.5L49 135C54.5 130.5 61 127.5 68.5 125.5L108.5 60.5L119 42Z" fill="#FFFFFF"/>
+  <path d="M119 42L119 88L108.5 79L81 123C76.5 123.8 72.5 124.5 68.5 125.5L108.5 60.5L119 42Z" fill="#FFFFFF" fill-opacity="0.78"/>
+  <path d="M96 119C101 107 106 96 111 86C118.5 94.5 120 111 108 123.5C104 122 100 120.5 96 119Z" fill="#FFFFFF" fill-opacity="0.92"/>
+  <path d="M101 146L117 137L143 172L127 172C120.5 172 115.5 168.5 112 163L101 146Z" fill="#FFFFFF" fill-opacity="0.72"/>
+  <path d="M121.5 109L159 172L141.5 172L114.5 129.5C118 123.5 120.5 116.5 121.5 109Z" fill="#FFFFFF"/>
+  <path d="M44 144C57 129 77 126 95 124C110 122 118 112 113 91C116.5 101 115 115 102 121C86 128 62 128 44 144Z" fill="#FFFFFF"/>
+  <path d="M28 172C37 151 51 133 83 128.5C105 125.5 116.5 114.5 112 91C121 102.5 123.5 121.5 111.5 135C100.5 147 81 147.5 70 154.5C62.5 159.5 60 172 48.5 172H28Z" fill="#FFFFFF" fill-opacity="0.9"/>
+</svg>

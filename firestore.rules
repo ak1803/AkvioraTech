@@ -1,0 +1,228 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Hardened Global Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'jakshay18397@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 3. Entity Validation Blueprints (Synchronized with firebase-blueprint.json)
+    function isValidSuggestion(data) {
+      return data.keys().hasAll([
+        'authorId', 'authorName', 'category', 'suggestionText',
+        'businessGoal', 'aiAssessment', 'recommendedPillar',
+        'upvotes', 'createdAt', 'updatedAt'
+      ]) && data.keys().hasOnly([
+        'authorId', 'authorName', 'category', 'suggestionText',
+        'businessGoal', 'aiAssessment', 'recommendedPillar',
+        'upvotes', 'createdAt', 'updatedAt'
+      ])
+      && data.authorId is string && data.authorId.size() >= 1 && data.authorId.size() <= 128 && data.authorId.matches('^[a-zA-Z0-9_\\-]+$')
+      && data.authorName is string && data.authorName.size() >= 1 && data.authorName.size() <= 120
+      && data.category is string && data.category.size() >= 1 && data.category.size() <= 60 && data.category in ['AI Workflow', 'SaaS Feature', 'UI/UX Experience', 'Business Automation']
+      && data.suggestionText is string && data.suggestionText.size() >= 3 && data.suggestionText.size() <= 1000
+      && data.businessGoal is string && data.businessGoal.size() >= 1 && data.businessGoal.size() <= 500
+      && data.aiAssessment is string && data.aiAssessment.size() >= 1 && data.aiAssessment.size() <= 1500
+      && data.recommendedPillar is string && data.recommendedPillar.size() >= 1 && data.recommendedPillar.size() <= 200
+      && data.upvotes is int && data.upvotes >= 1 && data.upvotes <= 1000000
+      && data.createdAt is timestamp
+      && data.updatedAt is timestamp;
+    }
+
+    function isValidBlueprint(data) {
+      return data.keys().hasAll([
+        'authorId', 'businessType', 'bottleneck', 'diagnosis',
+        'recommendedAssistant', 'estimatedEfficiencyGain',
+        'stepsSummary', 'stackSummary', 'createdAt'
+      ]) && data.keys().hasOnly([
+        'authorId', 'businessType', 'bottleneck', 'diagnosis',
+        'recommendedAssistant', 'estimatedEfficiencyGain',
+        'stepsSummary', 'stackSummary', 'createdAt'
+      ])
+      && data.authorId is string && data.authorId.size() >= 1 && data.authorId.size() <= 128 && data.authorId.matches('^[a-zA-Z0-9_\\-]+$')
+      && data.businessType is string && data.businessType.size() >= 2 && data.businessType.size() <= 200
+      && data.bottleneck is string && data.bottleneck.size() >= 3 && data.bottleneck.size() <= 1000
+      && data.diagnosis is string && data.diagnosis.size() >= 1 && data.diagnosis.size() <= 1500
+      && data.recommendedAssistant is string && data.recommendedAssistant.size() >= 1 && data.recommendedAssistant.size() <= 200
+      && data.estimatedEfficiencyGain is string && data.estimatedEfficiencyGain.size() >= 1 && data.estimatedEfficiencyGain.size() <= 200
+      && data.stepsSummary is string && data.stepsSummary.size() >= 1 && data.stepsSummary.size() <= 3000
+      && data.stackSummary is string && data.stackSummary.size() >= 1 && data.stackSummary.size() <= 400
+      && data.createdAt is timestamp;
+    }
+
+    function isValidInquiry(data) {
+      return data.keys().hasAll([
+        'authorId', 'name', 'email', 'company', 'serviceInterest',
+        'budgetRange', 'timeline', 'problemStatement', 'aiSummary',
+        'status', 'createdAt', 'updatedAt'
+      ]) && data.keys().hasOnly([
+        'authorId', 'name', 'email', 'company', 'serviceInterest',
+        'budgetRange', 'timeline', 'problemStatement', 'aiSummary',
+        'status', 'createdAt', 'updatedAt'
+      ])
+      && data.authorId is string && data.authorId.size() >= 1 && data.authorId.size() <= 128 && data.authorId.matches('^[a-zA-Z0-9_\\-]+$')
+      && data.name is string && data.name.size() >= 1 && data.name.size() <= 120
+      && data.email is string && data.email.size() >= 3 && data.email.size() <= 160
+      && data.company is string && data.company.size() >= 1 && data.company.size() <= 160
+      && data.serviceInterest is string && data.serviceInterest.size() >= 1 && data.serviceInterest.size() <= 160
+      && data.budgetRange is string && data.budgetRange.size() >= 1 && data.budgetRange.size() <= 100
+      && data.timeline is string && data.timeline.size() >= 1 && data.timeline.size() <= 100
+      && data.problemStatement is string && data.problemStatement.size() >= 3 && data.problemStatement.size() <= 2000
+      && data.aiSummary is string && data.aiSummary.size() >= 1 && data.aiSummary.size() <= 1500
+      && data.status is string && data.status.size() >= 1 && data.status.size() <= 40 && data.status in ['New', 'Reviewed', 'Discovery Scheduled', 'Completed']
+      && data.createdAt is timestamp
+      && data.updatedAt is timestamp;
+    }
+
+    function isValidAdminRecord(data) {
+      return data.keys().hasAll(['email', 'createdAt'])
+        && data.keys().hasOnly(['email', 'createdAt'])
+        && data.email is string && data.email.size() >= 3 && data.email.size() <= 160
+        && data.createdAt is timestamp;
+    }
+
+    // 4. Collection Rules: /suggestions/{suggestionId}
+    match /suggestions/{suggestionId} {
+      allow get: if isVerifiedUser() && isValidId(suggestionId) && existing().upvotes >= 1;
+      allow list: if isVerifiedUser() && existing().upvotes >= 1;
+
+      allow create: if isVerifiedUser()
+        && isValidId(suggestionId)
+        && isValidSuggestion(incoming())
+        && incoming().authorId == request.auth.uid
+        && incoming().upvotes == 1
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isVerifiedUser()
+        && isValidId(suggestionId)
+        && isValidSuggestion(incoming())
+        && incoming().authorId == existing().authorId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          isAdmin() ||
+          // Action 1: Community Upvote (+1)
+          (
+            incoming().diff(existing()).affectedKeys().hasOnly(['upvotes', 'updatedAt'])
+            && incoming().upvotes == existing().upvotes + 1
+          ) ||
+          // Action 2: Author Refines Text/Goal
+          (
+            existing().authorId == request.auth.uid
+            && incoming().upvotes == existing().upvotes
+            && incoming().diff(existing()).affectedKeys().hasOnly(['suggestionText', 'businessGoal', 'updatedAt'])
+          )
+        );
+
+      allow delete: if isVerifiedUser()
+        && isValidId(suggestionId)
+        && (existing().authorId == request.auth.uid || isAdmin());
+    }
+
+    // 5. Collection Rules: /blueprints/{blueprintId}
+    match /blueprints/{blueprintId} {
+      allow get: if isVerifiedUser()
+        && isValidId(blueprintId)
+        && (existing().authorId == request.auth.uid || isAdmin());
+
+      allow list: if isVerifiedUser()
+        && (existing().authorId == request.auth.uid || isAdmin());
+
+      allow create: if isVerifiedUser()
+        && isValidId(blueprintId)
+        && isValidBlueprint(incoming())
+        && incoming().authorId == request.auth.uid
+        && incoming().createdAt == request.time;
+
+      allow update: if isVerifiedUser()
+        && isValidId(blueprintId)
+        && isValidBlueprint(incoming())
+        && incoming().authorId == existing().authorId
+        && incoming().createdAt == existing().createdAt
+        && isAdmin();
+
+      allow delete: if isVerifiedUser()
+        && isValidId(blueprintId)
+        && (existing().authorId == request.auth.uid || isAdmin());
+    }
+
+    // 6. Collection Rules: /inquiries/{inquiryId} (PII Isolated to Owner & Admin)
+    match /inquiries/{inquiryId} {
+      allow get: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && (existing().authorId == request.auth.uid || isAdmin());
+
+      allow list: if isVerifiedUser()
+        && (existing().authorId == request.auth.uid || isAdmin());
+
+      allow create: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isValidInquiry(incoming())
+        && incoming().authorId == request.auth.uid
+        && incoming().status == 'New'
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isValidInquiry(incoming())
+        && incoming().authorId == existing().authorId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          isAdmin() ||
+          // Action: Owner updates problemStatement before terminal 'Completed' state
+          (
+            existing().authorId == request.auth.uid
+            && existing().status != 'Completed'
+            && incoming().status == existing().status
+            && incoming().email == existing().email
+            && incoming().diff(existing()).affectedKeys().hasOnly(['problemStatement', 'timeline', 'budgetRange', 'updatedAt'])
+          )
+        );
+
+      allow delete: if isVerifiedUser()
+        && isValidId(inquiryId)
+        && isAdmin();
+    }
+
+    // 7. Collection Rules: /admins/{adminId}
+    match /admins/{adminId} {
+      allow get: if isVerifiedUser() && isValidId(adminId) && (request.auth.uid == adminId || isAdmin());
+      allow list: if false;
+      allow create: if isVerifiedUser() && isValidId(adminId) && isValidAdminRecord(incoming()) && isAdmin() && incoming().createdAt == request.time;
+      allow update: if isVerifiedUser() && isValidId(adminId) && isValidAdminRecord(incoming()) && incoming().createdAt == existing().createdAt && isAdmin();
+      allow delete: if isVerifiedUser() && isValidId(adminId) && isAdmin();
+    }
+  }
+}
