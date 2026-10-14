@@ -117,12 +117,12 @@ export const FAQPage: React.FC<FAQPageProps> = ({
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search questions about AI accuracy, timelines, code ownership..."
               aria-label="Search FAQ questions"
-              className={`${INPUT_FIELD_CLASSES} !pl-11 !pr-4`}
+              className={`${INPUT_FIELD_CLASSES} !pl-11 !pr-4 !bg-none !border-[rgba(255,255,255,0.11)] !text-[#EAF4F8] placeholder:text-[#8EA6B4] focus:!border-[#5CE1E6] focus:!bg-white/[0.02] w-full `}
             />
             <FocusBeam />
           </div>
 
-          <div className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] overflow-x-auto scrollbar-none sm:flex-wrap">
+          <div className="md:flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] overflow-x-auto scrollbar-none">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
