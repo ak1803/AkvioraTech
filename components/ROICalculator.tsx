@@ -142,10 +142,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({
                 `We have a team of ${teamSize} spending ${hoursPerWeek} hours/week each on manual tasks (~$${annualDollarsSaved.toLocaleString()}/year in operational cost). Recommend an Akviora AI + Automation plan to reclaim ${weeklyHoursSaved} hours/week.`
               )
             }
-            className="w-full"
+            className="w-full px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
           >
-            <span>Design This ROI Plan with Akviora AI</span>
-            <ArrowRight className="w-4 h-4" />
+            <span className="sm:hidden">Design ROI Plan with AI</span>
+            <span className="hidden sm:inline">
+              Design This ROI Plan with Akviora AI
+            </span>
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </MagneticButton>
 
           <button

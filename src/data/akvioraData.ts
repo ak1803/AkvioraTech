@@ -10,6 +10,8 @@ import workKinetixImg from '../assets/images/work_kinetix_spatial_1791414610322.
 import workVeloxImg from '../assets/images/work_velox_automotive_1791414598887.jpg';
 import workAetherImg from '../assets/images/work_aether_chronograph_1791414632639.jpg';
 import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.jpg';
+import cosmicCompassImg from '../assets/images/cosmic_compass_app_1791931957974.jpg';
+import easyMartImg from '../assets/images/easymart_app_1791931975395.jpg';
 
 export const PAIN_POINTS: string[] = [
   'Scattered information',
@@ -289,133 +291,136 @@ export const WHY_AKVIORA_ITEMS = [
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    id: 'trackpayout',
-    title: 'TrackPayout',
-    category: 'Finance & Business Management Platform',
-    sector: 'FinTech & B2B SaaS',
+    id: 'paytrack',
+    title: 'PayTrack',
+    category: 'FinTech & Smart Invoicing Platform',
+    sector: 'Financial Technology & B2B SaaS',
     year: '2026',
-    duration: '8 Weeks',
+    duration: '7 Weeks',
     image: heroStudioImg,
     summary:
-      'End-to-end accounts receivable, invoice tracking, and automated payment follow-up platform built for growing SMEs and finance teams.',
+      'Smart UPI & multi-currency invoicing, milestone escrow tracking, and automated client payment reconciliation platform engineered for agencies and growing enterprises.',
     challenge:
-      'Finance teams were losing track of overdue invoices across disconnected spreadsheets and manual email follow-ups, delaying cash flow visibility for company owners.',
+      'Service businesses and growing agencies were losing track of overdue client payments across fragmented spreadsheets and manual WhatsApp messages, delaying cash flow visibility.',
     solution:
-      'We engineered a unified financial command center with automated multi-stage payment reminders, aging ledger analytics, and real-time cash flow forecasting.',
+      'Engineered a unified financial command center featuring instant payment gateways, automated 3-stage reminder cycles, receivables aging analytics, and real-time cash flow forecasting.',
     impactMetrics: [
-      { label: 'Faster Collections', value: '+44%', context: 'Average reduction in Days Sales Outstanding (DSO) within 90 days' },
-      { label: 'Manual Follow-Ups', value: '-75%', context: 'Automated via scheduled email & WhatsApp reminder workflows' },
-      { label: 'Owner Visibility', value: '100%', context: 'Real-time receivable aging & settlement dashboard' },
+      { label: 'Faster Collections', value: '+48%', context: 'Reduction in Days Sales Outstanding (DSO) within 60 days of launch' },
+      { label: 'Manual Chasing', value: '-80%', context: 'Automated via scheduled email & WhatsApp milestone workflows' },
+      { label: 'Reconciliation', value: '100%', context: 'Real-time ledger matching and instant settlement audit trail' },
     ],
-    stack: ['React', 'Node.js', 'Relational DB', 'Automated Reminders', 'Analytics Engine'],
+    stack: ['React 19', 'Node.js', 'PostgreSQL', 'UPI & Payment Gateways', 'Workflow Automation'],
     featured: true,
   },
   {
-    id: 'stockcard',
-    title: 'Stockcard',
-    category: 'Inventory Management Experience',
-    sector: 'Supply Chain & Retail Operations',
-    year: '2026',
-    duration: '6 Weeks',
-    image: workKinetixImg,
-    summary:
-      'High-speed multi-warehouse stock tracking, low-inventory alert automation, and supplier reorder workflow system.',
-    challenge:
-      'Warehouse managers relied on delayed end-of-day stock sheets, causing frequent stockouts on high-velocity SKUs and over-ordering on slow-moving inventory.',
-    solution:
-      'Designed an intuitive, mobile-ready inventory UI with instant barcode/SKU lookup, automated reorder threshold triggers, and movement audit logs.',
-    impactMetrics: [
-      { label: 'Stockout Incidents', value: '-62%', context: 'Prevented via predictive reorder threshold alerts' },
-      { label: 'Audit Reconciliation', value: '3.8x', context: 'Faster monthly physical-to-digital stock reconciliation' },
-      { label: 'Task Latency', value: '<120ms', context: 'Instant SKU search across 50,000+ inventory records' },
-    ],
-    stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Real-Time Sync', 'UI/UX System'],
-    featured: true,
-  },
-  {
-    id: 'tenderitnow',
-    title: 'TenderItNow',
-    category: 'Tender & Business Opportunity Platform',
-    sector: 'B2B Procurement & AI Document Intelligence',
+    id: 'nextgen-iot',
+    title: 'NextGen IOT',
+    category: 'Industrial IoT & Telemetry Platform',
+    sector: 'Connected Hardware & Edge Computing',
     year: '2026',
     duration: '9 Weeks',
-    image: workVeloxImg,
+    image: workKinetixImg,
     summary:
-      'AI-assisted tender discovery, eligibility matching, and bid compliance workflow platform for enterprise contractors.',
+      'High-throughput industrial IoT telemetry gateway, digital twin visualizations, and automated predictive maintenance dashboard for connected hardware ecosystems.',
     challenge:
-      'Bidding teams spent dozens of hours manually reading 100-page tender PDFs just to determine eligibility criteria, deadlines, and required compliance documents.',
+      'Factory operations managers struggled with fragmented field sensor readings, delayed incident reporting, and catastrophic unplanned equipment downtime.',
     solution:
-      'Built an intelligent tender portal with Document Assistant extraction that summarizes key eligibility clauses, deadlines, and BOQ items automatically.',
+      'Designed and deployed an edge-to-cloud IoT intelligence hub with sub-second MQTT sensor streaming, anomaly detection algorithms, and automated incident escalation.',
     impactMetrics: [
-      { label: 'Bid Screening Speed', value: '6.5x', context: 'Automated extraction of tender deadlines and eligibility criteria' },
-      { label: 'Qualified Submissions', value: '+58%', context: 'Increase in on-time, fully compliant bid submissions' },
-      { label: 'Document Accuracy', value: '99.1%', context: 'Structured checklist generation from raw tender PDFs' },
+      { label: 'Equipment Uptime', value: '99.98%', context: 'Sub-second real-time telemetry across 25,000+ edge sensor nodes' },
+      { label: 'Machine Downtime', value: '-65%', context: 'Prevented through automated thermal & vibration anomaly triggers' },
+      { label: 'Streaming Latency', value: '<85ms', context: 'Instant WebSocket data flow between factory edge gateways and cloud' },
     ],
-    stack: ['Akviora Document AI', 'React', 'Node.js', 'Search Indexing', 'Workflow Automation'],
+    stack: ['Next.js', 'TypeScript', 'MQTT / WebSockets', 'Time-Series DB', 'Edge Telemetry'],
     featured: true,
   },
   {
-    id: 'renewalhelp',
-    title: 'RenewalHelp',
-    category: 'Renewal Management Workflow',
-    sector: 'SaaS Operations & Subscription Lifecycle',
+    id: 'neuronova',
+    title: 'NeuroNova',
+    category: 'AI Cognitive Intelligence & Neural Platform',
+    sector: 'HealthTech & Bio-Sensing Intelligence',
+    year: '2026',
+    duration: '8 Weeks',
+    image: workVeloxImg,
+    summary:
+      'Non-invasive neuro-harmonic frequency therapy, biometric telemetry analysis, and personalized cognitive performance tracking suite.',
+    challenge:
+      'Clinicians and therapy patients lacked a reliable, real-time interface to calibrate neuromodulation hardware, monitor bio-signals, and evaluate long-term recovery metrics.',
+    solution:
+      'Created a cross-platform health application connecting Bluetooth neuromodulation hardware with real-time frequency tuning, guided wellness protocols, and session analytics.',
+    impactMetrics: [
+      { label: 'Focus & Recovery Lift', value: '3.8x', context: 'Clinically tracked improvement in cognitive focus and relaxation scores' },
+      { label: 'Protocol Adherence', value: '94%', context: 'Daily therapy completion driven by intelligent scheduling and nudges' },
+      { label: 'Hardware Sync', value: '<40ms', context: 'Low-latency Bluetooth LE frequency calibration and sensor ingestion' },
+    ],
+    stack: ['React', 'Web Bluetooth BLE', 'Akviora AI Engine', 'Biometric Analytics', 'Tailwind CSS'],
+    featured: true,
+  },
+  {
+    id: 'omniflow',
+    title: 'OmniFlow',
+    category: 'Enterprise Workflow Orchestration',
+    sector: 'Business Systems & Operations Automation',
     year: '2025',
-    duration: '5 Weeks',
+    duration: '6 Weeks',
     image: workAetherImg,
     summary:
-      'Automated contract, license, AMC, and policy renewal lifecycle engine that eliminates missed expirations.',
+      'Zero-code operational workflow builder, multi-tiered executive approval routing, and cross-departmental business process orchestration engine.',
     challenge:
-      'Growing businesses managed vendor contracts, software licenses, and client AMCs in static sheets, resulting in surprise auto-renewals or lapsed client contracts.',
+      'Operations teams spent hundreds of hours weekly handling purchase orders, vendor on-boarding, and cross-team approvals manually through scattered email threads.',
     solution:
-      'Created a centralized renewal timeline with 90/60/30-day automated escalation workflows, approval routing, and customer self-service renewal links.',
+      'Built a centralized workflow execution portal with visual drag-and-drop rule logic, SLA breach alerts, automated WhatsApp & Slack sign-offs, and compliance logging.',
     impactMetrics: [
-      { label: 'Retention Rate', value: '+29%', context: 'Higher on-time client AMC and subscription renewals' },
-      { label: 'Missed Expirations', value: '0', context: 'Across 4,200+ tracked contracts and compliance certificates' },
-      { label: 'Admin Hours Saved', value: '14 hrs/wk', context: 'Eliminated manual calendar checking and status chasing' },
+      { label: 'Manager Time Saved', value: '22 hrs/wk', context: 'Eliminated manual status checking and spreadsheet data transfers' },
+      { label: 'Approval Speed', value: '4.5x', context: 'Accelerated procurement sign-off cycles from 5 days to under 4 hours' },
+      { label: 'Process Visibility', value: '100%', context: 'End-to-end auditability across 12,000+ monthly enterprise tasks' },
     ],
-    stack: ['React', 'Node.js Cron Engine', 'Multi-Channel Alerts', 'Role-Based Dashboard'],
+    stack: ['React', 'Node.js Event Engine', 'Relational Database', 'Webhook Pipelines', 'Audit Security'],
+    featured: true,
   },
   {
-    id: 'cost-management',
-    title: 'Cost Management',
-    category: 'Real Estate & Construction Cost Platform',
-    sector: 'Real Estate & Infrastructure Engineering',
+    id: 'cosmic-compass',
+    title: 'Cosmic Compass',
+    category: 'AI Astrology & Astrocartography Platform',
+    sector: 'Consumer AI & Astrological Intelligence',
     year: '2025',
-    duration: '10 Weeks',
-    image: workSolarisImg,
+    duration: '6 Weeks',
+    image: cosmicCompassImg,
     summary:
-      'Budget-vs-actual cost tracking, BOQ milestone verification, and vendor payout approval system for real estate developers.',
+      'Real-time planetary transit calculations, personalized natal chart synthesis, and interactive astrocartography mapping engine powered by high-precision ephemeris algorithms.',
     challenge:
-      'Project directors lacked real-time visibility into site-level material cost overruns and contractor billing variations until weeks after expenses occurred.',
+      'Astrology enthusiasts and seekers faced clunky, dated interfaces with static interpretations, inaccurate timezone ephemeris math, and zero geospatial astro-relocation insight.',
     solution:
-      'Engineered a multi-project cost control system linking BOQ estimates, purchase orders, site goods receipts, and multi-tier management approvals.',
+      'Designed and built a dark celestial iOS & web application integrating Swiss Ephemeris microservices, interactive planetary relocational vector maps, and personalized daily transit forecasts.',
     impactMetrics: [
-      { label: 'Cost Overrun Reduction', value: '-31%', context: 'Early variance alerts before purchase orders exceed BOQ limits' },
-      { label: 'Approval Turnaround', value: '24 hrs', context: 'Down from 6 days using mobile-friendly approval workflows' },
-      { label: 'Project Visibility', value: '$42M+', context: 'Active construction budget tracked with live variance reports' },
+      { label: 'DAU Retention (Day 30)', value: '62%', context: 'Active daily cosmic transit check-ins and morning notification routine' },
+      { label: 'Chart Calculation Speed', value: '<120ms', context: 'High-speed planetary aspect and transit engine for global coordinates' },
+      { label: 'App Store Rating', value: '4.9★', context: 'Loved for intuitive celestial UI and personalized relocational charts' },
     ],
-    stack: ['Full-Stack Web App', 'Relational Database', 'Approval Workflows', 'Executive BI'],
+    stack: ['React Native / React', 'TypeScript', 'Swiss Ephemeris API', 'Mapbox GL / GeoJSON', 'Tailwind CSS'],
+    featured: true,
   },
   {
-    id: 'ai-astrology-guide',
-    title: 'AI Astrology Guide',
-    category: 'Conversational AI Product Experience',
-    sector: 'Consumer AI & Interactive Digital Product',
-    year: '2026',
-    duration: '6 Weeks',
-    image: heroStudioImg,
+    id: 'easymart',
+    title: 'EasyMart',
+    category: 'Hyperlocal Grocery & Quick-Commerce App',
+    sector: 'Retail Tech & Omnichannel E-Commerce',
+    year: '2025',
+    duration: '8 Weeks',
+    image: easyMartImg,
     summary:
-      'Personalized conversational AI experience combining deterministic ephemeris calculations with natural-language guidance.',
+      'Sub-15-minute grocery dispatch flow, real-time inventory synchronisation across dark stores, and frictionless 1-tap checkout app design for quick-commerce.',
     challenge:
-      'Users wanted deeply personalized, context-aware consultations in natural language without generic static templates or slow human wait times.',
+      'Local supermarkets and urban delivery networks struggled with cart abandonment, stock mismatches between physical racks and apps, and slow manual picking flows.',
     solution:
-      'Combined a precision calculation backend with a custom-tuned Akviora AI conversational layer, interactive chart visualizations, and session memory.',
+      'Engineered an omnichannel quick-commerce mobile experience with live stock level polling, instant barcode scanner integration for pickers, driver dispatch routing, and unified 1-click checkout.',
     impactMetrics: [
-      { label: 'Session Engagement', value: '11.4 min', context: 'Average interactive consultation duration per user visit' },
-      { label: 'User Return Rate', value: '64%', context: '30-day repeat engagement driven by personalized memory' },
-      { label: 'Response Speed', value: '1.4s', context: 'Streaming conversational insights across mobile and web' },
+      { label: 'Cart Conversion Lift', value: '+38%', context: 'Streamlined checkout with predictive reordering and smart suggestions' },
+      { label: 'Order Fulfillment Time', value: '11.4 min', context: 'Average dark-store picking to doorstep dispatch cycle' },
+      { label: 'Inventory Sync Accuracy', value: '99.9%', context: 'Real-time WebSocket POS & dark-store inventory telemetry' },
     ],
-    stack: ['Akviora AI Engine', 'React', 'Streaming UI', 'Custom Calculation Engine'],
+    stack: ['React', 'Next.js', 'Redis Stock Cache', 'Stripe / Apple Pay', 'Live Map Dispatch'],
+    featured: true,
   },
 ];
 
@@ -541,11 +546,11 @@ export const CLIENT_TESTIMONIALS = [
   {
     id: 'test-1',
     quote:
-      'Before Akviora, our finance team spent every Friday chasing overdue invoices across three spreadsheets. TrackPayout automated our entire reminder workflow and cut overdue receivables by 44% in three months.',
+      'Before Akviora, our finance team spent every Friday chasing overdue invoices across three spreadsheets. PayTrack automated our entire reminder and payment reconciliation workflow, cutting overdue receivables by 48% in 60 days.',
     author: 'Rajesh Sharma',
     role: 'Director of Finance',
     organization: 'Apex Industrial Supply',
-    metric: '+44% Faster Collections in 90 Days',
+    metric: '+48% Faster Collections in 60 Days',
   },
   {
     id: 'test-2',
@@ -559,10 +564,10 @@ export const CLIENT_TESTIMONIALS = [
   {
     id: 'test-3',
     quote:
-      'They did not just hand us a pretty UI—they mapped our entire warehouse stock movement process first. Stockcard reduced our SKU stockouts by 62% during our busiest quarter.',
+      'They did not just hand us a pretty UI—they mapped our entire edge telemetry process first. NextGen IOT reduced our factory equipment downtime by 65% during our busiest operational quarter.',
     author: 'Vikram Desai',
     role: 'VP of Operations',
-    organization: 'Meridian Logistics & Retail',
-    metric: '-62% Warehouse Stockout Incidents',
+    organization: 'Meridian Connected Systems',
+    metric: '-65% Machine Downtime Prevented',
   },
 ];

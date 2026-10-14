@@ -38,7 +38,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24 overflow-hidden">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. About Hero */}
       <section className="pt-4 sm:pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
         <div className="lg:col-span-8">
@@ -69,17 +69,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
-          transition={{
-            opacity: { duration: 0.65, delay: 0.15 },
-            scale: { type: 'spring', stiffness: 105, damping: 18, delay: 0.15 },
-            y: {
-              duration: 5.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-          }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
           className="lg:col-span-4 flex items-center justify-center bg-transparent will-change-transform"
         >
           <SafeImage
@@ -87,7 +79,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             alt="Three-tier metallic architecture representing UI/UX design, full-stack engineering, and AI automation"
             fallbackTitle="Akviora Engineering Studio"
             removeBackground
-            className="w-full h-[380px] sm:h-[440px] lg:h-[500px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
+            className="w-full h-[320px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
           />
         </motion.div>
       </section>
@@ -102,7 +94,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
       {/* 3. Why Akviora Sticky Split */}
       <section className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-[6vw]">
-        <FadeUpReveal className="lg:sticky lg:top-[20vh] self-start space-y-4">
+        <div className="lg:sticky lg:top-[20vh] self-start space-y-4">
           <KineticHeadline
             as="h2"
             text="Technology should create clarity, not complexity."
@@ -112,7 +104,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             Our multidisciplinary model eliminates the handoff gap between
             designers, backend engineers, and AI specialists.
           </p>
-        </FadeUpReveal>
+        </div>
 
         <div>
           {WHY_AKVIORA_ITEMS.map((item, idx) => (

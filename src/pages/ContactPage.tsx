@@ -328,7 +328,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   }
 
   return (
-    <div className="pt-28 pb-20 px-5 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-20">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
       {/* Submission Confirmation Toast Notification */}
       <AnimatePresence>
         {toastNotification && (
@@ -381,7 +381,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       </AnimatePresence>
 
       {/* Header */}
-      <section className="pt-8">
+      <section className="pt-4 sm:pt-8">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -392,13 +392,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         </motion.div>
         <KineticHeadline
           text="Have an idea, problem or process worth improving?"
-          className="font-display font-bold text-[clamp(38px,6.8vw,96px)] max-w-[14ch] leading-[1.0] text-[#EAF4F8]"
+          className="font-display font-bold text-[clamp(32px,6.8vw,96px)] max-w-[14ch] leading-[1.02] text-[#EAF4F8] break-words"
         />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="mt-6 max-w-[58ch] text-[#b8cdd8] text-lg"
+          className="mt-5 sm:mt-6 max-w-[58ch] text-[#b8cdd8] text-base sm:text-lg"
         >
           Tell us what you are trying to build, automate or improve. You
           don&apos;t need a perfect technical specification. Start with the
@@ -601,7 +601,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               </div>
 
               <div className="relative group">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2">
                   <label
                     htmlFor="inq-problem"
                     className="text-xs font-medium tracking-wide text-[#8EA6B4] group-hover:text-[#EAF4F8] group-focus-within:text-[#5CE1E6] transition-colors duration-200"
@@ -612,9 +612,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     type="button"
                     disabled={enhancingBrief}
                     onClick={handleEnhanceWithAI}
-                    className="inline-flex items-center gap-1 text-xs text-[#5CE1E6] hover:underline cursor-pointer disabled:opacity-50"
+                    className="inline-flex items-center gap-1 text-xs text-[#5CE1E6] hover:underline cursor-pointer disabled:opacity-50 self-start sm:self-auto"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
                     <span>
                       {enhancingBrief
                         ? 'Akviora AI Structuring...'
@@ -656,6 +656,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   type="submit"
                   variant="gradient"
                   disabled={submitting}
+                  className="w-full sm:w-auto"
                 >
                   {submitting
                     ? 'Saving Brief & Preparing AI Roadmap...'
@@ -664,7 +665,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
                 <a
                   href="mailto:hello@akvioratechnologies.com?subject=Discovery%20Call%20Request"
-                  className="text-sm text-[#EAF4F8] border-b border-[#5CE1E6] pb-0.5 hover:text-[#5CE1E6] transition-colors"
+                  className="text-xs sm:text-sm text-[#EAF4F8] border-b border-[#5CE1E6] pb-0.5 hover:text-[#5CE1E6] transition-colors break-all sm:break-normal"
                 >
                   Or email hello@akvioratechnologies.com
                 </a>

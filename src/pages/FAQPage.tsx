@@ -72,14 +72,14 @@ export const FAQPage: React.FC<FAQPageProps> = ({
   }
 
   return (
-    <div className="pt-28 pb-20 px-5 sm:px-8 lg:px-12 max-w-[1160px] mx-auto space-y-16">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1160px] mx-auto space-y-12 sm:space-y-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* Header */}
-      <section className="pt-8 space-y-6">
+      <section className="pt-4 sm:pt-8 space-y-5 sm:space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,13 +90,13 @@ export const FAQPage: React.FC<FAQPageProps> = ({
         </motion.div>
         <KineticHeadline
           text="Clear answers on AI, software delivery, and ownership."
-          className="font-display font-bold text-[clamp(36px,6vw,84px)] max-w-[15ch] leading-[1.0] text-[#EAF4F8]"
+          className="font-display font-bold text-[clamp(30px,6vw,84px)] max-w-[15ch] leading-[1.02] text-[#EAF4F8] break-words"
         />
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="max-w-[58ch] text-[#b8cdd8]"
+          className="max-w-[58ch] text-[#b8cdd8] text-sm sm:text-base"
         >
           Have a specific technical or workflow question not listed below? Click
           any question to expand or ask our live Akviora AI Assistant directly.
@@ -122,7 +122,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
             <FocusBeam />
           </div>
 
-          <div className="flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)]">
+          <div className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] overflow-x-auto scrollbar-none sm:flex-wrap">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
@@ -130,7 +130,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`relative px-3.5 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`relative shrink-0 sm:shrink px-3.5 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
                     isActive
                       ? 'text-[#060B14]'
                       : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -210,13 +210,13 @@ export const FAQPage: React.FC<FAQPageProps> = ({
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpenId(isOpen ? null : faq.id)}
-                    className="w-full text-left p-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02] transition-colors"
+                    className="w-full text-left p-4 sm:p-6 flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:bg-white/[0.02] transition-colors"
                   >
                     <div className="space-y-1">
                       <span className="text-xs font-mono text-[#5CE1E6] block">
                         {faq.category}
                       </span>
-                      <h2 className="font-display text-xl sm:text-2xl text-[#EAF4F8]">
+                      <h2 className="font-display text-lg sm:text-2xl text-[#EAF4F8]">
                         {faq.question}
                       </h2>
                     </div>
@@ -237,9 +237,9 @@ export const FAQPage: React.FC<FAQPageProps> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                        className="px-6 pb-6 pt-1 border-t border-white/5 space-y-4"
+                        className="px-4 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-white/5 space-y-4"
                       >
-                        <p className="text-[#b8cdd8] text-base leading-relaxed">
+                        <p className="text-[#b8cdd8] text-sm sm:text-base leading-relaxed">
                           {faq.answer}
                         </p>
                         <motion.button
@@ -252,7 +252,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
                           }
                           className="inline-flex items-center gap-1.5 text-xs text-[#5CE1E6] hover:underline cursor-pointer"
                         >
-                          <MessageSquare className="w-3.5 h-3.5" />
+                          <MessageSquare className="w-3.5 h-3.5 shrink-0" />
                           <span>Ask Akviora AI follow-up on this topic →</span>
                         </motion.button>
                       </motion.div>
@@ -267,7 +267,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
 
       {/* Bottom CTA */}
       <FadeUpReveal>
-        <section className="rounded-[28px] border border-[rgba(255,255,255,0.11)] bg-white/[0.02] p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <section className="rounded-[28px] border border-[rgba(255,255,255,0.11)] bg-white/[0.02] p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-1.5">
             <h3 className="font-display text-2xl sm:text-3xl text-[#EAF4F8]">
               Still have a specific workflow question?
@@ -277,10 +277,11 @@ export const FAQPage: React.FC<FAQPageProps> = ({
               feasibility check.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 w-full sm:w-auto">
             <MagneticButton
               variant="gradient"
               onClick={() => onNavigate('contact')}
+              className="w-full sm:w-auto"
             >
               Start a Project
             </MagneticButton>

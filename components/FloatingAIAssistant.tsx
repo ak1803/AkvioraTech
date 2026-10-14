@@ -317,33 +317,39 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
             aria-label="Akviora AI Assistant and Suggestion Box"
             className="fixed bottom-18 sm:bottom-20 left-3 right-3 sm:left-auto sm:right-6 z-50 w-auto sm:w-[440px] max-h-[calc(100dvh-5.5rem)] flex flex-col rounded-[24px] border border-[rgba(255,255,255,0.14)] bg-[#060B14]/95 backdrop-blur-2xl shadow-[0_24px_80px_rgba(0,0,0,0.75)] overflow-hidden"
           >
-            <div className="shrink-0 px-5 py-4 border-b border-[rgba(255,255,255,0.11)] flex items-center justify-between bg-gradient-to-r from-[#5CE1E6]/10 via-[#7A86FF]/10 to-transparent">
-              <div>
-                <h2 className="font-display text-lg font-bold text-[#EAF4F8]">
+            <div className="shrink-0 px-4 sm:px-5 py-3.5 sm:py-4 border-b border-[rgba(255,255,255,0.11)] flex items-center justify-between gap-2 bg-gradient-to-r from-[#5CE1E6]/10 via-[#7A86FF]/10 to-transparent">
+              <div className="min-w-0">
+                <h2 className="font-display text-base sm:text-lg font-bold text-[#EAF4F8] truncate">
                   Akviora AI Assistant
                 </h2>
-                <p className="text-xs text-[#8EA6B4]">
+                <p className="text-[11px] sm:text-xs text-[#8EA6B4] truncate">
                   Akviora AI · Consult &amp; Share Suggestions
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 {currentUserEmail ? (
                   <button
                     type="button"
                     onClick={onSignOut}
                     title={`Signed in as ${currentUserEmail}`}
-                    className="text-[11px] px-2.5 py-1 rounded-lg bg-[#5CE1E6]/15 border border-[#5CE1E6]/35 text-[#5CE1E6] hover:bg-[#5CE1E6]/25 transition-colors cursor-pointer"
+                    className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-[#5CE1E6]/15 border border-[#5CE1E6]/35 text-[#5CE1E6] hover:bg-[#5CE1E6]/25 transition-colors cursor-pointer whitespace-nowrap"
                   >
-                    Cloud Sync Active · Sign Out
+                    <span className="sm:hidden">Sign Out</span>
+                    <span className="hidden sm:inline">
+                      Cloud Sync Active · Sign Out
+                    </span>
                   </button>
                 ) : (
                   onSignInGoogle && (
                     <button
                       type="button"
                       onClick={onSignInGoogle}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-[#EAF4F8] hover:border-[#5CE1E6]/50 transition-colors cursor-pointer"
+                      className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-[#EAF4F8] hover:border-[#5CE1E6]/50 transition-colors cursor-pointer whitespace-nowrap"
                     >
-                      Sign In for Cloud Sync
+                      <span className="sm:hidden">Cloud Sync</span>
+                      <span className="hidden sm:inline">
+                        Sign In for Cloud Sync
+                      </span>
                     </button>
                   )
                 )}
@@ -358,11 +364,11 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
               </div>
             </div>
 
-            <div className="shrink-0 px-5 pt-3 pb-2 border-b border-[rgba(255,255,255,0.08)] flex items-center gap-2">
+            <div className="shrink-0 px-4 sm:px-5 pt-3 pb-2 border-b border-[rgba(255,255,255,0.08)] flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setActiveTab('chat')}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
+                className={`flex-1 py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
                   activeTab === 'chat'
                     ? 'bg-[#5CE1E6] text-[#04121c] font-semibold'
                     : 'bg-white/5 text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -373,13 +379,13 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab('suggest')}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 ${
+                className={`flex-1 py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-medium transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 ${
                   activeTab === 'suggest'
                     ? 'bg-[#7A86FF] text-[#04121c] font-semibold'
                     : 'bg-white/5 text-[#8EA6B4] hover:text-[#EAF4F8]'
                 }`}
               >
-                <Lightbulb className="w-3.5 h-3.5" />
+                <Lightbulb className="w-3.5 h-3.5 shrink-0" />
                 <span>Share Suggestion ({suggestions.length})</span>
               </button>
             </div>

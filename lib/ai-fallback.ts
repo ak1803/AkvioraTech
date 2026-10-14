@@ -55,7 +55,7 @@ export function buildSmartContextualReply(params: {
       suggestedFollowUps: [
         'What are the pricing tiers for a 4-week build?',
         'How does Akviora automate spreadsheets & WhatsApp?',
-        'Show me case studies like TrackPayout or TenderItNow',
+        'Show me case studies like PayTrack or NextGen IOT',
       ],
       recommendedService: 'Web & SaaS Product Engineering',
     };
@@ -76,30 +76,34 @@ export function buildSmartContextualReply(params: {
       reply: `Eliminating fragmented **WhatsApp + Spreadsheet** handoffs is one of Akviora's highest-ROI specialties:\n\n• **Automated Intake & Triage**: Incoming WhatsApp messages, web forms, and emails are parsed automatically—no more manual copy-pasting into Excel.\n• **One-Click Approvals & Alerts**: When a quote, dispatch, or invoice needs sign-off, managers receive an instant interactive alert that updates the central database in real time.\n• **Live Owner Dashboard**: Replace fragile sheets with a secure Next.js + Cloud Firestore portal tracking every lead, payment, and SLA.\n\nTeams typically save **15–22 hours per week** and cut response times from hours to under 30 seconds.`,
       suggestedFollowUps: [
         'Generate a 4-step automation blueprint for my business',
-        'How does RenewalHelp prevent missed contract expirations?',
+        'How does OmniFlow streamline cross-team approval queues?',
         'Which AI Assistant fits my business workflow?',
       ],
       recommendedService: 'Business Automation & Operations Assistant',
     };
   }
 
-  // 4. Case Studies / Portfolio (TrackPayout, Stockcard, TenderItNow, RenewalHelp, Cost Management)
+  // 4. Case Studies / Portfolio (PayTrack, NextGen IOT, NeuroNova, OmniFlow, Cosmic Compass, EasyMart)
   if (
     q.includes('case stud') ||
-    q.includes('trackpayout') ||
-    q.includes('tenderitnow') ||
-    q.includes('stockcard') ||
-    q.includes('renewalhelp') ||
+    q.includes('paytrack') ||
+    q.includes('nextgen') ||
+    q.includes('neuronova') ||
+    q.includes('omniflow') ||
+    q.includes('cosmic') ||
+    q.includes('compass') ||
+    q.includes('easymart') ||
+    q.includes('grocery') ||
     q.includes('portfolio') ||
     q.includes('example') ||
     q.includes('work')
   ) {
     return {
-      reply: `Here are flagship production systems engineered by **Akviora Technologies**:\n\n• **TrackPayout (FinTech SaaS)**: Automated invoice follow-ups and aging analytics—delivering **+44% faster collections**.\n• **TenderItNow (AI Document Engine)**: Automated PDF tender ingestion, eligibility extraction, and BOQ table parsing—**6.5× faster bid screening**.\n• **Stockcard (Inventory Platform)**: Real-time multi-warehouse reorder intelligence that reduced stockouts by **62%**.\n• **RenewalHelp (Lifecycle Automation)**: Automated 60/30/7-day AMC & contract renewal workflows with **0 missed expirations**.\n\nWhich of these architectures is closest to what you want to build?`,
+      reply: `Here are flagship production systems engineered by **Akviora Technologies**:\n\n• **PayTrack (FinTech SaaS)**: UPI-first invoicing, milestone escrow, and automated reminder workflows—delivering **+48% faster collections**.\n• **NextGen IOT (Industrial IoT)**: High-speed edge sensor streaming and predictive maintenance that prevented **-65% machine downtime**.\n• **NeuroNova (HealthTech & AI)**: Non-invasive neuro-frequency therapy and cognitive tracking with **3.8× focus and recovery lift**.\n• **OmniFlow (Operations Automation)**: Visual process builder and approval orchestration saving **22 hours/week per manager**.\n• **Cosmic Compass (Consumer AI & Astro)**: Swiss Ephemeris microservices, relocational astrocartography maps, and **62% Day-30 retention**.\n• **EasyMart (Quick-Commerce & Retail)**: Sub-15 min grocery dispatch, live dark-store inventory polling, and **+38% cart conversion**.\n\nWhich of these architectures is closest to what you want to build?`,
       suggestedFollowUps: [
-        'How can we build a document parser like TenderItNow?',
-        'How much does a SaaS platform like TrackPayout cost?',
-        'Estimate timeline for a custom SaaS web app',
+        'How can we build an e-commerce app like EasyMart?',
+        'Tell me about the astrocartography engine in Cosmic Compass',
+        'How can we build an IoT telemetry dashboard like NextGen IOT?',
       ],
       recommendedService: 'Custom SaaS & AI Product Development',
     };
@@ -119,7 +123,7 @@ export function buildSmartContextualReply(params: {
     return {
       reply: `With Akviora's **AI Document Assistant**, we turn unstructured PDFs, invoices, RFPs, and contracts into structured database records automatically:\n\n• **Structured Field Extraction**: Automatically pull line items, BOQ tables, dates, clauses, and compliance risks with schema-validated accuracy.\n• **Exception Flagging**: Highlight missing signatures, price variances, or risky terms for human review.\n• **Direct ERP/Database Sync**: Push verified JSON data straight into your portal, CRM, or accounting ledger—cutting manual review time by **70%+**.`,
       suggestedFollowUps: [
-        'How did TenderItNow achieve 6.5x faster PDF screening?',
+        'How does OmniFlow automate contract and invoice extraction?',
         'Can it extract data from scanned invoices and WhatsApp PDFs?',
         'Estimate timeline and budget for a Document Assistant',
       ],
@@ -169,7 +173,7 @@ export function buildSmartContextualReply(params: {
     suggestedFollowUps: [
       'What are your typical project pricing ranges?',
       'Estimate timeline for a custom SaaS web app',
-      'Show me similar case studies like TrackPayout or TenderItNow',
+      'Show me similar case studies like PayTrack or NextGen IOT',
     ],
     recommendedService: 'AI Solutions & Business Automation',
   };

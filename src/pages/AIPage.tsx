@@ -214,7 +214,7 @@ export const AIPage: React.FC<AIPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24 overflow-hidden">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. AI Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -305,7 +305,7 @@ export const AIPage: React.FC<AIPageProps> = ({
             exit={{ opacity: 0, y: -12, scale: 0.99 }}
             transition={{ type: 'spring', stiffness: 145, damping: 22 }}
             style={{ '--c': activeAssistant.accentColor } as React.CSSProperties}
-            className="akviora-service-panel p-7 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+            className="akviora-service-panel p-5 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center"
           >
             <div className="lg:col-span-7 relative z-10 space-y-4">
               <div className="text-xs font-mono text-[#5CE1E6] tabular-nums">
@@ -419,7 +419,7 @@ export const AIPage: React.FC<AIPageProps> = ({
               type="submit"
               variant="gradient"
               disabled={generatingBlueprint}
-              className="w-full"
+              className="w-full px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
             >
               {generatingBlueprint
                 ? 'Akviora AI is Designing Your Blueprint...'
@@ -665,7 +665,7 @@ export const AIPage: React.FC<AIPageProps> = ({
               type="submit"
               variant="gradient"
               disabled={submittingSug}
-              className="w-full"
+              className="w-full px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
             >
               {submittingSug
                 ? 'Evaluating with Akviora AI...'

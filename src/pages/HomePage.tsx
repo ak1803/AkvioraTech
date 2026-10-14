@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
 import { ArrowUpRight, Cpu, Sparkles } from 'lucide-react';
 import {
   AssistantPersonaId,
@@ -75,6 +75,170 @@ const PAIN_POINT_SOLUTIONS: Record<
   },
 };
 
+const WhyAkvioraSection: React.FC = () => {
+  const whySectionRef = React.useRef<HTMLElement | null>(null);
+  const [activeWhyIndex, setActiveWhyIndex] = React.useState<number>(0);
+
+  const { scrollYProgress: whyScrollProgress } = useScroll({
+    target: whySectionRef,
+    offset: ['start 0.8', 'end 0.2'],
+  });
+
+  const smoothWhyProgress = useSpring(whyScrollProgress, {
+    stiffness: 120,
+    damping: 24,
+    restDelta: 0.001,
+  });
+
+  return (
+    <section
+      ref={whySectionRef}
+      className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 sm:gap-10 lg:gap-[6vw] max-w-[1320px] mx-auto py-16 sm:py-[14vh] px-4 sm:px-8 lg:px-12"
+    >
+      {/* Sticky Left Column (pinned on scroll without transform clipping) */}
+      <div className="lg:sticky lg:top-[20vh] lg:self-start space-y-6">
+        <div className="flex items-center gap-3">
+          {/* <span className="text-xs font-mono text-[#5CE1E6] tracking-wider uppercase">
+            PRINCIPLES &amp; CLARITY
+          </span> */}
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.03] text-[11px] font-mono text-[#8EA6B4]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#5CE1E6] animate-pulse" />
+            <span>
+              Stage 0{activeWhyIndex + 1} / 0{WHY_AKVIORA_ITEMS.length}
+            </span>
+          </div>
+        </div>
+
+        <KineticHeadline
+          as="h2"
+          text="Technology should create clarity, not complexity."
+          className="font-display text-[clamp(28px,4.8vw,68px)] text-[#EAF4F8] leading-[1.05]"
+        />
+
+        <p className="text-[#8EA6B4] max-w-[40ch] text-sm sm:text-base leading-relaxed">
+          Every system we ship is engineered to reduce operational friction
+          and give founders measurable visibility.
+        </p>
+
+        {/* On-Scroll Progress Track & Stage Indicators */}
+        <div className="pt-2 hidden lg:block space-y-3">
+          <div className="flex items-center justify-between text-xs font-mono text-[#8EA6B4]">
+            <span>On-Scroll Principle Track</span>
+            <span className="text-[#5CE1E6] tabular-nums">
+              {Math.round(((activeWhyIndex + 1) / WHY_AKVIORA_ITEMS.length) * 100)}%
+            </span>
+          </div>
+          <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+            <motion.div
+              style={{ scaleX: smoothWhyProgress }}
+              className="h-full origin-left bg-gradient-to-r from-[#5CE1E6] via-[#7A86FF] to-[#5CE1E6] shadow-[0_0_12px_rgba(92,225,230,0.8)]"
+            />
+          </div>
+          <div className="flex items-center gap-2 pt-1">
+            {WHY_AKVIORA_ITEMS.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  setActiveWhyIndex(i);
+                  const el = document.getElementById(`why-item-${i}`);
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                  activeWhyIndex === i
+                    ? 'w-8 bg-[#5CE1E6] shadow-[0_0_8px_rgba(92,225,230,0.8)]'
+                    : 'w-2 bg-white/20 hover:bg-white/40'
+                }`}
+                aria-label={`Jump to principle ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column: Scroll-Reactive Principles */}
+      <div className="relative space-y-2.5">
+        {WHY_AKVIORA_ITEMS.map((item, idx) => {
+          const isActive = activeWhyIndex === idx;
+          return (
+            <motion.div
+              id={`why-item-${idx}`}
+              key={item.title}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              onViewportEnter={() => setActiveWhyIndex(idx)}
+              viewport={{ amount: 0.55, margin: '-10% 0px -25% 0px' }}
+              transition={{
+                type: 'spring',
+                stiffness: 120,
+                damping: 20,
+                delay: idx * 0.04,
+              }}
+              whileHover={{ x: 6 }}
+              onClick={() => setActiveWhyIndex(idx)}
+              className={`group relative py-7 px-6 rounded-2xl border transition-all cursor-pointer will-change-transform ${
+                isActive
+                  ? 'border-[#5CE1E6]/40 bg-gradient-to-r from-[#5CE1E6]/[0.08] via-white/[0.02] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+                  : 'border-white/10 bg-transparent hover:border-white/20'
+              }`}
+            >
+              {/* Active indicator vertical glowing bar */}
+              <div
+                className={`absolute left-0 top-4 bottom-4 w-1 rounded-r-full transition-all duration-300 ${
+                  isActive
+                    ? 'bg-gradient-to-b from-[#5CE1E6] to-[#7A86FF] opacity-100 shadow-[0_0_12px_rgba(92,225,230,0.9)]'
+                    : 'bg-white/10 opacity-0 group-hover:opacity-60'
+                }`}
+              />
+
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span
+                      className={`text-xs font-mono font-semibold tabular-nums transition-colors ${
+                        isActive ? 'text-[#5CE1E6]' : 'text-[#8EA6B4]'
+                      }`}
+                    >
+                      0{idx + 1}
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#8EA6B4]/80">
+                      Principle
+                    </span>
+                  </div>
+
+                  <b
+                    className={`font-display font-medium text-[clamp(21px,2.4vw,32px)] tracking-[-0.02em] block transition-colors ${
+                      isActive
+                        ? 'text-[#EAF4F8]'
+                        : 'text-[#EAF4F8]/85 group-hover:text-[#EAF4F8]'
+                    }`}
+                  >
+                    {item.title}
+                  </b>
+
+                  <p className="text-[#8EA6B4] text-sm sm:text-base mt-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <span
+                  className={`mt-1 w-6 h-6 rounded-full border flex items-center justify-center text-xs transition-colors shrink-0 ${
+                    isActive
+                      ? 'border-[#5CE1E6] text-[#5CE1E6] bg-[#5CE1E6]/10 shadow-[0_0_8px_rgba(92,225,230,0.4)]'
+                      : 'border-white/15 text-[#8EA6B4] group-hover:border-white/30'
+                  }`}
+                >
+                  →
+                </span>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onOpenAssistantWithPrompt,
@@ -85,6 +249,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [activePainPoint, setActivePainPoint] = React.useState<string>(
     'Repetitive manual work'
   );
+
   const showSkeleton = usePageContentLoading(isLoading, 240);
 
   const activePainDetail =
@@ -128,7 +293,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 variant="gradient"
                 magnetic
                 onClick={() => onNavigate('contact')}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
               >
                 Start a Project
               </MagneticButton>
@@ -722,13 +887,14 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. STATEMENT & PAIN POINTS */}
       <section
         ref={statementSectionRef}
-        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-16 sm:py-[14vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto"
+        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-16 sm:pt-[16vh] sm:pb-[8vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full min-w-0"
         >
           <ScrollWordScrub
             text="Your business shouldn't have to work around its software."
@@ -846,7 +1012,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 5. AI SOLUTIONS BENTO SHOWCASE */}
       <section
         id="ai"
-        className="pt-16 sm:pt-[12vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
+        className="pt-14 sm:pt-[6vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
       >
         <FadeUpReveal>
           <KineticHeadline
@@ -1113,64 +1279,26 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 6. WHY AKVIORA */}
-      <section className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-[6vw] max-w-[1320px] mx-auto py-[12vh] px-5 sm:px-8 lg:px-12">
-        <FadeUpReveal className="lg:sticky lg:top-[20vh] self-start">
-          <KineticHeadline
-            as="h2"
-            text="Technology should create clarity, not complexity."
-            className="font-display text-[clamp(32px,4.8vw,68px)] text-[#EAF4F8]"
-          />
-          <p className="text-[#8EA6B4] mt-4 max-w-[40ch]">
-            Every system we ship is engineered to reduce operational friction
-            and give founders measurable visibility.
-          </p>
-        </FadeUpReveal>
-
-        <div>
-          {WHY_AKVIORA_ITEMS.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{
-                type: 'spring',
-                stiffness: 115,
-                damping: 20,
-                delay: idx * 0.06,
-              }}
-              whileHover={{ x: 6 }}
-              className="py-7 border-t border-[rgba(255,255,255,0.11)] will-change-transform"
-            >
-              <b className="font-display font-medium text-[clamp(22px,2.4vw,32px)] tracking-[-0.02em] text-[#EAF4F8] block">
-                {item.title}
-              </b>
-              <span className="text-[#8EA6B4] mt-1.5 block">
-                {item.description}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* 6. WHY AKVIORA / PRINCIPLES */}
+      <WhyAkvioraSection />
 
       {/* 7. SELECTED WORK / CASE STUDIES LIST */}
       <section
         id="work"
-        className="pt-[12vh] pb-[10vh] px-5 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
+        className="pt-16 sm:pt-[12vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
       >
         <FadeUpReveal className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <KineticHeadline
             as="h2"
             text="Products and systems shaped around real workflows."
-            className="font-display text-[clamp(32px,5.2vw,74px)] max-w-[17ch] text-[#EAF4F8]"
+            className="font-display text-[clamp(28px,5.2vw,74px)] max-w-[17ch] text-[#EAF4F8]"
           />
-          <p className="text-sm text-[#8EA6B4]">
+          <p className="text-xs sm:text-sm text-[#8EA6B4]">
             Click any product to inspect architecture &amp; verified outcomes
           </p>
         </FadeUpReveal>
 
-        <div className="mt-12">
+        <div className="mt-8 sm:mt-12">
           {CASE_STUDIES.map((study, idx) => (
             <motion.div
               key={study.id}
@@ -1193,17 +1321,17 @@ export const HomePage: React.FC<HomePageProps> = ({
                   onSelectCaseStudy(study);
                 }
               }}
-              className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-4 py-6 border-t border-[rgba(255,255,255,0.11)] transition-colors hover:bg-gradient-to-r hover:from-[#5CE1E6]/10 hover:to-transparent cursor-pointer group will-change-transform"
+              className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 sm:gap-4 py-5 sm:py-6 border-t border-[rgba(255,255,255,0.11)] transition-colors hover:bg-gradient-to-r hover:from-[#5CE1E6]/10 hover:to-transparent cursor-pointer group will-change-transform"
             >
-              <div className="flex items-baseline gap-4">
-                <b className="font-display font-medium text-[clamp(26px,3.6vw,50px)] leading-[1.05] tracking-[-0.03em] text-[#EAF4F8] group-hover:text-[#5CE1E6] transition-colors">
+              <div className="flex flex-wrap items-baseline justify-between sm:justify-start gap-x-4 gap-y-1">
+                <b className="font-display font-medium text-[clamp(22px,3.6vw,50px)] leading-[1.05] tracking-[-0.03em] text-[#EAF4F8] group-hover:text-[#5CE1E6] transition-colors">
                   {study.title}
                 </b>
-                <span className="text-xs font-mono text-[#5CE1E6] tabular-nums hidden sm:inline">
+                <span className="text-[11px] sm:text-xs font-mono text-[#5CE1E6] tabular-nums">
                   {study.impactMetrics[0]?.value} {study.impactMetrics[0]?.label}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-[#8EA6B4] self-center">
+              <div className="flex items-center justify-between text-sm sm:text-base text-[#8EA6B4] self-center">
                 <span>{study.category}</span>
                 <ArrowUpRight className="w-5 h-5 text-[#8EA6B4] group-hover:text-[#5CE1E6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
               </div>
@@ -1216,7 +1344,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             type="button"
             whileHover={{ x: 4 }}
             onClick={() => onNavigate('work')}
-            className="text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium"
+            className="text-sm sm:text-base text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium"
           >
             View All Case Studies &amp; Visual Showcases →
           </motion.button>
@@ -1224,7 +1352,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 8. ATTRIBUTABLE CLIENT OUTCOMES */}
-      <section className="py-[10vh] px-5 sm:px-8 lg:px-12 max-w-[1320px] mx-auto">
+      <section className="py-14 sm:py-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden">
         <motion.div
           variants={STAGGER_CONTAINER_VARIANTS}
           initial="hidden"
@@ -1263,12 +1391,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 9. 8-STEP TIMELINE PROCESS */}
       <section
         id="process"
-        className="pt-[12vh] pb-[10vh] px-5 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
+        className="pt-16 sm:pt-[12vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
       >
         <KineticHeadline
           as="h2"
           text="From idea to working system."
-          className="font-display text-[clamp(32px,5.2vw,74px)] max-w-[17ch] text-[#EAF4F8]"
+          className="font-display text-[clamp(28px,5.2vw,74px)] max-w-[17ch] text-[#EAF4F8]"
         />
         <ScrollProcessTimeline steps={PROCESS_STEPS} />
       </section>
@@ -1283,7 +1411,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           text="Have an idea, problem or process worth improving?"
           className="font-display font-bold text-[clamp(34px,7.2vw,112px)] max-w-[14ch] leading-[1.02] text-[#EAF4F8] break-words"
         />
-        <FadeUpReveal delay={0.12}>
+        <FadeUpReveal delay={0.12} className="w-full">
           <p className="max-w-[52ch] mt-5 sm:mt-7 text-[#b8cdd8] text-base sm:text-lg">
             Tell us what you are trying to build, automate or improve. You
             don&apos;t need a perfect technical specification. Start with the
@@ -1294,7 +1422,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <MagneticButton
               variant="gradient"
               onClick={() => onNavigate('contact')}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
             >
               Tell Us About Your Project
             </MagneticButton>
@@ -1302,9 +1430,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               type="button"
               whileHover={{ x: 4 }}
               onClick={() => onNavigate('ai')}
-              className="text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium"
+              className="text-sm sm:text-base text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium text-left"
             >
-              Generate Instant AI Workflow Blueprint
+              <span className="sm:hidden">Generate AI Workflow Blueprint →</span>
+              <span className="hidden sm:inline">
+                Generate Instant AI Workflow Blueprint
+              </span>
             </motion.button>
           </div>
         </FadeUpReveal>

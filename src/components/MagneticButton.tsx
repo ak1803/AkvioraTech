@@ -27,11 +27,11 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
 
   const variantClasses = {
     gradient:
-      'akviora-btn-gradient text-[#04121c] font-medium px-7 py-3.5 rounded-full shadow-[0_0_30px_rgba(92,225,230,0.22)]',
+      'akviora-btn-gradient text-[#04121c] font-medium px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base rounded-full shadow-[0_0_30px_rgba(92,225,230,0.22)]',
     light:
-      'bg-[#EAF4F8] text-[#06101a] font-medium px-5 py-2.5 rounded-full hover:bg-[#5CE1E6] transition-colors',
+      'bg-[#EAF4F8] text-[#06101a] font-medium px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm rounded-full hover:bg-[#5CE1E6] transition-colors',
     outline:
-      'border border-[rgba(255,255,255,0.18)] bg-[rgba(255,255,255,0.03)] text-[#EAF4F8] hover:border-[#5CE1E6] hover:text-[#5CE1E6] px-6 py-3 rounded-full transition-colors',
+      'border border-[rgba(255,255,255,0.18)] bg-[rgba(255,255,255,0.03)] text-[#EAF4F8] hover:border-[#5CE1E6] hover:text-[#5CE1E6] px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base rounded-full transition-colors',
   }[variant];
 
   const magneticClasses = isMagnetic

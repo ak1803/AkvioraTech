@@ -44,7 +44,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24 overflow-hidden">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -73,7 +73,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
       {/* Interactive Pillar Architecture Explorer */}
       <section className="space-y-6 sm:space-y-8">
-        <FadeUpReveal className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit">
+        <FadeUpReveal className="flex gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit overflow-x-auto scrollbar-none sm:flex-wrap">
           {SERVICE_PILLARS.map((pillar) => {
             const active = pillar.id === selectedPillarId;
             return (
@@ -81,7 +81,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 key={pillar.id}
                 type="button"
                 onClick={() => setSelectedPillarId(pillar.id)}
-                className={`relative flex-1 sm:flex-initial px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer whitespace-nowrap text-center ${
+                className={`relative shrink-0 sm:shrink sm:flex-initial px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer whitespace-nowrap text-center ${
                   active
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -165,13 +165,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 </ul>
               </div>
 
-              <div className="pt-4 flex flex-wrap items-center gap-4">
+              <div className="pt-4 flex flex-wrap items-center gap-3.5 sm:gap-4">
                 <MagneticButton
                   variant="gradient"
                   onClick={() => onNavigate('contact')}
+                  className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
                 >
                   <span>Scope {activePillar.title} Project</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </MagneticButton>
 
                 <motion.button
@@ -183,7 +184,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       `Create a project roadmap and deliverables checklist for ${activePillar.title}.`
                     )
                   }
-                  className="px-5 py-3 rounded-full border border-[#5CE1E6]/40 text-sm text-[#5CE1E6] hover:bg-[#5CE1E6]/10 transition-colors cursor-pointer"
+                  className="w-full sm:w-auto text-center px-5 py-3 rounded-full border border-[#5CE1E6]/40 text-sm text-[#5CE1E6] hover:bg-[#5CE1E6]/10 transition-colors cursor-pointer"
                 >
                   Ask Akviora AI to Scope This
                 </motion.button>

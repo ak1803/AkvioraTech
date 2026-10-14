@@ -722,11 +722,11 @@ const ProcessStepCard: React.FC<{
             </p>
 
             <div className="mt-5 pt-4 border-t border-white/10">
-              <div className="flex items-center justify-between text-xs font-mono text-[#8EA6B4] mb-2">
+              <div className="flex flex-wrap items-center justify-between gap-1 text-xs font-mono text-[#8EA6B4] mb-2">
                 <span className="uppercase tracking-wider text-[10px] text-[#5CE1E6]/90">
                   Verified Deliverable
                 </span>
-                <span className="text-[#EAF4F8] font-medium truncate max-w-[240px] sm:max-w-none">
+                <span className="text-[#EAF4F8] font-medium truncate max-w-full sm:max-w-none">
                   {stepItem.deliverable}
                 </span>
               </div>

@@ -185,7 +185,7 @@ export const CustomScrollbar: React.FC = () => {
       aria-hidden="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed right-1.5 sm:right-2.5 top-[68px] bottom-[84px] z-40 flex flex-col items-center gap-2 select-none"
+      className="hidden md:flex fixed right-2.5 top-[68px] bottom-[84px] z-40 flex-col items-center gap-2 select-none"
     >
       {/* Quick Scroll-to-Top Trigger */}
       <button

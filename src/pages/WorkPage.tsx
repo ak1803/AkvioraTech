@@ -26,21 +26,16 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   onSelectCaseStudy,
   isLoading = false,
 }) => {
-  const [filter, setFilter] = useState<'all' | 'saas' | 'ai' | 'operations'>('all');
+  const [filter, setFilter] = useState<'all' | 'saas' | 'ai' | 'operations' | 'retail'>('all');
   const showPageSkeleton = usePageContentLoading(isLoading, 240);
   const switchingFilter = useSectionFilterShimmer(filter, 180);
 
   const filteredStudies = CASE_STUDIES.filter((s) => {
     if (filter === 'all') return true;
-    if (filter === 'ai')
-      return (
-        s.id === 'tenderitnow' ||
-        s.id === 'ai-astrology-guide'
-      );
-    if (filter === 'saas')
-      return s.id === 'trackpayout' || s.id === 'renewalhelp';
-    if (filter === 'operations')
-      return s.id === 'stockcard' || s.id === 'cost-management';
+    if (filter === 'ai') return s.id === 'neuronova' || s.id === 'cosmic-compass';
+    if (filter === 'saas') return s.id === 'paytrack' || s.id === 'omniflow';
+    if (filter === 'operations') return s.id === 'nextgen-iot' || s.id === 'omniflow';
+    if (filter === 'retail') return s.id === 'easymart' || s.id === 'cosmic-compass';
     return true;
   });
 
@@ -49,7 +44,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20 overflow-hidden">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
       {/* Header */}
       <section className="pt-4 sm:pt-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
         <div>
@@ -72,13 +67,14 @@ export const WorkPage: React.FC<WorkPageProps> = ({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] self-start lg:self-end w-full sm:w-auto"
+          className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] self-start lg:self-end w-full sm:w-auto overflow-x-auto scrollbar-none sm:flex-wrap"
         >
           {[
             { id: 'all', label: 'All Systems' },
             { id: 'saas', label: 'FinTech & SaaS' },
-            { id: 'ai', label: 'AI & Document Intelligence' },
-            { id: 'operations', label: 'Inventory & Real Estate Ops' },
+            { id: 'ai', label: 'AI & Neural Systems' },
+            { id: 'operations', label: 'IoT & Operations' },
+            { id: 'retail', label: 'Consumer & Retail' },
           ].map((tab) => {
             const isActive = filter === tab.id;
             return (
@@ -86,9 +82,9 @@ export const WorkPage: React.FC<WorkPageProps> = ({
                 key={tab.id}
                 type="button"
                 onClick={() =>
-                  setFilter(tab.id as 'all' | 'saas' | 'ai' | 'operations')
+                  setFilter(tab.id as 'all' | 'saas' | 'ai' | 'operations' | 'retail')
                 }
-                className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer whitespace-nowrap ${
+                className={`relative shrink-0 sm:shrink px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer whitespace-nowrap ${
                   isActive
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'

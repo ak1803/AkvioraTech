@@ -47,28 +47,28 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-4xl rounded-[28px] border border-[rgba(255,255,255,0.14)] bg-[#08101E] text-[#EAF4F8] overflow-hidden shadow-2xl my-auto max-h-[90vh] flex flex-col"
           >
-            <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.1)] flex items-center justify-between">
-              <div className="text-xs text-[#8EA6B4] font-mono tabular-nums">
+            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[rgba(255,255,255,0.1)] flex items-center justify-between gap-2">
+              <div className="text-[11px] sm:text-xs text-[#8EA6B4] font-mono tabular-nums truncate">
                 {study.sector} · {study.year} · Delivered in {study.duration}
               </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close case study modal"
-                className="p-2 rounded-full bg-white/5 hover:bg-white/15 text-[#EAF4F8] transition-colors cursor-pointer"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 text-[#EAF4F8] transition-colors cursor-pointer shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="overflow-y-auto p-6 sm:p-8 space-y-8">
+            <div className="overflow-y-auto p-5 sm:p-8 space-y-6 sm:space-y-8">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                 <div className="lg:col-span-7 space-y-3">
-                  <div className="text-sm text-[#5CE1E6]">{study.category}</div>
-                  <h2 className="font-display text-3xl sm:text-5xl text-[#EAF4F8]">
+                  <div className="text-xs sm:text-sm text-[#5CE1E6]">{study.category}</div>
+                  <h2 className="font-display text-2xl sm:text-5xl text-[#EAF4F8]">
                     {study.title}
                   </h2>
-                  <p className="text-[#b8cdd8] text-base leading-relaxed">
+                  <p className="text-[#b8cdd8] text-sm sm:text-base leading-relaxed">
                     {study.summary}
                   </p>
                 </div>

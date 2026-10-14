@@ -71,17 +71,17 @@ export const FadeUpReveal: React.FC<{
   className?: string;
   delay?: number;
   yOffset?: number;
-}> = ({ children, className = '', delay = 0, yOffset = 28 }) => {
+}> = ({ children, className = '', delay = 0, yOffset = 24 }) => {
   const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.div
       initial={prefersReducedMotion ? false : { opacity: 0, y: yOffset }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={{ once: true, margin: '0px 0px -20px 0px' }}
       transition={{
         type: 'spring',
-        stiffness: 110,
+        stiffness: 115,
         damping: 20,
         mass: 0.8,
         delay,
@@ -93,7 +93,7 @@ export const FadeUpReveal: React.FC<{
   );
 };
 
-// 1. Kinetic Staggered Word-by-Word Display Headline
+// 1. Kinetic Staggered Word-by-Word Display Headline (Fluid and hardware-accelerated without 3D font jitter)
 export const KineticHeadline: React.FC<{
   text: string;
   className?: string;
@@ -112,20 +112,20 @@ export const KineticHeadline: React.FC<{
       {words.map((word, idx) => (
         <span
           key={`${word}-${idx}`}
-          className="inline-block overflow-hidden align-bottom pb-[0.06em] -mb-[0.06em] mr-[0.26em] last:mr-0"
+          className="inline-block overflow-hidden align-bottom pb-[0.06em] -mb-[0.06em] mr-[0.24em] last:mr-0"
         >
           <motion.span
-            initial={{ opacity: 0, y: '42%', rotateX: -18 }}
-            whileInView={{ opacity: 1, y: '0%', rotateX: 0 }}
-            viewport={{ once: true, margin: '-20px' }}
+            initial={{ opacity: 0, y: '30%' }}
+            whileInView={{ opacity: 1, y: '0%' }}
+            viewport={{ once: true, margin: '0px 0px -15px 0px' }}
             transition={{
               type: 'spring',
-              stiffness: 135,
-              damping: 20,
-              mass: 0.75,
-              delay: idx * 0.038,
+              stiffness: 140,
+              damping: 22,
+              mass: 0.7,
+              delay: idx * 0.024,
             }}
-            className="inline-block will-change-transform"
+            className="inline-block will-change-transform transform-gpu"
           >
             {word}
           </motion.span>
@@ -214,7 +214,7 @@ export const SpotlightBentoTile: React.FC<{
   const spotlightBg = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, rgba(92, 225, 230, 0.13), rgba(122, 134, 255, 0.06) 45%, transparent 80%)`;
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || e.pointerType === 'touch') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -223,8 +223,8 @@ export const SpotlightBentoTile: React.FC<{
 
     const pctX = x / rect.width - 0.5;
     const pctY = y / rect.height - 0.5;
-    tiltX.set(-pctY * 6);
-    tiltY.set(pctX * 6);
+    tiltX.set(-pctY * 5);
+    tiltY.set(pctX * 5);
   };
 
   const handlePointerLeave = () => {
@@ -234,17 +234,17 @@ export const SpotlightBentoTile: React.FC<{
 
   return (
     <motion.div
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 28, scale: 0.97 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '0px 0px -20px 0px' }}
       transition={{
         type: 'spring',
         stiffness: 115,
-        damping: 19,
+        damping: 20,
         mass: 0.8,
         delay,
       }}
-      whileHover={prefersReducedMotion ? undefined : { y: -5 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
       whileTap={onClick && !prefersReducedMotion ? { scale: 0.985 } : undefined}
       style={
         prefersReducedMotion
@@ -472,10 +472,10 @@ export const HorizontalServicesShowcase: React.FC<{
       id="services"
       ref={sectionRef}
       aria-label="Services"
-      className="relative py-16 md:py-0 md:h-[215vh]"
+      className="relative py-12 md:py-0 md:h-[215vh]"
     >
-      <div className="md:sticky md:top-0 md:h-[100svh] overflow-hidden flex flex-col justify-center">
-        <FadeUpReveal className="px-4 sm:px-8 lg:px-12 max-w-[1440px] w-full mx-auto mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div className="md:sticky md:top-0 md:h-[100svh] md:overflow-hidden overflow-visible flex flex-col md:justify-center">
+        <FadeUpReveal className="px-4 sm:px-8 lg:px-12 max-w-[1440px] w-full mx-auto mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="text-xs font-mono text-[#5CE1E6] mb-2 uppercase tracking-wider">
               Core Capabilities &amp; Architecture
@@ -499,23 +499,23 @@ export const HorizontalServicesShowcase: React.FC<{
 
         <div
           ref={trackRef}
-          className="flex flex-col md:flex-row gap-5 md:gap-7 px-4 sm:px-8 lg:px-12 w-full md:w-max md:will-change-transform"
+          className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-7 px-4 sm:px-8 lg:px-12 w-full md:w-max md:will-change-transform"
         >
           {services.map((srv, idx) => (
             <motion.article
               key={srv.id}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: true, margin: '0px 0px -20px 0px' }}
               transition={{
                 type: 'spring',
                 stiffness: 110,
                 damping: 20,
-                delay: idx * 0.06,
+                delay: idx * 0.05,
               }}
-              whileHover={{ y: -6 }}
+              whileHover={{ y: -4 }}
               style={{ '--c': srv.accentColor } as React.CSSProperties}
-              className="akviora-service-panel w-full md:w-[min(78vw,520px)] shrink-0 p-6 sm:p-10 min-h-[280px] md:min-h-[340px] flex flex-col justify-between group will-change-transform"
+              className="akviora-service-panel w-full md:w-[min(78vw,520px)] shrink-0 p-5 sm:p-8 md:p-10 min-h-[260px] md:min-h-[340px] flex flex-col justify-between group will-change-transform"
             >
               <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 text-xs text-[#8EA6B4] font-mono tabular-nums">
                 <span>
@@ -583,7 +583,7 @@ const ProcessStepCard: React.FC<{
   const spotlightBg = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, rgba(92, 225, 230, 0.16), rgba(122, 134, 255, 0.08) 45%, transparent 80%)`;
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || e.pointerType === 'touch') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -592,8 +592,8 @@ const ProcessStepCard: React.FC<{
 
     const pctX = x / rect.width - 0.5;
     const pctY = y / rect.height - 0.5;
-    tiltX.set(-pctY * 8);
-    tiltY.set(pctX * 8);
+    tiltX.set(-pctY * 6);
+    tiltY.set(pctX * 6);
   };
 
   const handlePointerLeave = () => {
@@ -605,13 +605,13 @@ const ProcessStepCard: React.FC<{
     <motion.div
       id={`process-step-${stepItem.step}`}
       onViewportEnter={() => onActivate(index)}
-      viewport={{ amount: 0.55, margin: '-10% 0px -25% 0px' }}
+      viewport={{ amount: 0.35, margin: '0px 0px -15% 0px' }}
       className={`relative grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-14 ${
-        index === 0 ? 'pt-2' : 'pt-8 md:pt-12'
+        index === 0 ? 'pt-2' : 'pt-6 md:pt-12'
       }`}
     >
       {/* Central Timeline Node & Concentric Sonar Pulse */}
-      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-12 md:top-1/2 md:-translate-y-1/2 z-20 flex items-center justify-center">
+      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-10 md:top-1/2 md:-translate-y-1/2 z-20 flex items-center justify-center">
         {isActive && !prefersReducedMotion && (
           <motion.span
             initial={{ scale: 0.8, opacity: 0.8 }}
@@ -623,8 +623,8 @@ const ProcessStepCard: React.FC<{
         <motion.button
           type="button"
           onClick={() => onActivate(index)}
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.92 }}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.94 }}
           aria-label={`Select step ${stepItem.step}: ${stepItem.title}`}
           className={`relative w-8 h-8 rounded-full border-2 flex items-center justify-center font-mono text-[11px] font-semibold transition-colors cursor-pointer ${
             isActive
@@ -651,9 +651,9 @@ const ProcessStepCard: React.FC<{
         }`}
       />
 
-      {/* 3D Perspective Step Card */}
+      {/* Responsive Step Card Container */}
       <div
-        className={`pl-12 md:pl-0 ${
+        className={`pl-11 pr-1 sm:pl-12 sm:pr-0 ${
           isEven
             ? 'md:col-start-1 md:pr-8'
             : 'md:col-start-2 md:pl-8'
@@ -665,29 +665,21 @@ const ProcessStepCard: React.FC<{
               ? false
               : {
                   opacity: 0,
-                  x: isEven ? -56 : 56,
-                  y: 36,
-                  rotateY: isEven ? 14 : -14,
-                  rotateX: 8,
-                  scale: 0.92,
+                  y: 24,
                 }
           }
           whileInView={{
             opacity: 1,
-            x: 0,
             y: 0,
-            rotateY: 0,
-            rotateX: 0,
-            scale: 1,
           }}
-          viewport={{ once: true, amount: 0.25, margin: '-30px' }}
+          viewport={{ once: true, amount: 0.2, margin: '0px 0px -15px 0px' }}
           transition={{
             type: 'spring',
-            stiffness: 115,
-            damping: 18,
-            mass: 0.85,
+            stiffness: 120,
+            damping: 20,
+            mass: 0.8,
           }}
-          whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.015 }}
+          whileHover={prefersReducedMotion ? undefined : { y: -4 }}
           style={
             prefersReducedMotion
               ? undefined
@@ -700,7 +692,7 @@ const ProcessStepCard: React.FC<{
           onClick={() => onActivate(index)}
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
-          className={`group relative overflow-hidden rounded-[24px] border p-6 sm:p-7 transition-colors cursor-pointer will-change-transform ${
+          className={`group relative overflow-hidden rounded-[24px] border p-5 sm:p-7 transition-colors cursor-pointer will-change-transform ${
             isActive
               ? 'border-[#5CE1E6]/65 bg-gradient-to-br from-[#5CE1E6]/[0.11] via-[#0B1526]/95 to-[#7A86FF]/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.55),0_0_30px_rgba(92,225,230,0.12)]'
               : 'border-white/10 bg-white/[0.025] hover:border-[#5CE1E6]/40'
@@ -734,11 +726,11 @@ const ProcessStepCard: React.FC<{
 
             {/* Animated Deliverable & Sweeping Completion Bar */}
             <div className="mt-5 pt-4 border-t border-white/10">
-              <div className="flex items-center justify-between text-xs font-mono text-[#8EA6B4] mb-2">
+              <div className="flex flex-wrap items-center justify-between gap-1 text-xs font-mono text-[#8EA6B4] mb-2">
                 <span className="uppercase tracking-wider text-[10px] text-[#5CE1E6]/90">
                   Verified Deliverable
                 </span>
-                <span className="text-[#EAF4F8] font-medium truncate max-w-[240px] sm:max-w-none">
+                <span className="text-[#EAF4F8] font-medium truncate max-w-full sm:max-w-none">
                   {stepItem.deliverable}
                 </span>
               </div>

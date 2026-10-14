@@ -119,12 +119,12 @@ Akviora Technologies ("Design the experience. Automate the work. Build what's ne
 5. SEO & Digital Growth (Technical SEO, Schema.org JSON-LD, Core Web Vitals, local & organic growth)
 
 Our flagship products/case studies include:
-- TrackPayout (Finance & Receivable Automation Platform, +44% faster collections)
-- Stockcard (Inventory Management Experience, -62% stockouts)
-- TenderItNow (Tender & Business Opportunity Platform with AI PDF screening, 6.5x faster screening)
-- RenewalHelp (Contract & AMC Renewal Lifecycle Workflow, 0 missed expirations)
-- Cost Management (Real Estate & Construction BOQ Cost Platform)
-- AI Astrology Guide (Conversational AI Product Experience)
+- PayTrack (FinTech & Smart Invoicing Platform, +48% faster collections)
+- NextGen IOT (Industrial IoT & Telemetry Platform, -65% machine downtime prevented)
+- NeuroNova (AI Cognitive Intelligence & Neural Platform, 3.8x focus and recovery lift)
+- OmniFlow (Enterprise Workflow Orchestration Engine, 22 hrs/wk saved per manager)
+- Cosmic Compass (AI Astrology & Astrocartography Platform, 62% Day-30 retention)
+- EasyMart (Hyperlocal Grocery & Quick-Commerce App, +38% cart conversion, 11.4 min delivery cycle)
 
 Our 8-step delivery process: 1. Discover, 2. Define, 3. Design, 4. Build, 5. Connect, 6. Test, 7. Launch, 8. Improve.
 Contact email: hello@akvioratechnologies.com.

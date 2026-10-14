@@ -49,10 +49,10 @@ export const ROUTE_SEO_CONFIG: Record<PageRoute, RouteSEOMetadata> = {
   work: {
     title: 'Case Studies & Product Portfolio | Akviora Technologies',
     description:
-      'Inspect real production systems built by Akviora Technologies across FinTech, AI tender intelligence, multi-warehouse inventory, and SaaS operations.',
+      'Inspect real production systems built by Akviora Technologies across FinTech invoicing (PayTrack), industrial IoT telemetry (NextGen IOT), cognitive health AI (NeuroNova), enterprise workflow orchestration (OmniFlow), astrological intelligence (Cosmic Compass), and quick-commerce retail (EasyMart).',
     path: '/work',
     keywords:
-      'software case studies, TrackPayout FinTech, TenderItNow AI, StockCard ERP, SaaS portfolio, enterprise web application examples',
+      'software case studies, PayTrack FinTech, NextGen IOT telemetry, NeuroNova AI, OmniFlow automation, Cosmic Compass astrology, EasyMart quick-commerce, SaaS portfolio',
     ogType: 'website',
   },
   about: {

@@ -52,30 +52,41 @@ export const WebGLBackground: React.FC = () => {
     let sx = 0.5;
     let sy = 0.5;
     let animFrameId = 0;
+    let lastRenderTime = 0;
 
     const handleResize = () => {
-      const d = Math.min(window.devicePixelRatio || 1, 1.5) * 0.6;
-      cv.width = window.innerWidth * d;
-      cv.height = window.innerHeight * d;
+      const isMobile = window.innerWidth < 768;
+      const d = isMobile ? 0.4 : Math.min(window.devicePixelRatio || 1, 1.5) * 0.6;
+      cv.width = Math.floor(window.innerWidth * d);
+      cv.height = Math.floor(window.innerHeight * d);
       gl.viewport(0, 0, cv.width, cv.height);
     };
 
     const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return;
       mx = e.clientX / window.innerWidth;
       my = 1 - e.clientY / window.innerHeight;
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
     const renderLoop = (ts: number) => {
+      const isMobile = window.innerWidth < 768;
+      // On mobile, cap canvas refresh interval (~33ms / 30fps) to save battery and leave main thread completely free for touch scrolling
+      if (isMobile && ts - lastRenderTime < 32) {
+        animFrameId = requestAnimationFrame(renderLoop);
+        return;
+      }
+      lastRenderTime = ts;
+
       sx += (mx - sx) * 0.04;
       sy += (my - sy) * 0.04;
       const sp = window.scrollY / Math.max(window.innerHeight, 1);
       gl.uniform2f(ur, cv.width, cv.height);
       gl.uniform2f(um, sx, sy);
-      gl.uniform1f(ut, reduce ? 3 : ts / 1000 + sp * 4);
+      gl.uniform1f(ut, reduce ? 3 : ts / 1000 + (isMobile ? sp * 0.4 : sp * 1.8));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       animFrameId = requestAnimationFrame(renderLoop);
     };
