@@ -72,14 +72,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="lg:col-span-4 flex items-center justify-center bg-transparent will-change-transform"
+          className="hidden sm:flex lg:col-span-4 items-center justify-center bg-transparent will-change-transform"
         >
           <SafeImage
             src={aboutMetallicAiCoreImg}
             alt="Three-tier metallic architecture representing UI/UX design, full-stack engineering, and AI automation"
             fallbackTitle="Akviora Engineering Studio"
             removeBackground
-            className="w-full h-[320px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
+            className="hidden sm:block md:block w-full h-[320px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
           />
         </motion.div>
       </section>

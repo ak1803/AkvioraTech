@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronDown, Search, MessageSquare } from 'lucide-react';
+import { ChevronDown, Search, MessageSquare, X } from 'lucide-react';
 import { AssistantPersonaId, FAQItem, PageRoute } from '../types/akviora';
 import { FAQ_ITEMS } from '../data/akvioraData';
 import {
@@ -107,22 +107,33 @@ export const FAQPage: React.FC<FAQPageProps> = ({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.28 }}
-          className="flex flex-col md:flex-row gap-4 pt-2"
+          className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-4 pt-2"
         >
-          <div className="relative flex-1 group">
+          <div className="relative flex-1 w-full min-w-0 group">
             <Search className="w-4 h-4 text-[#8EA6B4] group-hover:text-[#EAF4F8] group-focus-within:text-[#5CE1E6] absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 pointer-events-none" />
             <input
-              type="search"
+              type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions about AI accuracy, timelines, code ownership..."
+              placeholder="Search questions (e.g. AI accuracy, delivery, ownership)..."
               aria-label="Search FAQ questions"
-              className={`${INPUT_FIELD_CLASSES} !pl-11 !pr-4 !bg-none !border-[rgba(255,255,255,0.11)] !text-[#EAF4F8] placeholder:text-[#8EA6B4] focus:!border-[#5CE1E6] focus:!bg-white/[0.02] w-full `}
+              style={{ backgroundColor: 'transparent', backgroundImage: 'none' }}
+              className={`${INPUT_FIELD_CLASSES} !bg-transparent !bg-none focus:!bg-transparent focus:!bg-none !pl-11 ${searchQuery ? '!pr-10' : '!pr-4'} text-base sm:text-sm`}
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search query"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-[#8EA6B4] hover:text-[#EAF4F8] hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
             <FocusBeam />
           </div>
 
-          <div className="md:flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] overflow-x-auto scrollbar-none">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full lg:w-fit">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
@@ -130,7 +141,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`relative shrink-0 sm:shrink px-3.5 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`relative w-full lg:w-auto px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                     isActive
                       ? 'text-[#060B14]'
                       : 'text-[#8EA6B4] hover:text-[#EAF4F8]'

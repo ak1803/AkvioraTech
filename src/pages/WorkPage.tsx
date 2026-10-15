@@ -67,7 +67,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] self-start lg:self-end w-full sm:w-auto overflow-x-auto scrollbar-none sm:flex-wrap"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] self-start lg:self-end w-full lg:w-fit"
         >
           {[
             { id: 'all', label: 'All Systems' },
@@ -84,7 +84,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
                 onClick={() =>
                   setFilter(tab.id as 'all' | 'saas' | 'ai' | 'operations' | 'retail')
                 }
-                className={`relative shrink-0 sm:shrink px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer whitespace-nowrap ${
+                className={`relative w-full lg:w-auto px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                   isActive
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
