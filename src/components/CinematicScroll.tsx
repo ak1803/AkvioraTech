@@ -6,7 +6,9 @@ import {
   useMotionTemplate,
   useMotionValue,
   useReducedMotion,
+  useScroll,
   useSpring,
+  useTransform,
   type Variants,
 } from 'motion/react';
 import { ArrowRight, Sparkles, Cpu, Layers, Zap } from 'lucide-react';
@@ -472,7 +474,7 @@ export const HorizontalServicesShowcase: React.FC<{
       aria-label="Services"
       className="relative py-12 md:py-0 md:h-[215vh]"
     >
-      <div className="md:sticky md:top-0 md:h-[100svh] md:overflow-hidden overflow-visible flex flex-col md:justify-center">
+      <div className="md:sticky md:top-0 md:h-[88svh] md:overflow-hidden overflow-visible flex flex-col md:justify-center">
         <FadeUpReveal className="px-4 sm:px-8 lg:px-12 max-w-[1440px] w-full mx-auto mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="text-xs font-mono text-[#5CE1E6] mb-2 uppercase tracking-wider">
@@ -752,10 +754,22 @@ const ProcessStepCard: React.FC<{
 export const ScrollProcessTimeline: React.FC<{
   steps: ProcessStep[];
 }> = ({ steps }) => {
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const progressRatio = (activeStep + 1) / steps.length;
-  const orbPercent = `${(activeStep / Math.max(steps.length - 1, 1)) * 100}%`;
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 0.75', 'end 0.3'],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 24,
+    restDelta: 0.001,
+  });
+
+  const orbTop = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
 
   const handleStageSelect = (idx: number) => {
     setActiveStep(idx);
@@ -767,7 +781,8 @@ export const ScrollProcessTimeline: React.FC<{
 
   return (
     <div
-      className="relative mt-10 sm:mt-14 max-w-[1160px] mx-auto"
+      ref={containerRef}
+      className="relative mt-10 sm:mt-14 mx-auto"
     >
       {/* Interactive 8-Stage Scrubber Bar with Shared layoutId Spotlight */}
       <div className="mb-10 sm:mb-14 rounded-2xl border border-white/10 bg-[#060B14]/85 backdrop-blur-md p-3 sm:p-4">
@@ -823,8 +838,7 @@ export const ScrollProcessTimeline: React.FC<{
 
         {/* Scroll-driven glowing energy beam */}
         <motion.div
-          animate={{ scaleY: progressRatio }}
-          transition={{ type: 'spring', stiffness: 120, damping: 22 }}
+          style={{ scaleY: smoothProgress }}
           className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-[#5CE1E6] via-[#7A86FF] to-[#5CE1E6] shadow-[0_0_16px_rgba(92,225,230,0.8)]"
         />
 
@@ -832,8 +846,7 @@ export const ScrollProcessTimeline: React.FC<{
         {!prefersReducedMotion && (
           <motion.div
             aria-hidden="true"
-            animate={{ top: orbPercent }}
-            transition={{ type: 'spring', stiffness: 120, damping: 22 }}
+            style={{ top: orbTop }}
             className="pointer-events-none absolute left-4 md:left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-4 h-4 rounded-full bg-[#EAF4F8] shadow-[0_0_24px_6px_rgba(92,225,230,0.9)]"
           />
         )}

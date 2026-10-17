@@ -46,7 +46,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   return (
     <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
       {/* Header */}
-      <section className="pt-4 sm:pt-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
+      <section className="pt-4 sm:pt-2 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-10">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -60,10 +60,23 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             text="Products and systems shaped around real workflows."
             className="font-display font-bold text-[clamp(32px,6.4vw,90px)] max-w-[15ch] leading-[1.02] text-[#EAF4F8] break-words"
           />
+           <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, delay: 0.2 }}
+                    className="mt-5 sm:mt-6 max-w-[62ch] text-[#b8cdd8] text-base sm:text-lg"
+                  >
+                    Whether you need a customer-facing SaaS platform, an internal Akviora
+                    AI document assistant, or end-to-end WhatsApp and CRM automation, our
+                    engineering and UI/UX teams deliver connected systems under one roof.
+                  </motion.p>
         </div>
+      </section>
+      
 
-        {/* Interactive Filter Tabs with Shared layoutId Pill */}
-        <motion.div
+ <section className="space-y-6 sm:space-y-8">
+      {/* Interactive Filter Tabs with Shared layoutId Pill */}
+         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
@@ -106,7 +119,9 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             );
           })}
         </motion.div>
-      </section>
+ </section>
+
+
 
       {/* Bento Case Study Cards Grid */}
       <motion.section

@@ -269,7 +269,7 @@ export const AIPage: React.FC<AIPageProps> = ({
                   </span>
                 </div>
 
-                <div className="mt-4 flex flex-col justify-between flex-1">
+                <div className="mt-4 flex flex-col justify-center flex-1">
                   {idx === 0 && (
                     <div className="mb-4 relative flex items-center justify-center bg-transparent">
                       <SafeImage

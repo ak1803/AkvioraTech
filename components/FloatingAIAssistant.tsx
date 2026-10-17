@@ -422,7 +422,7 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
                   }}
                   className="shrink-0 px-4 pt-2.5 pb-2 border-b border-[rgba(255,255,255,0.06)] flex items-center gap-1.5 overflow-x-auto overscroll-x-contain cursor-grab active:cursor-grabbing select-none"
                 >
-                  <button
+                  {/* <button
                     type="button"
                     onClick={(e) => {
                       if (stripDragRef.current.moved) return;
@@ -462,7 +462,7 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
                     >
                       {p.title.replace(' Assistant', '')}
                     </button>
-                  ))}
+                  ))} */}
                 </div>
 
                 <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4 min-h-[160px] sm:min-h-[240px] max-h-[45vh] sm:max-h-[380px]">
