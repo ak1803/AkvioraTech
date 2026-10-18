@@ -5,13 +5,13 @@ import {
   ProcessStep,
   ServicePillar,
 } from '../types/akviora';
-import heroStudioImg from '../assets/images/hero_akviora_studio_1791414586807.jpg';
-import workKinetixImg from '../assets/images/work_kinetix_spatial_1791414610322.jpg';
-import workVeloxImg from '../assets/images/work_velox_automotive_1791414598887.jpg';
-import workAetherImg from '../assets/images/work_aether_chronograph_1791414632639.jpg';
-import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.jpg';
-import cosmicCompassImg from '../assets/images/cosmic_compass_app_1791931957974.jpg';
-import easyMartImg from '../assets/images/easymart_app_1791931975395.jpg';
+import heroStudioImg from '../assets/images/hero_akviora_studio_1791414586807.webp';
+import workKinetixImg from '../assets/images/work_kinetix_spatial_1791414610322.webp';
+import workVeloxImg from '../assets/images/work_velox_automotive_1791414598887.webp';
+import workAetherImg from '../assets/images/work_aether_chronograph_1791414632639.webp';
+import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
+import cosmicCompassImg from '../assets/images/cosmic_compass_app_1791931957974.webp';
+import easyMartImg from '../assets/images/easymart_app_1791931975395.webp';
 
 export const PAIN_POINTS: string[] = [
   'Scattered information',

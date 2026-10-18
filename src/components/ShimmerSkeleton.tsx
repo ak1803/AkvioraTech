@@ -190,30 +190,26 @@ export const CaseStudyCardSkeleton: React.FC<{ isWide?: boolean }> = ({
     role="status"
     aria-label="Loading case study"
     className={`${
-      isWide  ? 'md:col-span-6 lg:col-span-7' : 'md:col-span-6 lg:col-span-5'
+      isWide ? 'md:col-span-6 lg:col-span-7' : 'md:col-span-6 lg:col-span-5'
     } rounded-[28px] border border-[rgba(255,255,255,0.11)] bg-white/[0.02] overflow-hidden flex flex-col justify-between`}
   >
     <ShimmerBlock className="w-full aspect-[16/10] rounded-none border-0 border-b border-white/10" />
-  
-    <div className="lg:col-span-7 space-y-5">
+    <div className="p-5 sm:p-8 space-y-6">
       <div className="space-y-3">
         <ShimmerBlock className="h-3.5 w-40 rounded-md" />
         <ShimmerBlock className="h-8 sm:h-10 w-3/4 rounded-xl" />
         <ShimmerBlock className="h-4 w-full rounded-md" />
         <ShimmerBlock className="h-4 w-5/6 rounded-md" />
       </div>
-    </div>
-
-    <div className="lg:col-span-5 space-y-5 bg-[#060B14]/70 border border-[rgba(255,255,255,0.11)] rounded-2xl p-6">
-     {[0, 1, 2].map((i) => (
+      <div className="pt-4 border-t border-white/10 grid grid-cols-3 gap-3">
+        {[0, 1, 2].map((i) => (
           <div key={i} className="space-y-2">
             <ShimmerBlock className="h-7 w-20 rounded-lg" />
             <ShimmerBlock className="h-3 w-full rounded-md" />
           </div>
         ))}
+      </div>
     </div>
-
-
   </div>
 );
 

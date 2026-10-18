@@ -7,6 +7,8 @@
   --a: #5CE1E6;
   --b: #7A86FF;
   --ln: rgba(255, 255, 255, 0.11);
+  --header-bg: rgba(6, 11, 20, 0.82);
+  --card-bg: rgba(255, 255, 255, 0.03);
   box-sizing: border-box;
 }
 
@@ -40,6 +42,16 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
     scrollbar-width: none;
     -ms-overflow-style: none;
+    transition: background 0.3s ease, color 0.25s ease;
+  }
+
+  html.light body,
+  [data-theme="light"] body {
+    background:
+      radial-gradient(60vw 50vh at 70% 10%, rgba(2, 132, 199, 0.08), transparent),
+      radial-gradient(50vw 50vh at 10% 60%, rgba(79, 70, 229, 0.06), transparent),
+      #F8FAFC;
+    color: #0B1320;
   }
 
   /* Custom Akviora Theme Scrollbar for inner scrollable containers (modals, assistant, panels) */

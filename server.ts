@@ -5,6 +5,7 @@ import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GET as getBootstrap } from './app/api/bootstrap/route.ts';
 import { POST as postAIChat } from './app/api/ai/chat/route.ts';
+import { POST as postAIVoice } from './app/api/ai/voice/route.ts';
 import { POST as postAIBlueprint } from './app/api/ai/blueprint/route.ts';
 import {
   GET as getSuggestions,
@@ -57,6 +58,10 @@ async function startServer() {
 
   app.post('/api/ai/chat', (req, res) =>
     forwardToNextRoute(req, res, postAIChat)
+  );
+
+  app.post('/api/ai/voice', (req, res) =>
+    forwardToNextRoute(req, res, postAIVoice)
   );
 
   app.post('/api/ai/blueprint', (req, res) =>

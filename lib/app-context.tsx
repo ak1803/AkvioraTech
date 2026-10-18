@@ -14,6 +14,8 @@ import {
   signInWithGoogle,
   signOutUser,
   upvoteSuggestionInFirestore,
+  getLocalStoredUser,
+  saveLocalStoredUser,
 } from './firebase';
 import {
   AIBlueprint,
@@ -87,6 +89,7 @@ const AppContext = createContext<AppContextValue | null>(null);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+
   const [activePage, setActivePage] = useState<PageRoute>(() => {
     if (typeof window !== 'undefined') {
       const currentPath = window.location.pathname.toLowerCase();
@@ -95,7 +98,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     return 'home';
   });
 
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    return getLocalStoredUser();
+  });
   const [authReady, setAuthReady] = useState<boolean>(false);
   const [isBootstrapping, setIsBootstrapping] = useState<boolean>(true);
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false);
@@ -204,10 +209,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     },
   ]);
 
-  // Track Firebase Authentication readiness
+  // Track Firebase Authentication readiness and synchronize with local storage
   useEffect(() => {
+    const cached = getLocalStoredUser();
+    if (cached) {
+      setCurrentUser(cached);
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      if (user) {
+        setCurrentUser(user);
+        saveLocalStoredUser(user);
+      } else {
+        const stored = getLocalStoredUser();
+        if (stored) {
+          setCurrentUser(stored);
+        } else {
+          setCurrentUser(null);
+        }
+      }
       setAuthReady(true);
     });
     return () => unsubscribe();
@@ -423,6 +442,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const handleSignInWithGoogle = async (): Promise<User | null> => {
+    const user = await signInWithGoogle();
+    if (user) {
+      setCurrentUser(user);
+    }
+    return user;
+  };
+
+  const handleSignOutUser = async (): Promise<void> => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -432,8 +464,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         push,
         currentUser,
         authReady,
-        signInWithGoogle,
-        signOutUser,
+        signInWithGoogle: handleSignInWithGoogle,
+        signOutUser: handleSignOutUser,
         assistantOpen,
         setAssistantOpen,
         assistantPersona,

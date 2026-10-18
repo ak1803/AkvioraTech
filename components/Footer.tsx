@@ -96,11 +96,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row justify-between flex-wrap gap-3 text-sm text-[#8EA6B4]">
-          <span>© 2026 Akviora Technologies. All rights reserved.</span>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between flex-wrap gap-4 text-sm text-[#8EA6B4]">
+          <div className="flex items-center gap-3">
+            <span>© 2026 Akviora Technologies. All rights reserved.</span>
+          </div>
           <span>
-            Privacy Policy · Terms of Service · Cookie Policy · WCAG 2.1 AA
-            Compliant
+            Privacy Policy · Terms of Service · Cookie Policy · WCAG 2.1 AA Compliant
           </span>
         </div>
       </div>

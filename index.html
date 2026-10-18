@@ -3,6 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Favicon & Brand Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+
+    <script>
+      try {
+        localStorage.removeItem('akviora-theme');
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    </script>
     <title>Akviora Technologies | AI, Web & Digital Product Development</title>
     <meta name="description" content="Akviora Technologies builds AI solutions, websites, SaaS products, web applications, UI/UX experiences and business automation systems for growing businesses." />
     <meta name="keywords" content="Akviora Technologies, Akviora AI, AI product development, custom web applications, SaaS engineering, business workflow automation, UI/UX design agency" />

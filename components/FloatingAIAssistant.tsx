@@ -10,6 +10,9 @@ import {
   ArrowUpRight,
   ThumbsUp,
   CheckCircle2,
+  Mic,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import {
   AssistantPersonaId,
@@ -39,8 +42,8 @@ interface FloatingAIAssistantProps {
   onNewSuggestionSaved: (suggestion: UserSuggestion) => void;
   onUpvoteSuggestion: (id: string) => void;
   currentUserEmail?: string | null;
-  onSignInGoogle?: () => void;
-  onSignOut?: () => void;
+  onSignInGoogle?: () => void | Promise<any>;
+  onSignOut?: () => void | Promise<any>;
 }
 
 export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
@@ -88,15 +91,56 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
   const [latestSavedSuggestion, setLatestSavedSuggestion] =
     useState<UserSuggestion | null>(null);
   const [suggestionError, setSuggestionError] = useState('');
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const handleAuthSignIn = async () => {
+    if (!onSignInGoogle || isAuthenticating) return;
+    setIsAuthenticating(true);
+    try {
+      await onSignInGoogle();
+    } finally {
+      setIsAuthenticating(false);
+    }
+  };
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const personaStripRef = useRef<HTMLDivElement | null>(null);
-  const stripDragRef = useRef({
-    isDown: false,
-    startX: 0,
-    scrollLeft: 0,
-    moved: false,
-  });
+
+  const scrollPersonaStrip = (direction: 'left' | 'right') => {
+    if (personaStripRef.current) {
+      const scrollAmount = direction === 'left' ? -180 : 180;
+      personaStripRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectPersona = (personaId: AssistantPersonaId) => {
+    setSelectedPersona(personaId);
+    const personaObj = AI_ASSISTANTS.find((a) => a.id === personaId);
+    const isStrategy = personaId === 'strategy' || !personaObj;
+
+    const samplePrompts = personaObj?.samplePrompts || [
+      'Which AI Assistant fits my business workflow?',
+      'How does Akviora automate spreadsheets & WhatsApp?',
+      'Estimate timeline for a custom SaaS web app',
+    ];
+
+    const greetingText = !isStrategy && personaObj
+      ? `Switched to **${personaObj.title}** mode.\n\n${personaObj.fullDesc}\n\n**Core Capabilities:**\n${personaObj.capabilities.map((c) => `• ${c}`).join('\n')}\n\n*Click any prompt below or type your question:*`
+      : `Switched to **All Strategy Consultation**.\n\nI can analyze your business bottlenecks, evaluate AI opportunities, or help scope custom SaaS software and automation pipelines.\n\n*Click any prompt below or type your question:*`;
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `switch-${Date.now()}`,
+        role: 'assistant',
+        personaId,
+        content: greetingText,
+        timestamp: new Date().toISOString(),
+        suggestions: samplePrompts,
+        recommendedService: isStrategy ? 'AI Solutions & Business Automation' : personaObj.title,
+      },
+    ]);
+  };
 
   useEffect(() => {
     if (initialPersona) {
@@ -163,7 +207,7 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
 
     try {
       const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 30000);
+      const timeoutId = window.setTimeout(() => controller.abort(), 20000);
       const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -331,28 +375,56 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
                   <button
                     type="button"
                     onClick={onSignOut}
-                    title={`Signed in as ${currentUserEmail}`}
-                    className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-[#5CE1E6]/15 border border-[#5CE1E6]/35 text-[#5CE1E6] hover:bg-[#5CE1E6]/25 transition-colors cursor-pointer whitespace-nowrap"
+                    title={`Signed in as ${currentUserEmail} · Click to sign out`}
+                    className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5"
                   >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="sm:hidden">Sign Out</span>
                     <span className="hidden sm:inline">
-                      Cloud Sync Active · Sign Out
+                      {currentUserEmail.split('@')[0]} · Sign Out
                     </span>
                   </button>
                 ) : (
                   onSignInGoogle && (
                     <button
                       type="button"
-                      onClick={onSignInGoogle}
-                      className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-white/5 border border-white/15 text-[#EAF4F8] hover:border-[#5CE1E6]/50 transition-colors cursor-pointer whitespace-nowrap"
+                      onClick={handleAuthSignIn}
+                      disabled={isAuthenticating}
+                      title="Sign in with Google for Cloud Sync & Admin access"
+                      className="text-[11px] px-2.5 sm:px-3 py-1 rounded-lg bg-white/5 border border-white/20 text-[#EAF4F8] hover:border-[#5CE1E6]/60 hover:bg-white/10 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-1.5 font-medium disabled:opacity-50"
                     >
-                      <span className="sm:hidden">Cloud Sync</span>
-                      <span className="hidden sm:inline">
-                        Sign In for Cloud Sync
-                      </span>
+                      {isAuthenticating ? (
+                        <>
+                          <span className="w-3 h-3 border-2 border-[#5CE1E6] border-t-transparent rounded-full animate-spin" />
+                          <span>Signing In...</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                          </svg>
+                          <span className="sm:hidden">Sign In</span>
+                          <span className="hidden sm:inline">Sign In for Cloud Sync</span>
+                        </>
+                      )}
                     </button>
                   )
                 )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    onToggle();
+                    onNavigate('ai');
+                  }}
+                  title="Try Gemini Voice Assistant on the AI page"
+                  className="text-[11px] px-2 sm:px-2.5 py-1 rounded-lg bg-[#5CE1E6]/15 hover:bg-[#5CE1E6]/25 border border-[#5CE1E6]/35 text-[#5CE1E6] inline-flex items-center gap-1 transition-colors cursor-pointer whitespace-nowrap"
+                >
+                  <Mic className="w-3 h-3 text-[#5CE1E6] animate-pulse" />
+                  <span>Voice AI</span>
+                </button>
                 <button
                   type="button"
                   onClick={onToggle}
@@ -392,77 +464,84 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
 
             {activeTab === 'chat' ? (
               <>
-                <div
-                  ref={personaStripRef}
-                  onMouseDown={(e) => {
-                    const el = personaStripRef.current;
-                    if (!el) return;
-                    stripDragRef.current = {
-                      isDown: true,
-                      startX: e.pageX - el.offsetLeft,
-                      scrollLeft: el.scrollLeft,
-                      moved: false,
-                    };
-                  }}
-                  onMouseLeave={() => {
-                    stripDragRef.current.isDown = false;
-                  }}
-                  onMouseUp={() => {
-                    stripDragRef.current.isDown = false;
-                  }}
-                  onMouseMove={(e) => {
-                    const el = personaStripRef.current;
-                    if (!el || !stripDragRef.current.isDown) return;
-                    const x = e.pageX - el.offsetLeft;
-                    const walk = x - stripDragRef.current.startX;
-                    if (Math.abs(walk) > 4) {
-                      stripDragRef.current.moved = true;
-                      el.scrollLeft = stripDragRef.current.scrollLeft - walk;
-                    }
-                  }}
-                  className="shrink-0 px-4 pt-2.5 pb-2 border-b border-[rgba(255,255,255,0.06)] flex items-center gap-1.5 overflow-x-auto overscroll-x-contain cursor-grab active:cursor-grabbing select-none"
-                >
-                  {/* <button
+                {/* Persona selector strip (div:nth-of-type(3)) */}
+                <div className="shrink-0 relative border-b border-[rgba(255,255,255,0.08)] bg-[#050912]/80 backdrop-blur-xs flex items-center">
+                  <button
                     type="button"
-                    onClick={(e) => {
-                      if (stripDragRef.current.moved) return;
-                      setSelectedPersona('strategy');
-                      e.currentTarget.scrollIntoView({
-                        behavior: 'smooth',
-                        inline: 'center',
-                        block: 'nearest',
-                      });
-                    }}
-                    className={`shrink-0 px-2.5 py-1 rounded-lg text-xs whitespace-nowrap cursor-pointer transition-colors ${
-                      selectedPersona === 'strategy'
-                        ? 'bg-white/15 text-[#5CE1E6] font-medium'
-                        : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
-                    }`}
+                    onClick={() => scrollPersonaStrip('left')}
+                    aria-label="Scroll personas left"
+                    className="p-1.5 pl-2 text-[#8EA6B4] hover:text-[#5CE1E6] hover:bg-white/5 transition-colors cursor-pointer shrink-0 z-10"
                   >
-                    All Strategy
+                    <ChevronLeft className="w-4 h-4" />
                   </button>
-                  {AI_ASSISTANTS.map((p) => (
+
+                  <div
+                    ref={personaStripRef}
+                    className="flex-1 px-1 py-2 flex items-center gap-1.5 overflow-x-auto overscroll-x-contain scroll-smooth scrollbar-none"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                  >
                     <button
-                      key={p.id}
                       type="button"
                       onClick={(e) => {
-                        if (stripDragRef.current.moved) return;
-                        setSelectedPersona(p.id);
+                        handleSelectPersona('strategy');
                         e.currentTarget.scrollIntoView({
                           behavior: 'smooth',
                           inline: 'center',
                           block: 'nearest',
                         });
                       }}
-                      className={`shrink-0 px-2.5 py-1 rounded-lg text-xs whitespace-nowrap cursor-pointer transition-colors ${
-                        selectedPersona === p.id
-                          ? 'bg-white/15 text-[#5CE1E6] font-medium'
-                          : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
+                      className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer transition-all duration-150 border ${
+                        selectedPersona === 'strategy'
+                          ? 'bg-gradient-to-r from-[#5CE1E6] to-[#7A86FF] text-[#04121c] font-semibold border-transparent shadow-[0_0_12px_rgba(92,225,230,0.35)]'
+                          : 'bg-white/[0.04] text-[#8EA6B4] hover:text-[#EAF4F8] hover:bg-white/[0.08] border-white/10'
                       }`}
                     >
-                      {p.title.replace(' Assistant', '')}
+                      <span className="flex items-center gap-1.5">
+                        {selectedPersona === 'strategy' && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#04121c] animate-pulse" />
+                        )}
+                        <span>All Strategy</span>
+                      </span>
                     </button>
-                  ))} */}
+                    {AI_ASSISTANTS.map((p) => {
+                      const isSelected = selectedPersona === p.id;
+                      return (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={(e) => {
+                            handleSelectPersona(p.id);
+                            e.currentTarget.scrollIntoView({
+                              behavior: 'smooth',
+                              inline: 'center',
+                              block: 'nearest',
+                            });
+                          }}
+                          className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer transition-all duration-150 border ${
+                            isSelected
+                              ? 'bg-[#5CE1E6] text-[#04121c] font-semibold border-[#5CE1E6] shadow-[0_0_12px_rgba(92,225,230,0.35)]'
+                              : 'bg-white/[0.04] text-[#8EA6B4] hover:text-[#EAF4F8] hover:bg-white/[0.08] border-white/10'
+                          }`}
+                        >
+                          <span className="flex items-center gap-1.5">
+                            {isSelected && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#04121c] animate-pulse" />
+                            )}
+                            <span>{p.title.replace(' Assistant', '')}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => scrollPersonaStrip('right')}
+                    aria-label="Scroll personas right"
+                    className="p-1.5 pr-2 text-[#8EA6B4] hover:text-[#5CE1E6] hover:bg-white/5 transition-colors cursor-pointer shrink-0 z-10"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
 
                 <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4 min-h-[160px] sm:min-h-[240px] max-h-[45vh] sm:max-h-[380px]">
@@ -540,7 +619,11 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
                       type="text"
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask about AI assistants, SaaS, automation..."
+                      placeholder={
+                        selectedPersona === 'strategy'
+                          ? 'Ask Akviora AI about SaaS, automation, AI agents...'
+                          : `Ask ${AI_ASSISTANTS.find((p) => p.id === selectedPersona)?.title || 'AI Assistant'}...`
+                      }
                       aria-label="Ask Akviora AI Assistant"
                       className={COMPACT_INPUT_FIELD_CLASSES}
                     />
@@ -550,9 +633,13 @@ export const FloatingAIAssistant: React.FC<FloatingAIAssistantProps> = ({
                     type="submit"
                     disabled={isLoading || !input.trim()}
                     aria-label="Send message"
-                    className="akviora-btn-gradient p-2.5 rounded-xl disabled:opacity-40 cursor-pointer shrink-0"
+                    className="akviora-btn-gradient p-2.5 rounded-xl disabled:opacity-40 cursor-pointer shrink-0 transition-all flex items-center justify-center min-w-[38px] min-h-[38px]"
                   >
-                    <Send className="w-4 h-4 text-[#04121c]" />
+                    {isLoading ? (
+                      <span className="w-4 h-4 border-2 border-[#04121c] border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <Send className="w-4 h-4 text-[#04121c]" />
+                    )}
                   </button>
                 </form>
               </>

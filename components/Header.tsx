@@ -37,6 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
   const handleNavClick = (page: PageRoute) => {
     onNavigate(page);
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -160,21 +161,21 @@ export const Header: React.FC<HeaderProps> = ({
                   </button>
                 );
               })}
-              <div className="pt-2 flex flex-wrap gap-3">
+              <div className="pt-2 flex gap-2.5">
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenAssistant();
                   }}
-                  className="flex-1 py-2.5 px-4 rounded-full border border-[#5CE1E6]/40 bg-[#5CE1E6]/10 text-[#5CE1E6] text-sm font-medium text-center"
+                  className="flex-1 py-2.5 px-3 rounded-full border border-[#5CE1E6]/40 bg-[#5CE1E6]/10 text-[#5CE1E6] text-xs sm:text-sm font-medium text-center"
                 >
                   Ask AI Assistant
                 </button>
                 <button
                   type="button"
                   onClick={() => handleNavClick('contact')}
-                  className="flex-1 py-2.5 px-4 rounded-full bg-[#EAF4F8] text-[#06101a] text-sm font-medium text-center"
+                  className="flex-1 py-2.5 px-3 rounded-full bg-[#EAF4F8] text-[#06101a] text-xs sm:text-sm font-medium text-center"
                 >
                   Start a Project
                 </button>

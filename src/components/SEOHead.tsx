@@ -294,8 +294,10 @@ export const SEOHead: React.FC<{ activePage: PageRoute }> = ({ activePage }) => 
     );
     setOrCreateMeta('name', 'author', 'Akviora Technologies');
 
-    // 3. Canonical URL
+    // 3. Canonical URL & Favicons
     setOrCreateLink('canonical', canonicalUrl);
+    setOrCreateLink('icon', '/favicon.svg');
+    setOrCreateLink('apple-touch-icon', '/favicon.svg');
 
     // 4. OpenGraph Tags
     setOrCreateMeta('property', 'og:type', meta.ogType);

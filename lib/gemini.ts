@@ -356,3 +356,138 @@ Return a structured JSON blueprint with:
 
   return buildSmartBlueprint({ businessType, bottleneck });
 }
+
+export async function generateVoiceAssistantResponse(params: {
+  message: string;
+  personaId?: string;
+  voiceName?: string;
+  language?: string;
+  history?: { role: string; content: string }[];
+}) {
+  const {
+    message,
+    personaId,
+    voiceName = 'Zephyr',
+    language = 'English',
+    history,
+  } = params;
+  const persona = AI_ASSISTANTS.find((p) => p.id === personaId);
+  const personaTitle = persona?.title || 'Lead AI Architect';
+
+  const ai = getGenAIClient();
+  let replyText = '';
+  let audioBase64: string | null = null;
+  let suggestedFollowUps: string[] = [
+    'How do we get started?',
+    'What is the estimated timeline?',
+    'Can this integrate with WhatsApp and CRM?',
+  ];
+
+  if (ai) {
+    try {
+      const recentHistory = Array.isArray(history)
+        ? history
+            .slice(-6)
+            .map((m) => `${m.role === 'user' ? 'User' : 'Akviora AI'}: ${m.content}`)
+            .join('\n')
+        : '';
+
+      const isHindi =
+        language.toLowerCase().includes('hindi') ||
+        language.toLowerCase().includes('hi') ||
+        /[\u0900-\u097F]/.test(message);
+
+      const languageInstruction = isHindi
+        ? 'Language Requirement: You MUST reply fluently, idiomatically, warmly, and completely in conversational Hindi (Devanagari script). Use natural, everyday business Hindi that sounds pleasant when spoken aloud. Do NOT reply in English.'
+        : `Language Requirement: You MUST reply fluently, idiomatically, and completely in the "${language}" language.`;
+
+      const voicePrompt = `You are speaking aloud as the Akviora Gemini Voice Assistant in the role of "${personaTitle}".
+${languageInstruction}
+Keep your response conversational, engaging, concise, and natural to listen to (2 to 4 sentences maximum, strictly under 70 words).
+Do NOT include markdown asterisks, bullet points, headers, or URL links, as this will be read directly by text-to-speech.
+
+Recent Dialogue:
+${recentHistory}
+
+User Query: ${message}`;
+
+      const textRes = await generateWithModelFallback(
+        ai,
+        voicePrompt,
+        {
+          systemInstruction: AKVIORA_SYSTEM_INSTRUCTION,
+        }
+      );
+
+      if (textRes.text) {
+        replyText = textRes.text.trim().replace(/[*_#`~\[\]]/g, '');
+      }
+
+      // Try synthesizing voice audio with gemini-3.8-flash-tts with fast timeout
+      if (replyText) {
+        try {
+          const ttsResponse = await withTimeout(
+            ai.models.generateContent({
+              model: 'gemini-3.8-flash-tts',
+              contents: [
+                {
+                  role: 'user',
+                  parts: [
+                    {
+                      text: replyText,
+                      speechMetadata: {
+                        style: 'Clear, engaging, professional voice assistant',
+                      },
+                    },
+                  ],
+                },
+              ],
+              config: {
+                responseModalities: ['AUDIO'],
+                speechConfig: {
+                  voiceConfig: {
+                    prebuiltVoiceConfig: { voiceName: voiceName || 'Zephyr' },
+                  },
+                },
+              },
+            }),
+            3500
+          );
+
+          const candData =
+            ttsResponse.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+          if (candData) {
+            audioBase64 = candData;
+          }
+        } catch (ttsErr: any) {
+          console.warn('TTS fast fallback to browser speech synthesis:', ttsErr?.message || ttsErr);
+        }
+      }
+    } catch (err) {
+      console.error('Gemini voice generation fallback:', err);
+    }
+  }
+
+  let phoneticReply = '';
+  // Fallback if no reply generated (or offline/missing API key)
+  if (!replyText) {
+    const fallback = buildSmartContextualReply({ message, personaId, language, history });
+    replyText = fallback.reply.replace(/[*_#`~\[\]]/g, '');
+    phoneticReply = fallback.phoneticReply || '';
+    if (fallback.suggestedFollowUps?.length) {
+      suggestedFollowUps = fallback.suggestedFollowUps;
+    }
+  }
+
+  return {
+    reply: replyText,
+    phoneticReply,
+    audioData: audioBase64,
+    audioMime: 'audio/wav',
+    voiceName,
+    language,
+    personaTitle,
+    suggestedFollowUps,
+  };
+}
+

@@ -79,12 +79,8 @@ const LayoutShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         onNewSuggestionSaved={addSuggestionState}
         onUpvoteSuggestion={upvoteSuggestion}
         currentUserEmail={currentUser?.email}
-        onSignInGoogle={() => {
-          signInWithGoogle().catch(() => {});
-        }}
-        onSignOut={() => {
-          signOutUser().catch(() => {});
-        }}
+        onSignInGoogle={signInWithGoogle}
+        onSignOut={signOutUser}
       />
     </div>
   );

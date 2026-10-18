@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronDown, Search, MessageSquare } from 'lucide-react';
+import { ChevronDown, Search, MessageSquare, X } from 'lucide-react';
 import { AssistantPersonaId, FAQItem, PageRoute } from '../types/akviora';
 import { FAQ_ITEMS } from '../data/akvioraData';
 import {
@@ -103,58 +103,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({
         </motion.p>
 
         {/* Search & Filter Controls */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.28 }}
-          className="flex flex-col md:flex-row gap-4 pt-2"
-        >
-          <div className="relative flex-1 group">
-            <Search className="w-4 h-4 text-[#8EA6B4] group-hover:text-[#EAF4F8] group-focus-within:text-[#5CE1E6] absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200 pointer-events-none" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions about AI accuracy, timelines, code ownership..."
-              aria-label="Search FAQ questions"
-              className={`${INPUT_FIELD_CLASSES} !pl-11 !pr-4 !bg-none !border-[rgba(255,255,255,0.11)] !text-[#EAF4F8] placeholder:text-[#8EA6B4] focus:!border-[#5CE1E6] focus:!bg-white/[0.02] w-full `}
-            />
-            <FocusBeam />
-          </div>
-
-          <div className="md:flex gap-1.5 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] overflow-x-auto scrollbar-none">
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`relative shrink-0 sm:shrink px-3.5 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
-                    isActive
-                      ? 'text-[#060B14]'
-                      : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="faqCategoryActiveTab"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 340,
-                        damping: 28,
-                      }}
-                      className="absolute inset-0 rounded-xl bg-[#EAF4F8] shadow-sm"
-                    />
-                  )}
-                  <span className="relative z-10">{cat}</span>
-                </button>
-              );
-            })}
-          </div>
-        </motion.div> */}
-
-  <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.28 }}
@@ -215,7 +164,6 @@ export const FAQPage: React.FC<FAQPageProps> = ({
             })}
           </div>
         </motion.div>
-        
       </section>
 
       {/* Accordion List */}

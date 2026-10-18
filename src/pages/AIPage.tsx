@@ -24,7 +24,7 @@ import {
   SpotlightBentoTile,
 } from '../components/CinematicScroll';
 import { MagneticButton, SafeImage } from '../components/MagneticButton';
-import customerAssistantMetallicImg from '../assets/images/customer_assistant_metallic_1791729500313.jpg';
+import customerAssistantMetallicImg from '../assets/images/customer_assistant_metallic_1791729500313.webp';
 import {
   AnimatedSelect,
   FocusBeam,
@@ -37,6 +37,7 @@ import {
   SuggestionCardSkeleton,
   usePageContentLoading,
 } from '../components/ShimmerSkeleton';
+import { GeminiVoiceAssistant } from '../components/GeminiVoiceAssistant';
 
 interface AIPageProps {
   onNavigate: (page: PageRoute) => void;
@@ -242,7 +243,32 @@ export const AIPage: React.FC<AIPageProps> = ({
         </motion.p>
       </section>
 
-      {/* 2. Interactive 6-Assistant Bento Grid + Live Persona Inspector */}
+      {/* 2. Interactive Gemini Voice Assistant Studio */}
+      <section className="space-y-6">
+        <FadeUpReveal>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-2">
+            <div>
+              <div className="text-[11px] sm:text-xs font-mono text-[#5CE1E6] mb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#5CE1E6] animate-pulse shrink-0" />
+                <span className="truncate">VOICE AI CAPABILITY · GEMINI 3.8 LIVE SPEECH</span>
+              </div>
+              <h2 className="font-display font-bold text-2xl xs:text-3xl sm:text-4xl lg:text-5xl text-[#EAF4F8] tracking-tight leading-tight">
+                Akviora Gemini Voice Assistant
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-[#8EA6B4] max-w-md leading-relaxed">
+              Experience hands-free speech dialogue with real-time waveform visualizers, voice persona switching, and Gemini TTS audio synthesis.
+            </p>
+          </div>
+        </FadeUpReveal>
+
+        <GeminiVoiceAssistant
+          initialPersonaId={selectedAssistantId}
+          onExploreServices={() => onNavigate('services')}
+        />
+      </section>
+
+      {/* 3. Interactive 6-Assistant Bento Grid + Live Persona Inspector */}
       <section className="space-y-8 sm:space-y-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(190px,auto)] gap-4">
           {AI_ASSISTANTS.map((assistant, idx) => {
@@ -269,7 +295,7 @@ export const AIPage: React.FC<AIPageProps> = ({
                   </span>
                 </div>
 
-                <div className="mt-4 flex flex-col justify-center flex-1">
+                <div className="mt-4 flex flex-col justify-between flex-1">
                   {idx === 0 && (
                     <div className="mb-4 relative flex items-center justify-center bg-transparent">
                       <SafeImage
