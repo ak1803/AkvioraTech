@@ -46,13 +46,13 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   return (
     <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
       {/* Header */}
-      <section className="pt-4 sm:pt-8 space-y-6 sm:space-y-8">
-        <div className="space-y-4 sm:space-y-5">
+      <section className="pt-4 sm:pt-2 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-10">
+        <div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="text-xs font-mono text-[#5CE1E6]"
+            className="text-xs font-mono text-[#5CE1E6] mb-4"
           >
             03 · SELECTED WORK &amp; PRODUCTION SYSTEMS
           </motion.div>
@@ -60,30 +60,27 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             text="Products and systems shaped around real workflows."
             className="font-display font-bold text-[clamp(32px,6.4vw,90px)] max-w-[15ch] leading-[1.02] text-[#EAF4F8] break-words"
           />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-            className="max-w-[62ch] text-[#b8cdd8] text-base sm:text-lg"
-          >
-            Explore real-world SaaS platforms, AI automation systems, and enterprise workflow architectures designed and shipped by Akviora Technologies.
-          </motion.p>
+           <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, delay: 0.2 }}
+                    className="mt-5 sm:mt-6 max-w-[62ch] text-[#b8cdd8] text-base sm:text-lg"
+                  >
+                    Whether you need a customer-facing SaaS platform, an internal Akviora
+                    AI document assistant, or end-to-end WhatsApp and CRM automation, our
+                    engineering and UI/UX teams deliver connected systems under one roof.
+                  </motion.p>
         </div>
-
-       
       </section>
+      
 
-      {/* Bento Case Study Cards Grid */}
-      <motion.section
-        layout
-        className="grid grid-cols-1 md:grid-cols-12 gap-6"
-      >
-         {/* Interactive Filter Tabs placed after page heading */}
-        <motion.div
+ <section className="space-y-6 sm:space-y-8">
+      {/* Interactive Filter Tabs with Shared layoutId Pill */}
+         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] w-full sm:w-fit"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] self-start lg:self-end w-full lg:w-fit"
         >
           {[
             { id: 'all', label: 'All Systems' },
@@ -100,7 +97,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
                 onClick={() =>
                   setFilter(tab.id as 'all' | 'saas' | 'ai' | 'operations' | 'retail')
                 }
-                className={`relative px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
+                className={`relative w-full lg:w-auto px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                   isActive
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -117,11 +114,20 @@ export const WorkPage: React.FC<WorkPageProps> = ({
                     className="absolute inset-0 rounded-xl bg-[#EAF4F8] shadow-sm"
                   />
                 )}
-                <span className="relative z-10 font-semibold">{tab.label}</span>
+                <span className="relative z-10">{tab.label}</span>
               </button>
             );
           })}
         </motion.div>
+ </section>
+
+
+
+      {/* Bento Case Study Cards Grid */}
+      <motion.section
+        layout
+        className="grid grid-cols-1 md:grid-cols-12 gap-6"
+      >
         <AnimatePresence mode="popLayout">
           {switchingFilter ? (
             <React.Fragment key="work-skeleton-grid">
