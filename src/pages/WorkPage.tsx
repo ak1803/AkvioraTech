@@ -70,7 +70,15 @@ export const WorkPage: React.FC<WorkPageProps> = ({
           </motion.p>
         </div>
 
-        {/* Interactive Filter Tabs placed after page heading */}
+       
+      </section>
+
+      {/* Bento Case Study Cards Grid */}
+      <motion.section
+        layout
+        className="grid grid-cols-1 md:grid-cols-12 gap-6"
+      >
+         {/* Interactive Filter Tabs placed after page heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,13 +122,6 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             );
           })}
         </motion.div>
-      </section>
-
-      {/* Bento Case Study Cards Grid */}
-      <motion.section
-        layout
-        className="grid grid-cols-1 md:grid-cols-12 gap-6"
-      >
         <AnimatePresence mode="popLayout">
           {switchingFilter ? (
             <React.Fragment key="work-skeleton-grid">

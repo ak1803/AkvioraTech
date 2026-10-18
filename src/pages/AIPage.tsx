@@ -224,7 +224,7 @@ export const AIPage: React.FC<AIPageProps> = ({
           transition={{ duration: 0.45 }}
           className="text-xs font-mono text-[#5CE1E6] mb-4"
         >
-          02 · AKVIORA AI STUDIO · INTELLIGENT WORKFLOW ARCHITECTURE
+          AKVIORA AI STUDIO 
         </motion.div>
         <KineticHeadline
           text="What if your business had an assistant that never forgets the process?"
@@ -432,7 +432,7 @@ export const AIPage: React.FC<AIPageProps> = ({
                 value={bottleneck}
                 onChange={(e) => setBottleneck(e.target.value)}
                 placeholder="e.g., Our sales team spends 3 hours daily answering repetitive WhatsApp pricing questions and copying leads into spreadsheets."
-                className={`${INPUT_FIELD_CLASSES} resize-y`}
+                className={`${INPUT_FIELD_CLASSES} resize-y, min-height:89px`}
               />
               <FocusBeam className="bottom-1.5 left-4 right-4" />
             </div>

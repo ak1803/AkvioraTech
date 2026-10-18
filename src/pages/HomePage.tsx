@@ -270,11 +270,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               text="Technology built around the way your business works."
               className="font-display font-bold text-[clamp(36px,8.5vw,64px)] lg:text-[clamp(58px,5.6vw,100px)] xl:text-[84px] 2xl:text-[100px] leading-[1.02] tracking-[-0.035em] text-[#EAF4F8] break-words"
             />
-
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1]}}
               className="text-[#b8cdd8] max-w-[54ch] text-[15px] sm:text-[17px] leading-[1.6] mt-5 sm:mt-7"
             >
               Akviora Technologies designs and builds modern web applications,
@@ -293,8 +292,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 variant="gradient"
                 magnetic
                 onClick={() => onNavigate('contact')}
-                className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
-              >
+                className=" sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base">
                 Start a Project
               </MagneticButton>
 
@@ -887,7 +885,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. STATEMENT & PAIN POINTS */}
       <section
         ref={statementSectionRef}
-        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-14 sm:pt-[14vh] sm:pb-[14vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
+        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-14 sm:pt-[14vh] sm:pb-[13vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
