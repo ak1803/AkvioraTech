@@ -10,7 +10,7 @@ import workKinetixImg from '../assets/images/NextGen _IOT.webp';
 import workVeloxImg from '../assets/images/NeuroNova.webp';
 import workAetherImg from '../assets/images/LuminousVision.webp';
 // import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
-import cosmicCompassImg from '../assets/images/CosmicCompass_app_1791931957974.webp';
+import cosmicCompassImg from '../assets/images/CosmicCompass.webp';
 import easyMartImg from '../assets/images/EasyMart.webp';
 
 export const PAIN_POINTS: string[] = [
