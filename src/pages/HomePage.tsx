@@ -583,8 +583,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Key Data Nodes on Spline */}
                 {[
-                  { cx: 185, cy: 263 },
-                  { cx: 295, cy: 222 },
+                  { cx: 190, cy: 263 },
+                  { cx: 300, cy: 225 },
                   { cx: 405, cy: 176 },
                   { cx: 515, cy: 138 },
                 ].map((pt, idx) => (
@@ -610,9 +610,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 ))}
 
                 {/* Peak Callout Tag inside Chart */}
-                <g transform="translate(342, 118)">
+                <g transform="translate(510, 260)">
                   <rect
-                    width="132"
+                    width="150"
                     height="42"
                     rx="10"
                     fill="#0A1628"
@@ -885,7 +885,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. STATEMENT & PAIN POINTS */}
       <section
         ref={statementSectionRef}
-        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-14 sm:pt-[14vh] sm:pb-[13vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
+        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-14 sm:pt-[14vh] sm:pb-[12vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
