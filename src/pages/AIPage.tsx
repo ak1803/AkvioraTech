@@ -24,7 +24,7 @@ import {
   SpotlightBentoTile,
 } from '../components/CinematicScroll';
 import { MagneticButton, SafeImage } from '../components/MagneticButton';
-import customerAssistantMetallicImg from '../assets/images/customer_assistant_metallic_1791729500313.webp';
+import customerAssistantMetallicImg from '../assets/images/AIPage.webp';
 import {
   AnimatedSelect,
   FocusBeam,

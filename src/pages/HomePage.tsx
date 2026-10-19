@@ -300,7 +300,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 type="button"
                 whileHover={{ x: 4 }}
                 onClick={() => onNavigate('work')}
-                className="text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium whitespace-nowrap shrink-0"
+                className="text-[#EAF4F8] border-b-[1.5px] sm:text-base border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium whitespace-nowrap shrink-0"
               >
                 Explore Our Work
               </motion.button>
@@ -849,13 +849,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Mini Animated Vector Sparkline */}
                 <path
-                  d="M386 492 L 426 486 L 466 474 L 506 478 L 546 462 L 586 452 L 626 436"
+                  d="M386 492 L 426 486 L 466 474 L 506 487 L 553 470 L 595 474 L 620 453"
                   stroke="#5CE1E6"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <circle cx="626" cy="436" r="4" fill="#5CE1E6">
+                <circle cx="620" cy="452" r="4" fill="#5CE1E6">
                   <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" />
                 </circle>
               </g>

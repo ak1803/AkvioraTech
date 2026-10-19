@@ -20,7 +20,7 @@ import {
   AboutPageSkeleton,
   usePageContentLoading,
 } from '../components/ShimmerSkeleton';
-import aboutMetallicAiCoreImg from '../assets/images/about_metallic_ai_core_1791646465069.jpg';
+import aboutMetallicAiCoreImg from '../assets/images/aboutPage.webp';
 
 interface AboutPageProps {
   onNavigate: (page: PageRoute) => void;
