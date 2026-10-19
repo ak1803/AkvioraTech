@@ -215,7 +215,7 @@ export const AIPage: React.FC<AIPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. AI Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -224,7 +224,7 @@ export const AIPage: React.FC<AIPageProps> = ({
           transition={{ duration: 0.45 }}
           className="text-xs font-mono text-[#5CE1E6] mb-4"
         >
-          AKVIORA AI STUDIO 
+         02 . AKVIORA AI STUDIO 
         </motion.div>
         <KineticHeadline
           text="What if your business had an assistant that never forgets the process?"

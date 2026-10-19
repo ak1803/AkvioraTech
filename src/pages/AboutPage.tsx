@@ -38,7 +38,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. About Hero */}
       <section className="pt-4 sm:pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
         <div className="lg:col-span-8">

@@ -5,13 +5,13 @@ import {
   ProcessStep,
   ServicePillar,
 } from '../types/akviora';
-import heroStudioImg from '../assets/images/hero_akviora_studio_1791414586807.webp';
-import workKinetixImg from '../assets/images/work_kinetix_spatial_1791414610322.webp';
-import workVeloxImg from '../assets/images/work_velox_automotive_1791414598887.webp';
-import workAetherImg from '../assets/images/work_aether_chronograph_1791414632639.webp';
-import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
-import cosmicCompassImg from '../assets/images/cosmic_compass_app_1791931957974.webp';
-import easyMartImg from '../assets/images/easymart_app_1791931975395.webp';
+import heroStudioImg from '../assets/images/PayTrack.webp';
+import workKinetixImg from '../assets/images/NextGen _IOT.webp';
+import workVeloxImg from '../assets/images/NeuroNova.webp';
+import workAetherImg from '../assets/images/LuminousVision.webp';
+// import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
+import cosmicCompassImg from '../assets/images/CosmicCompass_app_1791931957974.webp';
+import easyMartImg from '../assets/images/EasyMart.webp';
 
 export const PAIN_POINTS: string[] = [
   'Scattered information',
@@ -357,25 +357,25 @@ export const CASE_STUDIES: CaseStudy[] = [
     featured: true,
   },
   {
-    id: 'omniflow',
-    title: 'OmniFlow',
-    category: 'Enterprise Workflow Orchestration',
-    sector: 'Business Systems & Operations Automation',
+    id: 'luminousvision',
+    title: 'Luminous Vision',
+    category: 'Optical Hospital & Eye Care Management',
+    sector: 'HealthTech & Ophthalmology',
     year: '2025',
     duration: '6 Weeks',
     image: workAetherImg,
     summary:
-      'Zero-code operational workflow builder, multi-tiered executive approval routing, and cross-departmental business process orchestration engine.',
+      'A comprehensive eye care platform for online appointments, ophthalmologist consultations, vision testing, digital prescriptions, optical product management, and personalized patient care.',
     challenge:
-      'Operations teams spent hundreds of hours weekly handling purchase orders, vendor on-boarding, and cross-team approvals manually through scattered email threads.',
+      'Patients faced difficulties booking eye examinations, accessing prescriptions, tracking treatment progress, and finding suitable eyeglasses. Hospital staff also struggled with appointment coordination, patient records, and optical inventory management.',
     solution:
-      'Built a centralized workflow execution portal with visual drag-and-drop rule logic, SLA breach alerts, automated WhatsApp & Slack sign-offs, and compliance logging.',
+      'Designed and developed an integrated eye care application featuring online appointment scheduling, doctor and patient dashboards, digital eye examination records, prescription management, treatment follow-ups, optical product catalogs, and automated appointment reminders.',
     impactMetrics: [
-      { label: 'Manager Time Saved', value: '22 hrs/wk', context: 'Eliminated manual status checking and spreadsheet data transfers' },
-      { label: 'Approval Speed', value: '4.5x', context: 'Accelerated procurement sign-off cycles from 5 days to under 4 hours' },
-      { label: 'Process Visibility', value: '100%', context: 'End-to-end auditability across 12,000+ monthly enterprise tasks' },
+      { label: 'Appointment Management', value: '60%', context: 'Target reduction in manual appointment coordination through automated scheduling' },
+      { label: 'Patient Experience', value: '4.8/5', context: 'Target patient satisfaction rating for a streamlined digital eye care journey' },
+      { label: 'Digital Records', value: '100%', context: 'Designed to support centralized digital patient records and prescription access' },
     ],
-    stack: ['React', 'Node.js Event Engine', 'Relational Database', 'Webhook Pipelines', 'Audit Security'],
+    stack: ['React', 'Node.js Event Engine', 'Relational Database', 'Webhook Pipelines', 'AI Health Assistant'],
     featured: true,
   },
   {

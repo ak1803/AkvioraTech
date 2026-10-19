@@ -44,7 +44,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-14 sm:space-y-20">
       {/* Header */}
       <section className="pt-4 sm:pt-2 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-10">
         <div>
