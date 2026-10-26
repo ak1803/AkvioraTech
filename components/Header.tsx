@@ -15,6 +15,7 @@ interface HeaderProps {
 const NAV_ITEMS: { id: PageRoute; label: string }[] = [
   { id: 'home', label: 'Home' },
   { id: 'services', label: 'Services' },
+  { id: 'pricing', label: 'Pricing' },
   { id: 'ai', label: 'AI' },
   { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
@@ -65,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Zone 2: Clean Single-Line Navigation Links */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden md:flex items-center gap-4 lg:gap-7"
+          className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-7"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = activePage === item.id;
@@ -74,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id)}
-                className={`relative text-sm lg:text-[15px] transition-opacity whitespace-nowrap shrink-0 cursor-pointer pb-1 ${
+                className={`relative text-xs lg:text-sm xl:text-[15px] transition-opacity whitespace-nowrap shrink-0 cursor-pointer pb-1 ${
                   isActive
                     ? 'text-[#EAF4F8] opacity-100 font-medium'
                     : 'text-[#EAF4F8] opacity-75 hover:opacity-100'

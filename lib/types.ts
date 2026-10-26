@@ -1,8 +1,9 @@
-export type PageRoute = 'home' | 'services' | 'ai' | 'work' | 'about' | 'faq' | 'contact';
+export type PageRoute = 'home' | 'services' | 'pricing' | 'ai' | 'work' | 'about' | 'faq' | 'contact';
 
 export type RoutePath =
   | '/'
   | '/services'
+  | '/pricing'
   | '/ai'
   | '/work'
   | '/about'

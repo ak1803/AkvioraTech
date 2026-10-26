@@ -220,6 +220,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 >
                   Services
                 </button>
+                    <button
+                  type="button"
+                  onClick={() => onNavigate('pricing')}
+                  className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
+                >
+                  Pricing &amp; Packages
+                </button>
                 <button
                   type="button"
                   onClick={() => onNavigate('ai')}
