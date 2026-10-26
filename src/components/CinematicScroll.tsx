@@ -767,7 +767,7 @@ export const ScrollProcessTimeline: React.FC<{
 
   return (
     <div
-      className="relative mt-10 sm:mt-14 mx-auto"
+      className="relative mt-10 sm:mt-14 max-w-[1160px] mx-auto"
     >
       {/* Interactive 8-Stage Scrubber Bar with Shared layoutId Spotlight */}
       <div className="mb-10 sm:mb-14 rounded-2xl border border-white/10 bg-[#060B14]/85 backdrop-blur-md p-3 sm:p-4">

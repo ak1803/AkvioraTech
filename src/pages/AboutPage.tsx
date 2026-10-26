@@ -20,7 +20,7 @@ import {
   AboutPageSkeleton,
   usePageContentLoading,
 } from '../components/ShimmerSkeleton';
-import aboutMetallicAiCoreImg from '../assets/images/aboutPage.webp';
+import aboutMetallicAiCoreImg from '../assets/images/about_metallic_ai_core_1791646465069.jpg';
 
 interface AboutPageProps {
   onNavigate: (page: PageRoute) => void;
@@ -38,7 +38,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. About Hero */}
       <section className="pt-4 sm:pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
         <div className="lg:col-span-8">
@@ -72,14 +72,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="lg:col-span-4 flex items-center justify-center bg-transparent will-change-transform"
+          className="flex lg:col-span-4 items-center justify-center bg-transparent will-change-transform"
         >
           <SafeImage
             src={aboutMetallicAiCoreImg}
             alt="Three-tier metallic architecture representing UI/UX design, full-stack engineering, and AI automation"
             fallbackTitle="Akviora Engineering Studio"
             removeBackground
-            className="hidden md:block w-full h-[320px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
+            className="w-full h-[280px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
           />
         </motion.div>
       </section>

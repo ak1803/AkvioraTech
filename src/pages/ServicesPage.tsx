@@ -44,7 +44,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -73,7 +73,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
       {/* Interactive Pillar Architecture Explorer */}
       <section className="space-y-6 sm:space-y-8">
-        <FadeUpReveal className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full lg:w-fit">
+        <FadeUpReveal className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit">
           {SERVICE_PILLARS.map((pillar) => {
             const active = pillar.id === selectedPillarId;
             return (
@@ -81,7 +81,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 key={pillar.id}
                 type="button"
                 onClick={() => setSelectedPillarId(pillar.id)}
-                className={`relative w-full lg:w-auto px-3.5 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
+                className={`relative px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                   active
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -98,7 +98,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     className="absolute inset-0 rounded-xl bg-[#EAF4F8] shadow-sm"
                   />
                 )}
-                <span className="relative z-10">
+                <span className="relative z-10 font-semibold">
                   {pillar.number}. {pillar.title}
                 </span>
               </button>

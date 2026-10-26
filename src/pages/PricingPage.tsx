@@ -769,7 +769,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="grid grid-cols-1 sm:grid-cols-2l g:flex lg:flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit">
+          <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit">
             {[
               { id: 'all', label: 'All Services (10)' },
               { id: 'web-design', label: 'Design & Web (3)' },

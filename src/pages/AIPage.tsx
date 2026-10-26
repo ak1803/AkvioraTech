@@ -24,7 +24,7 @@ import {
   SpotlightBentoTile,
 } from '../components/CinematicScroll';
 import { MagneticButton, SafeImage } from '../components/MagneticButton';
-import customerAssistantMetallicImg from '../assets/images/AIPage.webp';
+import customerAssistantMetallicImg from '../assets/images/customer_assistant_metallic_1791729500313.webp';
 import {
   AnimatedSelect,
   FocusBeam,
@@ -215,7 +215,7 @@ export const AIPage: React.FC<AIPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. AI Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -224,7 +224,7 @@ export const AIPage: React.FC<AIPageProps> = ({
           transition={{ duration: 0.45 }}
           className="text-xs font-mono text-[#5CE1E6] mb-4"
         >
-         02 . AKVIORA AI STUDIO 
+          02 · AKVIORA AI STUDIO · INTELLIGENT WORKFLOW ARCHITECTURE
         </motion.div>
         <KineticHeadline
           text="What if your business had an assistant that never forgets the process?"
@@ -432,7 +432,7 @@ export const AIPage: React.FC<AIPageProps> = ({
                 value={bottleneck}
                 onChange={(e) => setBottleneck(e.target.value)}
                 placeholder="e.g., Our sales team spends 3 hours daily answering repetitive WhatsApp pricing questions and copying leads into spreadsheets."
-                className={`${INPUT_FIELD_CLASSES} resize-y, min-height:89px`}
+                className={`${INPUT_FIELD_CLASSES} resize-y`}
               />
               <FocusBeam className="bottom-1.5 left-4 right-4" />
             </div>
