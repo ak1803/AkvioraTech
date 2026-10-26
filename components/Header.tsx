@@ -57,9 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
             e.preventDefault();
             handleNavClick('home');
           }}
-          className="inline-flex items-center gap-2 font-display font-bold text-[20px] sm:text-[21px] leading-none tracking-tight text-[#EAF4F8] hover:opacity-90 transition-opacity whitespace-nowrap shrink-0"
+          className="inline-flex items-center gap-2.5 font-display font-bold text-[20px] sm:text-[21px] leading-none tracking-tight text-[#EAF4F8] hover:opacity-90 transition-opacity whitespace-nowrap shrink-0 group"
         >
-          <AkvioraLogoIcon className="w-7 h-7 sm:w-[30px] sm:h-[30px] -translate-y-[2px] shrink-0" />
+          <AkvioraLogoIcon color="white" className="w-8 h-8 sm:w-[32px] sm:h-[32px] -translate-y-[1px] shrink-0 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.22)] group-hover:scale-105 transition-transform" />
           <span className="leading-none">Akviora</span>
         </a>
 

@@ -1,4 +1,12 @@
-export type PageRoute = 'home' | 'services' | 'ai' | 'work' | 'about' | 'faq' | 'contact';
+export type PageRoute =
+  | 'home'
+  | 'services'
+  | 'ai'
+  | 'work'
+  | 'about'
+  | 'faq'
+  | 'contact'
+  | 'pricing';
 
 export type AssistantPersonaId =
   | 'strategy'

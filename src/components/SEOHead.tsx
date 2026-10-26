@@ -82,6 +82,15 @@ export const ROUTE_SEO_CONFIG: Record<PageRoute, RouteSEOMetadata> = {
       'hire AI developers, start SaaS project, software discovery call, Akviora Technologies contact, hello@akvioratechnologies.com',
     ogType: 'website',
   },
+  pricing: {
+    title: 'Transparent Pricing & Packages | Akviora Technologies',
+    description:
+      'Transparent, scope-backed pricing for UI/UX design, landing pages, Google Business Profile, local SEO, website maintenance, WhatsApp automation, AI chatbots, and n8n workflows.',
+    path: '/pricing',
+    keywords:
+      'Akviora pricing, web design pricing India, UI UX design cost, landing page development price, local SEO monthly cost, WhatsApp automation pricing, AI chatbot pricing, n8n workflow cost',
+    ogType: 'website',
+  },
 };
 
 function setOrCreateMeta(
@@ -263,6 +272,79 @@ function buildRouteStructuredData(page: PageRoute, origin: string) {
       url: canonicalUrl,
       description: meta.description,
       mainEntity: { '@id': `${origin}/#organization` },
+    });
+  } else if (page === 'pricing') {
+    graph.push({
+      '@type': 'WebPage',
+      name: meta.title,
+      url: canonicalUrl,
+      description: meta.description,
+      mainEntity: {
+        '@type': 'OfferCatalog',
+        name: 'Akviora Technologies Service Packages & Pricing',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'UI/UX design for web or mobile app' },
+            price: '7999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Landing page design and development' },
+            price: '4999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Google Business Profile setup' },
+            price: '1999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Local SEO monthly service' },
+            price: '4999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Social media content creation' },
+            price: '3999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Website maintenance' },
+            price: '1499',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'WhatsApp Business setup' },
+            price: '1999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'WhatsApp workflow automation' },
+            price: '4999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'AI chatbot integration' },
+            price: '7999',
+            priceCurrency: 'INR',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: 'Business process automation with n8n' },
+            price: '7999',
+            priceCurrency: 'INR',
+          },
+        ],
+      },
     });
   }
 

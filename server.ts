@@ -114,6 +114,7 @@ async function startServer() {
     const routes = [
       { path: '/', priority: '1.0', changefreq: 'weekly' },
       { path: '/services', priority: '0.9', changefreq: 'weekly' },
+      { path: '/pricing', priority: '0.9', changefreq: 'weekly' },
       { path: '/ai', priority: '0.9', changefreq: 'weekly' },
       { path: '/work', priority: '0.85', changefreq: 'weekly' },
       { path: '/about', priority: '0.8', changefreq: 'monthly' },

@@ -8,8 +8,6 @@ interface FooterProps {
   onNavigate: (page: PageRoute) => void;
 }
 
-
-
 const SOCIAL_LINKS = [
   {
     name: 'LinkedIn',
@@ -21,19 +19,19 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
-  // {
-  //   name: 'Twitter',
-  //   href: 'https://twitter.com/akvioratech',
-  //   label: 'Follow Akviora on Twitter / X',
-  //   icon: (
-  //     <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  //     </svg>
-  //   ),
-  // },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/akvioratech',
+    label: 'Follow Akviora on Twitter / X',
+    icon: (
+      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/akvioratech1803/?hl=en',
+    href: 'https://www.instagram.com/akvioratechnologies',
     label: 'Follow Akviora on Instagram',
     icon: (
       <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -43,7 +41,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: 'Facebook',
-    href: 'https://www.facebook.com/profile.php?id=61595262762907',
+    href: 'https://www.facebook.com/akvioratechnologies',
     label: 'Visit Akviora on Facebook',
     icon: (
       <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -53,108 +51,9 @@ const SOCIAL_LINKS = [
   },
 ];
 
-
-
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
-    // <footer className="relative z-10 px-5 sm:px-8 lg:px-12 pt-12 pb-8 text-[#8EA6B4] text-[15px] border-t border-[rgba(255,255,255,0.11)] bg-[#060B14]/85 backdrop-blur-md">
-    //   <div className="max-w-[1440px] mx-auto">
-    //     <div className="flex flex-col md:flex-row justify-between flex-wrap gap-8 pb-8 border-b border-[rgba(255,255,255,0.08)]">
-    //       <div className="max-w-md space-y-2">
-    //         <button
-    //           type="button"
-    //           onClick={() => onNavigate('home')}
-    //           className="inline-flex items-center gap-2 text-left hover:opacity-90 transition-opacity cursor-pointer"
-    //         >
-    //           <AkvioraLogoIcon className="w-7 h-7 sm:w-[30px] sm:h-[30px] -translate-y-[2px] shrink-0" />
-    //           <b className="font-display font-bold text-[21px] leading-none text-[#EAF4F8]">
-    //             Akviora Technologies
-    //           </b>
-    //         </button>
-    //         <p className="text-[#8EA6B4]">
-    //           Design the experience. Automate the work. Build what&apos;s next.
-    //         </p>
-    //         <p className="text-sm text-[#8EA6B4]/80 pt-1">
-    //           Websites · Web Apps · SaaS · AI Assistants · Automation · UI/UX ·
-    //           Business Systems
-    //         </p>
-    //       </div>
-
-    //       <div className="space-y-3">
-    //         <div className="flex flex-wrap gap-x-6 gap-y-2">
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('home')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             Home
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('services')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             Services
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('ai')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             AI Studio
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('work')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             Case Studies
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('about')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             About &amp; Process
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('faq')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             FAQ
-    //           </button>
-    //           <button
-    //             type="button"
-    //             onClick={() => onNavigate('contact')}
-    //             className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"
-    //           >
-    //             Contact
-    //           </button>
-    //         </div>
-    //         <p className="text-sm">
-    //           <a
-    //             href="mailto:hello@akvioratechnologies.com"
-    //             className="text-[#5CE1E6] hover:underline"
-    //           >
-    //             hello@akvioratechnologies.com
-    //           </a>
-    //         </p>
-    //       </div>
-    //     </div>
-
-    //     <div className="pt-6 flex flex-col sm:flex-row items-center justify-between flex-wrap gap-4 text-sm text-[#8EA6B4]">
-    //       <div className="flex items-center gap-3">
-    //         <span>© 2026 Akviora Technologies. All rights reserved.</span>
-    //       </div>
-    //       <span>
-    //         Privacy Policy · Terms of Service · Cookie Policy · WCAG 2.1 AA Compliant
-    //       </span>
-    //     </div>
-    //   </div>
-    // </footer>
-
-     <footer className="relative z-10 px-4 sm:px-8 lg:px-12 pt-12 pb-8 text-[#8EA6B4] text-[15px] border-t border-[rgba(255,255,255,0.11)] bg-[#060B14]/85 backdrop-blur-md">
+    <footer className="relative z-10 px-4 sm:px-8 lg:px-12 pt-12 pb-8 text-[#8EA6B4] text-[15px] border-t border-[rgba(255,255,255,0.11)] bg-[#060B14]/85 backdrop-blur-md">
       <div className="max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-8 border-b border-[rgba(255,255,255,0.08)]">
           {/* Left Column: Brand, Mission & Social Media Icons */}
@@ -162,9 +61,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={() => onNavigate('home')}
-              className="inline-flex items-center gap-2 text-left hover:opacity-90 transition-opacity cursor-pointer"
+              className="inline-flex items-center gap-2.5 text-left hover:opacity-90 transition-opacity cursor-pointer group"
             >
-              <AkvioraLogoIcon className="w-7 h-7 sm:w-[30px] sm:h-[30px] -translate-y-[2px] shrink-0" />
+              <AkvioraLogoIcon color="white" className="w-8 h-8 sm:w-[34px] sm:h-[34px] -translate-y-[2px] shrink-0 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.22)] group-hover:scale-105 transition-transform" />
               <b className="font-display font-bold text-[20px] sm:text-[21px] leading-none text-[#EAF4F8]">
                 Akviora Technologies
               </b>
@@ -220,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 >
                   Services
                 </button>
-                    <button
+                <button
                   type="button"
                   onClick={() => onNavigate('pricing')}
                   className="text-[#EAF4F8] hover:text-[#5CE1E6] transition-colors cursor-pointer"

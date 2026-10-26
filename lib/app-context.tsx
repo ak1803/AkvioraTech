@@ -35,6 +35,7 @@ const ROUTE_TO_PAGE: Record<string, PageRoute> = {
   '/about': 'about',
   '/faq': 'faq',
   '/contact': 'contact',
+  '/pricing': 'pricing',
 };
 
 const PAGE_TO_ROUTE: Record<PageRoute, RoutePath> = {
@@ -45,6 +46,7 @@ const PAGE_TO_ROUTE: Record<PageRoute, RoutePath> = {
   about: '/about',
   faq: '/faq',
   contact: '/contact',
+  pricing: '/pricing',
 };
 
 const PAGE_TITLES: Record<PageRoute, string> = {
@@ -55,6 +57,7 @@ const PAGE_TITLES: Record<PageRoute, string> = {
   about: 'About & 8-Step Process | Akviora Technologies',
   faq: 'FAQ — AI, SaaS & Engineering | Akviora Technologies',
   contact: 'Start a Project | Akviora Technologies',
+  pricing: 'Transparent Pricing & Packages | Akviora Technologies',
 };
 
 interface AppContextValue {

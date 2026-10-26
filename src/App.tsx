@@ -13,6 +13,7 @@ import WorkRoutePage from '../app/work/page';
 import AboutRoutePage from '../app/about/page';
 import FAQRoutePage from '../app/faq/page';
 import ContactRoutePage from '../app/contact/page';
+import PricingRoutePage from '../app/pricing/page';
 import { useApp } from '../lib/app-context';
 import { PAGE_TRANSITION_VARIANTS } from './components/CinematicScroll';
 import { PageErrorBoundary } from './components/ErrorBoundary';
@@ -20,6 +21,7 @@ import { PageErrorBoundary } from './components/ErrorBoundary';
 const ROUTE_LABELS: Record<string, string> = {
   home: 'Home Overview',
   services: 'Services & Architecture',
+  pricing: 'Transparent Pricing & Packages',
   ai: 'AI Assistants & Workflow Studio',
   work: 'Selected Work & Case Studies',
   about: 'About & 8-Step Process',
@@ -35,6 +37,8 @@ const ActiveRouteRenderer: React.FC = () => {
     switch (activePage) {
       case 'services':
         return <ServicesRoutePage />;
+      case 'pricing':
+        return <PricingRoutePage />;
       case 'ai':
         return <AIRoutePage />;
       case 'work':
