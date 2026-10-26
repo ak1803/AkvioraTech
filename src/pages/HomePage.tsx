@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
 import { ArrowUpRight, Cpu, Sparkles } from 'lucide-react';
 import {
   AssistantPersonaId,
@@ -76,19 +76,31 @@ const PAIN_POINT_SOLUTIONS: Record<
 };
 
 const WhyAkvioraSection: React.FC = () => {
+  const whySectionRef = React.useRef<HTMLElement | null>(null);
   const [activeWhyIndex, setActiveWhyIndex] = React.useState<number>(0);
-  const progressRatio = (activeWhyIndex + 1) / WHY_AKVIORA_ITEMS.length;
+
+  const { scrollYProgress: whyScrollProgress } = useScroll({
+    target: whySectionRef,
+    offset: ['start 0.8', 'end 0.2'],
+  });
+
+  const smoothWhyProgress = useSpring(whyScrollProgress, {
+    stiffness: 120,
+    damping: 24,
+    restDelta: 0.001,
+  });
 
   return (
     <section
-      className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-6 sm:gap-8 md:gap-6 lg:gap-[6vw] max-w-[1320px] mx-auto py-12 sm:py-14 md:py-10 lg:py-[14vh] px-4 sm:px-8 lg:px-12"
+      ref={whySectionRef}
+      className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 sm:gap-10 lg:gap-[6vw] max-w-[1320px] mx-auto py-16 sm:py-[14vh] px-4 sm:px-8 lg:px-12"
     >
       {/* Sticky Left Column (pinned on scroll without transform clipping) */}
-      <div className="lg:sticky lg:top-[20vh] lg:self-start space-y-6 md:space-y-4 lg:space-y-6">
+      <div className="lg:sticky lg:top-[20vh] lg:self-start space-y-6">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono text-[#5CE1E6] tracking-wider uppercase">
-            04 · PRINCIPLES &amp; CLARITY
-          </span>
+          {/* <span className="text-xs font-mono text-[#5CE1E6] tracking-wider uppercase">
+            PRINCIPLES &amp; CLARITY
+          </span> */}
           <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.03] text-[11px] font-mono text-[#8EA6B4]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#5CE1E6] animate-pulse" />
             <span>
@@ -118,8 +130,7 @@ const WhyAkvioraSection: React.FC = () => {
           </div>
           <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
             <motion.div
-              animate={{ scaleX: progressRatio }}
-              transition={{ type: 'spring', stiffness: 140, damping: 22 }}
+              style={{ scaleX: smoothWhyProgress }}
               className="h-full origin-left bg-gradient-to-r from-[#5CE1E6] via-[#7A86FF] to-[#5CE1E6] shadow-[0_0_12px_rgba(92,225,230,0.8)]"
             />
           </div>
@@ -146,7 +157,7 @@ const WhyAkvioraSection: React.FC = () => {
       </div>
 
       {/* Right Column: Scroll-Reactive Principles */}
-      <div className="relative space-y-2.5 md:space-y-2 lg:space-y-2.5">
+      <div className="relative space-y-2.5">
         {WHY_AKVIORA_ITEMS.map((item, idx) => {
           const isActive = activeWhyIndex === idx;
           return (
@@ -165,7 +176,7 @@ const WhyAkvioraSection: React.FC = () => {
               }}
               whileHover={{ x: 6 }}
               onClick={() => setActiveWhyIndex(idx)}
-              className={`group relative py-6 px-5 sm:py-7 sm:px-6 md:py-4 md:px-5 lg:py-7 lg:px-6 rounded-2xl border transition-all cursor-pointer will-change-transform ${
+              className={`group relative py-7 px-6 rounded-2xl border transition-all cursor-pointer will-change-transform ${
                 isActive
                   ? 'border-[#5CE1E6]/40 bg-gradient-to-r from-[#5CE1E6]/[0.08] via-white/[0.02] to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
                   : 'border-white/10 bg-transparent hover:border-white/20'
@@ -252,19 +263,18 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <>
       {/* 1. HERO SECTION */}
-      <section className="min-h-[100svh] md:min-h-0 lg:min-h-[100svh] flex items-center pt-24 sm:pt-28 md:pt-16 md:pb-8 lg:pt-28 lg:pb-16 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.95fr] gap-8 sm:gap-10 md:gap-6 lg:gap-10 items-center w-full">
+      <section className="min-h-[100svh] flex items-center pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.95fr] gap-8 sm:gap-10 lg:gap-10 items-center w-full">
           <div className="min-w-0">
             <KineticHeadline
               text="Technology built around the way your business works."
               className="font-display font-bold text-[clamp(36px,8.5vw,64px)] lg:text-[clamp(58px,5.6vw,100px)] xl:text-[84px] 2xl:text-[100px] leading-[1.02] tracking-[-0.035em] text-[#EAF4F8] break-words"
             />
-
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[#b8cdd8] max-w-[54ch] text-[15px] sm:text-[17px] leading-[1.6] mt-5 sm:mt-7 md:mt-4 lg:mt-7"
+              transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1]}}
+              className="text-[#b8cdd8] max-w-[54ch] text-[15px] sm:text-[17px] leading-[1.6] mt-5 sm:mt-7"
             >
               Akviora Technologies designs and builds modern web applications,
               AI-powered workflows, and custom automation systems for growing
@@ -276,14 +286,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap gap-4 sm:gap-7 md:gap-4 lg:gap-7 items-center mt-6 sm:mt-8 md:mt-5 lg:mt-8"
+              className="flex flex-wrap gap-4 sm:gap-7 items-center mt-6 sm:mt-8"
             >
               <MagneticButton
                 variant="gradient"
                 magnetic
                 onClick={() => onNavigate('contact')}
-                className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
-              >
+                className=" sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base">
                 Start a Project
               </MagneticButton>
 
@@ -291,7 +300,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 type="button"
                 whileHover={{ x: 4 }}
                 onClick={() => onNavigate('work')}
-                className="text-[#EAF4F8] border-b-[1.5px] border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium whitespace-nowrap shrink-0"
+                className="text-[#EAF4F8] border-b-[1.5px] sm:text-base border-[#5CE1E6] pb-1 hover:text-[#5CE1E6] transition-colors cursor-pointer font-medium whitespace-nowrap shrink-0"
               >
                 Explore Our Work
               </motion.button>
@@ -574,8 +583,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Key Data Nodes on Spline */}
                 {[
-                  { cx: 185, cy: 263 },
-                  { cx: 295, cy: 222 },
+                  { cx: 190, cy: 263 },
+                  { cx: 300, cy: 225 },
                   { cx: 405, cy: 176 },
                   { cx: 515, cy: 138 },
                 ].map((pt, idx) => (
@@ -601,9 +610,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 ))}
 
                 {/* Peak Callout Tag inside Chart */}
-                <g transform="translate(342, 118)">
+                <g transform="translate(510, 260)">
                   <rect
-                    width="132"
+                    width="150"
                     height="42"
                     rx="10"
                     fill="#0A1628"
@@ -840,13 +849,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Mini Animated Vector Sparkline */}
                 <path
-                  d="M386 492 L 426 486 L 466 474 L 506 478 L 546 462 L 586 452 L 626 436"
+                  d="M386 492 L 426 486 L 466 474 L 506 487 L 553 470 L 595 474 L 620 453"
                   stroke="#5CE1E6"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <circle cx="626" cy="436" r="4" fill="#5CE1E6">
+                <circle cx="620" cy="452" r="4" fill="#5CE1E6">
                   <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" />
                 </circle>
               </g>
@@ -864,7 +873,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 2. CAPABILITY RIBBON */}
       <div
         aria-hidden="true"
-        className="overflow-hidden border-y border-[rgba(255,255,255,0.11)] bg-[#060B14] bg-[radial-gradient(60%_120%_at_50%_50%,rgba(92,225,230,0.10),rgba(122,134,255,0.08)_55%,rgba(6,11,20,0.98)_100%)] py-4 sm:py-[20px] md:py-2.5 lg:py-[20px] my-6 sm:my-[4vh] md:my-3 lg:my-[4vh]"
+        className="overflow-hidden border-y border-[rgba(255,255,255,0.11)] bg-[#060B14] bg-[radial-gradient(60%_120%_at_50%_50%,rgba(92,225,230,0.10),rgba(122,134,255,0.08)_55%,rgba(6,11,20,0.98)_100%)] py-[20px] my-[4vh]"
       >
         <div className="animate-akviora-marquee">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
@@ -876,7 +885,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. STATEMENT & PAIN POINTS */}
       <section
         ref={statementSectionRef}
-        className="min-h-[65vh] sm:min-h-[75vh] md:min-h-0 lg:min-h-[75vh] flex items-center py-14 sm:py-16 md:py-10 lg:py-[14vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
+        className="min-h-[65vh] sm:min-h-[75vh] flex items-center py-14 sm:pt-[14vh] sm:pb-[12vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -895,7 +904,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.25 }}
-            className="flex flex-wrap gap-2.5 sm:gap-[12px] md:gap-2 lg:gap-[12px] max-w-[1000px] mt-8 sm:mt-[6vh] md:mt-4 lg:mt-[6vh]"
+            className="flex flex-wrap gap-2.5 sm:gap-[12px] max-w-[1000px] mt-8 sm:mt-[6vh]"
           >
             {PAIN_POINTS.map((pain) => {
               const isActive = pain === activePainPoint;
@@ -929,7 +938,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 md:mt-4 lg:mt-6 max-w-[780px] rounded-2xl border border-[#5CE1E6]/25 bg-gradient-to-r from-[#5CE1E6]/[0.07] via-[#081322]/90 to-[#7A86FF]/[0.06] p-5 sm:p-6 md:p-4 lg:p-6 shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+            className="mt-6 max-w-[780px] rounded-2xl border border-[#5CE1E6]/25 bg-gradient-to-r from-[#5CE1E6]/[0.07] via-[#081322]/90 to-[#7A86FF]/[0.06] p-5 sm:p-6 shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -973,7 +982,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               delay: 0.2,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="relative max-w-[1000px] mt-8 sm:mt-[7vh] md:mt-5 lg:mt-[7vh] pl-5 sm:pl-7"
+            className="relative max-w-[1000px] mt-8 sm:mt-[7vh] pl-5 sm:pl-7"
           >
             <div
               aria-hidden="true"
@@ -1001,7 +1010,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 5. AI SOLUTIONS BENTO SHOWCASE */}
       <section
         id="ai"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
+        className="pt-14 sm:pt-[6vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
       >
         <FadeUpReveal>
           <KineticHeadline
@@ -1009,7 +1018,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             text="What if your business had an assistant that never forgets the process?"
             className="font-display text-[clamp(28px,5.2vw,74px)] max-w-[17ch] text-[#EAF4F8]"
           />
-          <p className="mt-4 sm:mt-6 md:mt-3 lg:mt-6 max-w-[58ch] text-sm sm:text-base text-[#8EA6B4]">
+          <p className="mt-4 sm:mt-6 max-w-[58ch] text-sm sm:text-base text-[#8EA6B4]">
             An AI assistant can become more than a chatbot. It can understand
             your business information, qualify leads, summarize documents and
             trigger the next step in a workflow, built around a specific need
@@ -1017,7 +1026,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </p>
         </FadeUpReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(195px,auto)] md:auto-rows-[minmax(160px,auto)] lg:auto-rows-[minmax(195px,auto)] gap-4 md:gap-3 lg:gap-4 mt-8 sm:mt-12 md:mt-6 lg:mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(195px,auto)] gap-4 mt-8 sm:mt-12">
           {AI_ASSISTANTS.map((assistant, idx) => (
             <SpotlightBentoTile
               key={assistant.id}
@@ -1242,7 +1251,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 md:gap-4 lg:gap-6 mt-9 md:mt-6 lg:mt-9">
+        <div className="flex flex-wrap items-center gap-6 mt-9">
           <MagneticButton
             variant="gradient"
             onClick={() => onNavigate('ai')}
@@ -1274,7 +1283,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 7. SELECTED WORK / CASE STUDIES LIST */}
       <section
         id="work"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
+        className="pt-16 sm:pt-[12vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
       >
         <FadeUpReveal className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <KineticHeadline
@@ -1287,7 +1296,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </p>
         </FadeUpReveal>
 
-        <div className="mt-8 sm:mt-12 md:mt-6 lg:mt-12">
+        <div className="mt-8 sm:mt-12">
           {CASE_STUDIES.map((study, idx) => (
             <motion.div
               key={study.id}
@@ -1310,7 +1319,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   onSelectCaseStudy(study);
                 }
               }}
-              className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 sm:gap-4 md:gap-3 py-5 sm:py-6 md:py-3.5 lg:py-6 border-t border-[rgba(255,255,255,0.11)] transition-colors hover:bg-gradient-to-r hover:from-[#5CE1E6]/10 hover:to-transparent cursor-pointer group will-change-transform"
+              className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-3 sm:gap-4 py-5 sm:py-6 border-t border-[rgba(255,255,255,0.11)] transition-colors hover:bg-gradient-to-r hover:from-[#5CE1E6]/10 hover:to-transparent cursor-pointer group will-change-transform"
             >
               <div className="flex flex-wrap items-baseline justify-between sm:justify-start gap-x-4 gap-y-1">
                 <b className="font-display font-medium text-[clamp(22px,3.6vw,50px)] leading-[1.05] tracking-[-0.03em] text-[#EAF4F8] group-hover:text-[#5CE1E6] transition-colors">
@@ -1328,7 +1337,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           ))}
         </div>
 
-        <FadeUpReveal delay={0.1} className="mt-8 md:mt-5 lg:mt-8 flex flex-wrap items-center gap-6">
+        <FadeUpReveal delay={0.1} className="mt-8 flex flex-wrap items-center gap-6">
           <motion.button
             type="button"
             whileHover={{ x: 4 }}
@@ -1341,20 +1350,20 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 8. ATTRIBUTABLE CLIENT OUTCOMES */}
-      <section className="py-12 sm:py-14 md:py-10 lg:py-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden">
+      <section className="py-14 sm:py-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden">
         <motion.div
           variants={STAGGER_CONTAINER_VARIANTS}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3.5 lg:gap-5"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {CLIENT_TESTIMONIALS.map((item) => (
             <motion.blockquote
               key={item.id}
               variants={STAGGER_ITEM_VARIANTS}
               whileHover={{ y: -6 }}
-              className="rounded-[24px] border border-[rgba(255,255,255,0.11)] bg-white/[0.025] hover:border-[#5CE1E6]/40 transition-colors p-6 sm:p-7 md:p-5 lg:p-7 flex flex-col justify-between will-change-transform"
+              className="rounded-[24px] border border-[rgba(255,255,255,0.11)] bg-white/[0.025] hover:border-[#5CE1E6]/40 transition-colors p-6 sm:p-7 flex flex-col justify-between will-change-transform"
             >
               <div>
                 <div className="text-xs font-mono text-[#5CE1E6] tabular-nums mb-3">
@@ -1380,7 +1389,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 9. 8-STEP TIMELINE PROCESS */}
       <section
         id="process"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
+        className="pt-16 sm:pt-[12vh] pb-14 sm:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
       >
         <KineticHeadline
           as="h2"
@@ -1393,7 +1402,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 10. CLOSING CONVERSION CTA */}
       <section
         id="contact"
-        className="min-h-[60svh] sm:min-h-[70svh] md:min-h-0 lg:min-h-[85svh] flex flex-col justify-center items-start px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto py-12 sm:py-16 md:py-10 lg:py-20"
+        className="min-h-[70svh] sm:min-h-[85svh] flex flex-col justify-center items-start px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto py-16 sm:py-20"
       >
         <KineticHeadline
           as="h2"
@@ -1401,13 +1410,13 @@ export const HomePage: React.FC<HomePageProps> = ({
           className="font-display font-bold text-[clamp(34px,7.2vw,112px)] max-w-[14ch] leading-[1.02] text-[#EAF4F8] break-words"
         />
         <FadeUpReveal delay={0.12} className="w-full">
-          <p className="max-w-[52ch] mt-5 sm:mt-7 md:mt-4 lg:mt-7 text-[#b8cdd8] text-base sm:text-lg">
+          <p className="max-w-[52ch] mt-5 sm:mt-7 text-[#b8cdd8] text-base sm:text-lg">
             Tell us what you are trying to build, automate or improve. You
             don&apos;t need a perfect technical specification. Start with the
             business problem, and we&apos;ll help turn it into a practical
             technology plan.
           </p>
-          <div className="flex flex-wrap gap-4 sm:gap-7 md:gap-4 lg:gap-7 items-center mt-7 sm:mt-8 md:mt-5 lg:mt-8 w-full sm:w-auto">
+          <div className="flex flex-wrap gap-4 sm:gap-7 items-center mt-7 sm:mt-8 w-full sm:w-auto">
             <MagneticButton
               variant="gradient"
               onClick={() => onNavigate('contact')}
