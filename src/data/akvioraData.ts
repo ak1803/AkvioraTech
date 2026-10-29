@@ -5,13 +5,13 @@ import {
   ProcessStep,
   ServicePillar,
 } from '../types/akviora';
-import heroStudioImg from '../assets/images/hero_akviora_studio_1791414586807.webp';
-import workKinetixImg from '../assets/images/work_kinetix_spatial_1791414610322.webp';
-import workVeloxImg from '../assets/images/work_velox_automotive_1791414598887.webp';
-import workAetherImg from '../assets/images/work_aether_chronograph_1791414632639.webp';
-import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
-import cosmicCompassImg from '../assets/images/cosmic_compass_app_1791931957974.webp';
-import easyMartImg from '../assets/images/easymart_app_1791931975395.webp';
+import heroStudioImg from '../assets/images/PayTrack.webp';
+import workKinetixImg from '../assets/images/NextGen_IOT.webp';
+import workVeloxImg from '../assets/images/FinTech.webp';
+import workAetherImg from '../assets/images/UniQunik.webp';
+// import workSolarisImg from '../assets/images/work_solaris_architecture_1791414620871.webp';
+import cosmicCompassImg from '../assets/images/CosmicCompass.webp';
+import easyMartImg from '../assets/images/QuickFlicks.webp';
 
 export const PAIN_POINTS: string[] = [
   'Scattered information',
@@ -335,48 +335,94 @@ export const CASE_STUDIES: CaseStudy[] = [
     featured: true,
   },
   {
-    id: 'neuronova',
-    title: 'NeuroNova',
-    category: 'AI Cognitive Intelligence & Neural Platform',
-    sector: 'HealthTech & Bio-Sensing Intelligence',
-    year: '2026',
-    duration: '8 Weeks',
-    image: workVeloxImg,
-    summary:
-      'Non-invasive neuro-harmonic frequency therapy, biometric telemetry analysis, and personalized cognitive performance tracking suite.',
-    challenge:
-      'Clinicians and therapy patients lacked a reliable, real-time interface to calibrate neuromodulation hardware, monitor bio-signals, and evaluate long-term recovery metrics.',
-    solution:
-      'Created a cross-platform health application connecting Bluetooth neuromodulation hardware with real-time frequency tuning, guided wellness protocols, and session analytics.',
-    impactMetrics: [
-      { label: 'Focus & Recovery Lift', value: '3.8x', context: 'Clinically tracked improvement in cognitive focus and relaxation scores' },
-      { label: 'Protocol Adherence', value: '94%', context: 'Daily therapy completion driven by intelligent scheduling and nudges' },
-      { label: 'Hardware Sync', value: '<40ms', context: 'Low-latency Bluetooth LE frequency calibration and sensor ingestion' },
-    ],
-    stack: ['React', 'Web Bluetooth BLE', 'Akviora AI Engine', 'Biometric Analytics', 'Tailwind CSS'],
-    featured: true,
-  },
+  id: 'fintech',
+  title: 'FinTech',
+  category: 'AI-Powered Finance & Business Management Platform',
+  sector: 'FinTech & Financial Management',
+  year: '2026',
+  duration: '8 Weeks',
+  image: workVeloxImg,
+  summary:
+    'A modern finance management platform that helps businesses track income and expenses, manage budgets, monitor cash flow, organize invoices, and generate actionable financial insights through AI-powered analytics.',
+  challenge:
+    'Businesses struggled with fragmented financial records, manual expense tracking, delayed invoice management, limited cash-flow visibility, and time-consuming financial reporting. They needed a centralized platform to simplify daily financial operations and support better business decisions.',
+  solution:
+    'Designed and developed a responsive finance management application featuring an interactive financial dashboard, income and expense tracking, budget planning, invoice and payment management, cash-flow analytics, financial reports, transaction categorization, and an AI-powered financial assistant for insights and spending summaries.',
+  impactMetrics: [
+    {
+      label: 'Financial Visibility',
+      value: '360°',
+      context:
+        'Centralized dashboard for income, expenses, budgets, outstanding invoices, and cash-flow insights',
+    },
+    {
+      label: 'Expense Tracking',
+      value: 'Real-Time',
+      context:
+        'Transaction monitoring and categorized expense summaries for improved financial awareness',
+    },
+    {
+      label: 'Financial Reporting',
+      value: 'Automated',
+      context:
+        'Streamlined report generation with monthly summaries, budget comparisons, and financial trends',
+    },
+  ],
+  stack: [
+    'React',
+    'TypeScript',
+    'Supabase',
+    'AI-Powered Financial Assistant',
+    'Financial Data Analytics',
+    'Chart.js',
+    'Tailwind CSS',
+  ],
+  featured: true,
+},
   {
-    id: 'omniflow',
-    title: 'OmniFlow',
-    category: 'Enterprise Workflow Orchestration',
-    sector: 'Business Systems & Operations Automation',
-    year: '2025',
-    duration: '6 Weeks',
-    image: workAetherImg,
-    summary:
-      'Zero-code operational workflow builder, multi-tiered executive approval routing, and cross-departmental business process orchestration engine.',
-    challenge:
-      'Operations teams spent hundreds of hours weekly handling purchase orders, vendor on-boarding, and cross-team approvals manually through scattered email threads.',
-    solution:
-      'Built a centralized workflow execution portal with visual drag-and-drop rule logic, SLA breach alerts, automated WhatsApp & Slack sign-offs, and compliance logging.',
-    impactMetrics: [
-      { label: 'Manager Time Saved', value: '22 hrs/wk', context: 'Eliminated manual status checking and spreadsheet data transfers' },
-      { label: 'Approval Speed', value: '4.5x', context: 'Accelerated procurement sign-off cycles from 5 days to under 4 hours' },
-      { label: 'Process Visibility', value: '100%', context: 'End-to-end auditability across 12,000+ monthly enterprise tasks' },
-    ],
-    stack: ['React', 'Node.js Event Engine', 'Relational Database', 'Webhook Pipelines', 'Audit Security'],
-    featured: true,
+  id: 'uniqunik',
+  title: 'UniQunik',
+  category: 'International Travel & Tour Management Platform',
+  sector: 'TravelTech & Global Tourism',
+  year: '2025',
+  duration: '6 Weeks',
+  image: workAetherImg,
+  summary:
+    'An all-in-one international travel management platform for discovering destinations, planning customized trips, managing tour packages, coordinating hotel and flight bookings, and organizing seamless travel experiences worldwide.',
+  challenge:
+    'Travel agencies faced difficulties coordinating international itineraries, managing customer bookings, tracking travel documentation, handling multiple suppliers, and providing timely updates to travelers across different time zones.',
+  solution:
+    'Designed and developed a centralized travel management portal featuring international tour packages, destination discovery, customizable itineraries, customer profiles, booking management, hotel and flight coordination, travel document tracking, payment status monitoring, and automated booking notifications.',
+  impactMetrics: [
+    {
+      label: 'Global Destinations',
+      value: 'Worldwide',
+      context:
+        'Destination discovery and itinerary planning for international travel experiences',
+    },
+    {
+      label: 'Booking Management',
+      value: 'Centralized',
+      context:
+        'Unified access to customer details, reservations, travel packages, and booking statuses',
+    },
+    {
+      label: 'Travel Coordination',
+      value: 'Automated',
+      context:
+        'Configurable notifications and travel reminders for bookings, documentation, and upcoming trips',
+    },
+  ],
+  stack: [
+    'React',
+    'Node.js',
+    'REST APIs',
+    'Relational Database',
+    'Travel Booking Integrations',
+    'Payment Gateway Integration',
+    'Tailwind CSS',
+  ],
+  featured: true, 
   },
   {
     id: 'cosmic-compass',
@@ -401,26 +447,50 @@ export const CASE_STUDIES: CaseStudy[] = [
     featured: true,
   },
   {
-    id: 'easymart',
-    title: 'EasyMart',
-    category: 'Hyperlocal Grocery & Quick-Commerce App',
-    sector: 'Retail Tech & Omnichannel E-Commerce',
-    year: '2025',
-    duration: '8 Weeks',
-    image: easyMartImg,
-    summary:
-      'Sub-15-minute grocery dispatch flow, real-time inventory synchronisation across dark stores, and frictionless 1-tap checkout app design for quick-commerce.',
-    challenge:
-      'Local supermarkets and urban delivery networks struggled with cart abandonment, stock mismatches between physical racks and apps, and slow manual picking flows.',
-    solution:
-      'Engineered an omnichannel quick-commerce mobile experience with live stock level polling, instant barcode scanner integration for pickers, driver dispatch routing, and unified 1-click checkout.',
-    impactMetrics: [
-      { label: 'Cart Conversion Lift', value: '+38%', context: 'Streamlined checkout with predictive reordering and smart suggestions' },
-      { label: 'Order Fulfillment Time', value: '11.4 min', context: 'Average dark-store picking to doorstep dispatch cycle' },
-      { label: 'Inventory Sync Accuracy', value: '99.9%', context: 'Real-time WebSocket POS & dark-store inventory telemetry' },
-    ],
-    stack: ['React', 'Next.js', 'Redis Stock Cache', 'Stripe / Apple Pay', 'Live Map Dispatch'],
-    featured: true,
+    id: 'QuickFlicks',
+    title: 'QuickFlicks',
+  category: 'Online Movie Ticket Booking Platform',
+  sector: 'Entertainment Tech & Digital Ticketing',
+  year: '2025',
+  duration: '8 Weeks',
+  image: easyMartImg,
+  summary:
+    'A seamless movie ticket booking platform that enables users to explore the latest movies, discover nearby cinemas, view showtimes, select preferred seats, make secure payments, and access digital tickets instantly.',
+  challenge:
+    'Moviegoers experienced fragmented booking journeys, limited real-time seat visibility, complicated seat selection, and checkout friction during high-demand releases. Cinema operators also needed a streamlined way to manage screenings, seat availability, and reservations.',
+  solution:
+    'Designed and developed a responsive movie ticket booking experience featuring movie discovery, genre-based browsing, cinema listings, location-based theatre search, live showtime schedules, interactive seat selection, booking summaries, secure payment integration, digital ticket generation, QR-code verification, and booking history.',
+  impactMetrics: [
+    {
+      label: 'Booking Experience',
+      value: '3 Steps',
+      context:
+        'Streamlined journey from selecting a movie and showtime to confirming a reservation',
+    },
+    {
+      label: 'Seat Availability',
+      value: 'Real-Time',
+      context:
+        'Dynamic seat availability updates designed to reduce duplicate booking conflicts',
+    },
+    {
+      label: 'Digital Ticketing',
+      value: 'Instant',
+      context:
+        'Digital booking confirmations with QR-code tickets for convenient cinema entry',
+    },
+  ],
+  stack: [
+    'React',
+    'Next.js',
+    'Node.js',
+    'PostgreSQL',
+    'Real-Time Seat Reservation',
+    'Payment Gateway Integration',
+    'QR Code Ticketing',
+    'Tailwind CSS',
+  ],
+  featured: true,
   },
 ];
 

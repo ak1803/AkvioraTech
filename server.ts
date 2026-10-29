@@ -32,9 +32,14 @@ async function forwardToNextRoute(
   try {
     const url = `http://localhost:${PORT}${req.originalUrl}`;
     const hasBody = req.method !== 'GET' && req.method !== 'HEAD';
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json');
+    if (req.headers.authorization) {
+      headers.set('Authorization', req.headers.authorization);
+    }
     const webReq = new Request(url, {
       method: req.method,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: hasBody ? JSON.stringify(req.body ?? {}) : undefined,
     });
 

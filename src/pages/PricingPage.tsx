@@ -440,7 +440,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. Page Hero */}
       <section className="pt-4 sm:pt-8">
         <motion.div
@@ -449,7 +449,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           transition={{ duration: 0.45 }}
           className="text-xs font-mono text-[#5CE1E6] mb-4 uppercase tracking-wider"
         >
-          07 · TRANSPARENT INVESTMENT &amp; PACKAGES
+          02 · TRANSPARENT INVESTMENT &amp; PACKAGES
         </motion.div>
         <KineticHeadline
           text="Clear, scope-backed pricing for fast-growing businesses."
@@ -499,7 +499,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {PRICING_BUNDLES.map((bundle, idx) => {
             const isCurrentlySelected =
               bundle.serviceIds.every((id) => selectedServiceIds.includes(id)) &&
@@ -749,7 +749,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                 className="w-full flex-1 py-3 px-6 text-sm font-medium rounded-full"
               >
                 <Sparkles className="w-4 h-4 shrink-0" />
-                <span>Discuss Scope With Akviora AI</span>
+                <span>Talk to Akviora AI</span>
               </MagneticButton>
             </div>
           </div>
@@ -758,8 +758,8 @@ export const PricingPage: React.FC<PricingPageProps> = ({
 
       {/* 4. Complete Services Directory & Deliverable Deep-Dive */}
       <section className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
+        <div className="lg:flex lg:flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div className="mb-6 md:mb-8 lg:mb-0 ">
             <span className="text-xs font-mono text-[#5CE1E6] uppercase tracking-wider block">
               Itemized Catalog
             </span>
@@ -769,7 +769,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full sm:w-fit">
+          <div className="flex flex-col md:flex-row gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full lg:w-fit">
             {[
               { id: 'all', label: 'All Services (10)' },
               { id: 'web-design', label: 'Design & Web (3)' },
@@ -783,7 +783,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                   key={tab.id}
                   type="button"
                   onClick={() => setSelectedCategory(tab.id)}
-                  className={`relative px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
+                  className={`relative w-full lg:w-auto px-4 py-2.5 sm:py-3 lg:py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                     active
                       ? 'text-[#060B14]'
                       : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -810,7 +810,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredServices.map((svc) => {
               const IconComp = svc.icon;

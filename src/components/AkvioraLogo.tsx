@@ -9,13 +9,13 @@ export interface AkvioraLogoIconProps {
 }
 
 /**
- * Akviora Brand Icon
- * Supports pure crisp white (`color="white"`, default) and theme-colored (`color="theme"`).
- * Geometry faithfully models the official brand icon:
- * - Upward-pointing arrow 'A' with sharp center ridge and two-facet bevel
- * - 3D beveled rectangular right leg
- * - Sweeping S-wave ribbon curling across the crossbar
- * - Top-right 4-point diamond star with 4 diagonal radiant rays
+ * Akviora Brand Icon (Official 3D Geometric Emblem)
+ * Reconstructed directly from the official Akviora brand mark:
+ * - Upward-pointing 3D arrow 'A' apex with central ridge & beveled wings
+ * - Grounded left shaft and 3D beveled rectangular right leg
+ * - Sweeping 3D S-curve ribbon looping around the crossbar with depth separation
+ * - Top-right 4-point sparkling star with 4 diagonal radiant rays
+ * Defaults to pure crisp white (`color="white"`).
  */
 export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
   className = 'w-9 h-9',
@@ -28,135 +28,156 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
   if (color === 'white') {
     return (
       <svg
-        viewBox="20 4 146 172"
+        viewBox="16 12 168 172"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label={ariaLabel}
         className={className}
       >
-        {/* 1. Top-Right 4-Point Star & 4 Diagonal Spark Rays in Clean White */}
+        <defs>
+          {/* Subtle soft white ambient aura behind the star */}
+          <radialGradient
+            id={`${id}-whiteStarGlow`}
+            cx="146"
+            cy="38"
+            r="20"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+            <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* 1. TOP-RIGHT 4-POINT STAR & 4 DIAGONAL RADIANT RAYS */}
         <g>
+          {/* Soft ambient sparkle aura */}
+          <circle cx="146" cy="38" r="18" fill={`url(#${id}-whiteStarGlow)`} />
+
           {/* 4-Point Concave Diamond Star */}
           <path
-            d="M126 9C126 23.2 129.8 27 144 27C129.8 27 126 30.8 126 45C126 30.8 122.2 27 108 27C122.2 27 126 23.2 126 9Z"
+            d="M146 22 C146 32.5 150.5 38 162 38 C150.5 38 146 43.5 146 54 C146 43.5 141.5 38 130 38 C141.5 38 146 32.5 146 22 Z"
             fill="#FFFFFF"
           />
 
-          {/* 4 Diagonal Accent Rays around the Star */}
+          {/* 4 Diagonal Radiant Spark Rays */}
           <line
-            x1="113"
-            y1="14"
-            x2="117.5"
-            y2="18.5"
+            x1="133"
+            y1="25"
+            x2="138"
+            y2="30"
             stroke="#FFFFFF"
-            strokeWidth="2.6"
+            strokeWidth="2.8"
             strokeLinecap="round"
           />
           <line
-            x1="139"
-            y1="14"
-            x2="134.5"
-            y2="18.5"
+            x1="159"
+            y1="25"
+            x2="154"
+            y2="30"
             stroke="#FFFFFF"
-            strokeWidth="2.6"
+            strokeWidth="2.8"
             strokeLinecap="round"
           />
           <line
-            x1="139"
-            y1="40"
-            x2="134.5"
-            y2="35.5"
+            x1="159"
+            y1="51"
+            x2="154"
+            y2="46"
             stroke="#FFFFFF"
-            strokeWidth="2.6"
+            strokeWidth="2.8"
             strokeLinecap="round"
           />
           <line
-            x1="113"
-            y1="40"
-            x2="117.5"
-            y2="35.5"
+            x1="133"
+            y1="51"
+            x2="138"
+            y2="46"
             stroke="#FFFFFF"
-            strokeWidth="2.6"
+            strokeWidth="2.8"
             strokeLinecap="round"
           />
         </g>
 
-        {/* 2. Lower-Right Leg of 'A' (3D Beveled Pillar) in White */}
+        {/* 2. LOWER-RIGHT LEG OF 'A' (3D BEVELED PILLAR) */}
         <g>
           {/* Shaded Inner Left Facet */}
           <path
-            d="M101 146L117 137L143 172L127 172C120.5 172 115.5 168.5 112 163L101 146Z"
-            fill="#FFFFFF"
-            fillOpacity="0.72"
+            d="M118 68 L114 76 L154 172 L140 172 L108 88 Z"
+            fill="#CBD5E1"
           />
           {/* Outer Right Facet */}
           <path
-            d="M121.5 109L159 172L141.5 172L114.5 129.5C118 123.5 120.5 116.5 121.5 109Z"
-            fill="#FFFFFF"
-            fillOpacity="0.88"
+            d="M118 68 L168 172 L154 172 L114 76 Z"
+            fill="#E2E8F0"
           />
         </g>
 
-        {/* 3. Upward-Right Arrow & Left Leg of 'A' (Two-Facet Bevel) in White */}
+        {/* 3. UPWARD ARROWHEAD & LEFT LEG OF 'A' */}
         <g>
           {/* Lit Left Facet of Arrowhead & Left Shaft */}
           <path
-            d="M119 42L83 58L93.5 63.5L49 135C54.5 130.5 61 127.5 68.5 125.5L108.5 60.5L119 42Z"
+            d="M114 26 L84 46 L93 52 L34 172 L48 172 L106 60 Z"
             fill="#FFFFFF"
           />
 
-          {/* Shaded Right Facet of Arrowhead & Inner Left Shaft */}
+          {/* Shaded Right Barb of Arrowhead */}
           <path
-            d="M119 42L119 88L108.5 79L81 123C76.5 123.8 72.5 124.5 68.5 125.5L108.5 60.5L119 42Z"
-            fill="#FFFFFF"
-            fillOpacity="0.78"
+            d="M114 26 L106 60 L118 58 L128 48 Z"
+            fill="#CBD5E1"
           />
 
-          {/* Center Ridge Highlight on Arrow */}
+          {/* Shaded Inner Left Shaft */}
           <path
-            d="M119 42L108.5 60.5L68.5 125.5"
+            d="M106 60 L48 172 L62 172 L101 72 Z"
+            fill="#CBD5E1"
+          />
+
+          {/* Center Ridge Crease Highlight on Arrow */}
+          <path
+            d="M114 26 L106 60 L48 172"
             stroke="#FFFFFF"
-            strokeWidth="1.2"
+            strokeWidth="1.5"
             strokeLinecap="round"
-            strokeOpacity="0.95"
           />
         </g>
 
-        {/* 4. Inner Upper Curl of the Ribbon Behind the Apex */}
+        {/* 4. INNER UPPER CURL OF RIBBON BEHIND APEX */}
         <path
-          d="M96 119C101 107 106 96 111 86C118.5 94.5 120 111 108 123.5C104 122 100 120.5 96 119Z"
-          fill="#FFFFFF"
-          fillOpacity="0.55"
+          d="M98 116 C103 104 108 93 113 83 C120 91.5 122 108 110 120.5 C106 119 102 117.5 98 116 Z"
+          fill="#94A3B8"
         />
 
-        {/* 5. Underside Curl of Ribbon Over Right Leg */}
+        {/* 5. UNDERSIDE RIBBON LOOP TUCKING BEHIND RIGHT LEG */}
         <path
-          d="M112 91C121 102.5 123.5 121.5 111.5 135C108 131 106 123 111 110C113 103 112 95 112 91Z"
-          fill="#FFFFFF"
-          fillOpacity="0.65"
+          d="M156 96 C168 108 170 126 158 138 C154 134 152 126 156 114 C158 107 157 100 156 96 Z"
+          fill="#64748B"
         />
 
-        {/* 6. Main Sweeping S-Wave Ribbon Across Center in White */}
-        {/* Main Body */}
+        {/* 6. SWEEPING 3D S-WAVE RIBBON (CROSSBAR OF 'A') */}
+        {/* Main Sculpted Front Body with Dark Edge Separation Contour */}
         <path
-          d="M28 172C37 151 51 133 83 128.5C105 125.5 116.5 114.5 112 91C121 102.5 123.5 121.5 111.5 135C100.5 147 81 147.5 70 154.5C62.5 159.5 60 172 48.5 172H28Z"
-          fill="#FFFFFF"
-          fillOpacity="0.92"
+          d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C170 108 168 124 154 136 C136 150 112 152 90 144 C68 136 50 142 36 148 Z"
+          fill="#F8FAFC"
+          stroke="#060B14"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
         />
 
-        {/* Crisp Top Rim Edge Highlight */}
+        {/* Top Rim Highlight on S-Ribbon */}
         <path
-          d="M44 144C57 129 77 126 95 124C110 122 118 112 113 91C116.5 101 115 115 102 121C86 128 62 128 44 144Z"
+          d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C162 100 152 108 138 114 C120 120 106 116 86 106 C58 92 45 104 36 128 Z"
           fill="#FFFFFF"
         />
       </svg>
     );
   }
 
+  // Theme-colored version matching the uploaded art colors (#5CE1E6, #38BDF8, #7A86FF, #4F46E5)
   return (
     <svg
-      viewBox="20 4 146 172"
+      viewBox="16 12 168 172"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -164,15 +185,15 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
       className={className}
     >
       <defs>
-        {/* Soft radial glow behind the 4-point star */}
+        {/* Soft radial glow behind star */}
         <radialGradient
           id={`${id}-starGlow`}
-          cx="126"
-          cy="26"
-          r="26"
+          cx="146"
+          cy="38"
+          r="24"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#5CE1E6" stopOpacity="0.85" />
+          <stop offset="0%" stopColor="#5CE1E6" stopOpacity="0.9" />
           <stop offset="45%" stopColor="#38BDF8" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#5CE1E6" stopOpacity="0" />
         </radialGradient>
@@ -180,24 +201,24 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
         {/* 4-Point Star fill: white-hot center to radiant cyan tips */}
         <radialGradient
           id={`${id}-starFill`}
-          cx="126"
-          cy="27"
+          cx="146"
+          cy="38"
           r="16"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="40%" stopColor="#E0F7FA" />
+          <stop offset="45%" stopColor="#E0F7FA" />
           <stop offset="85%" stopColor="#5CE1E6" />
           <stop offset="100%" stopColor="#38BDF8" />
         </radialGradient>
 
-        {/* Left Facet of Arrowhead & Left Leg: luminous cyan to vibrant sky blue */}
+        {/* Arrow Lit Left Facet: vibrant cyan to sky blue */}
         <linearGradient
           id={`${id}-arrowLeft`}
-          x1="65"
-          y1="135"
-          x2="119"
-          y2="42"
+          x1="55"
+          y1="160"
+          x2="114"
+          y2="26"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#4338CA" />
@@ -206,12 +227,12 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
           <stop offset="100%" stopColor="#5CE1E6" />
         </linearGradient>
 
-        {/* Right Facet of Arrowhead & Inner Shaft: periwinkle to rich shaded violet */}
+        {/* Arrow Shaded Right Facet: periwinkle to deep violet */}
         <linearGradient
           id={`${id}-arrowRight`}
-          x1="119"
-          y1="42"
-          x2="95"
+          x1="114"
+          y1="26"
+          x2="90"
           y2="115"
           gradientUnits="userSpaceOnUse"
         >
@@ -221,71 +242,57 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
           <stop offset="100%" stopColor="#312E81" />
         </linearGradient>
 
-        {/* Inner curl of ribbon behind arrow apex */}
-        <linearGradient
-          id={`${id}-ribbonCurl`}
-          x1="96"
-          y1="119"
-          x2="115"
-          y2="90"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1E1B4B" />
-          <stop offset="55%" stopColor="#312E81" />
-          <stop offset="100%" stopColor="#6366F1" />
-        </linearGradient>
-
-        {/* Right Leg of 'A' Inner / Front Facet: metallic cyan to deep slate teal */}
+        {/* Right Leg Inner Facet */}
         <linearGradient
           id={`${id}-rightLegInner`}
-          x1="105"
-          y1="137"
-          x2="135"
+          x1="110"
+          y1="75"
+          x2="145"
           y2="172"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#0284C7" />
-          <stop offset="45%" stopColor="#0369A1" />
+          <stop offset="50%" stopColor="#0369A1" />
           <stop offset="100%" stopColor="#075985" />
         </linearGradient>
 
-        {/* Right Leg of 'A' Outer Right Facet: shaded deep teal-navy */}
+        {/* Right Leg Outer Facet */}
         <linearGradient
           id={`${id}-rightLegOuter`}
           x1="120"
-          y1="110"
-          x2="155"
+          y1="70"
+          x2="165"
           y2="172"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#0369A1" />
-          <stop offset="45%" stopColor="#0C4A6E" />
+          <stop offset="50%" stopColor="#0C4A6E" />
           <stop offset="100%" stopColor="#082F49" />
         </linearGradient>
 
-        {/* Sweeping S-Wave Ribbon Main Body: electric cyan across trough to periwinkle/violet */}
+        {/* Sweeping S-Wave Ribbon Main Body */}
         <linearGradient
           id={`${id}-ribbonBody`}
-          x1="28"
-          y1="150"
-          x2="124"
-          y2="115"
+          x1="36"
+          y1="140"
+          x2="166"
+          y2="105"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="18%" stopColor="#5CE1E6" />
-          <stop offset="48%" stopColor="#5CE1E6" />
-          <stop offset="76%" stopColor="#7A86FF" />
+          <stop offset="20%" stopColor="#5CE1E6" />
+          <stop offset="50%" stopColor="#5CE1E6" />
+          <stop offset="78%" stopColor="#7A86FF" />
           <stop offset="100%" stopColor="#6366F1" />
         </linearGradient>
 
-        {/* Sweeping S-Wave Ribbon Top Edge Highlight: crisp white-cyan glint */}
+        {/* Sweeping S-Wave Ribbon Top Highlight */}
         <linearGradient
           id={`${id}-ribbonHighlight`}
-          x1="44"
-          y1="144"
-          x2="115"
-          y2="105"
+          x1="36"
+          y1="128"
+          x2="166"
+          y2="96"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0%" stopColor="#A5F3FC" />
@@ -293,130 +300,45 @@ export const AkvioraLogoIcon: React.FC<AkvioraLogoIconProps> = ({
           <stop offset="78%" stopColor="#5CE1E6" />
           <stop offset="100%" stopColor="#C7D2FE" />
         </linearGradient>
-
-        {/* Underside shadow of the ribbon curling over the right leg */}
-        <linearGradient
-          id={`${id}-ribbonUnderside`}
-          x1="110"
-          y1="95"
-          x2="125"
-          y2="135"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#7A86FF" />
-          <stop offset="45%" stopColor="#4F46E5" />
-          <stop offset="100%" stopColor="#1E1B4B" />
-        </linearGradient>
-
-        {/* Center ridge highlight line along the arrow */}
-        <linearGradient
-          id={`${id}-arrowRidge`}
-          x1="119"
-          y1="42"
-          x2="70"
-          y2="125"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-          <stop offset="50%" stopColor="#A5F3FC" stopOpacity="0.75" />
-          <stop offset="100%" stopColor="#5CE1E6" stopOpacity="0.3" />
-        </linearGradient>
       </defs>
 
-      {/* 1. Top-Right Radiant Aura, 4-Point Star & Diagonal Accent Rays */}
+      {/* 1. Star & Rays */}
       <g>
-        <circle cx="126" cy="27" r="22" fill={`url(#${id}-starGlow)`} />
+        <circle cx="146" cy="38" r="18" fill={`url(#${id}-starGlow)`} />
         <path
-          d="M126 9C126 23.2 129.8 27 144 27C129.8 27 126 30.8 126 45C126 30.8 122.2 27 108 27C122.2 27 126 23.2 126 9Z"
+          d="M146 22 C146 32.5 150.5 38 162 38 C150.5 38 146 43.5 146 54 C146 43.5 141.5 38 130 38 C141.5 38 146 32.5 146 22 Z"
           fill={`url(#${id}-starFill)`}
         />
-        <line
-          x1="113"
-          y1="14"
-          x2="117.5"
-          y2="18.5"
-          stroke="#5CE1E6"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-        <line
-          x1="139"
-          y1="14"
-          x2="134.5"
-          y2="18.5"
-          stroke="#5CE1E6"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-        <line
-          x1="139"
-          y1="40"
-          x2="134.5"
-          y2="35.5"
-          stroke="#5CE1E6"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-        <line
-          x1="113"
-          y1="40"
-          x2="117.5"
-          y2="35.5"
-          stroke="#5CE1E6"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
+        <line x1="133" y1="25" x2="138" y2="30" stroke="#5CE1E6" strokeWidth="2.8" strokeLinecap="round" />
+        <line x1="159" y1="25" x2="154" y2="30" stroke="#5CE1E6" strokeWidth="2.8" strokeLinecap="round" />
+        <line x1="159" y1="51" x2="154" y2="46" stroke="#5CE1E6" strokeWidth="2.8" strokeLinecap="round" />
+        <line x1="133" y1="51" x2="138" y2="46" stroke="#5CE1E6" strokeWidth="2.8" strokeLinecap="round" />
       </g>
 
-      {/* 2. Lower-Right Leg of 'A' (3D Beveled Pillar) */}
+      {/* 2. Right Leg */}
       <g>
-        <path
-          d="M101 146L117 137L143 172L127 172C120.5 172 115.5 168.5 112 163L101 146Z"
-          fill={`url(#${id}-rightLegInner)`}
-        />
-        <path
-          d="M121.5 109L159 172L141.5 172L114.5 129.5C118 123.5 120.5 116.5 121.5 109Z"
-          fill={`url(#${id}-rightLegOuter)`}
-        />
+        <path d="M118 68 L114 76 L154 172 L140 172 L108 88 Z" fill={`url(#${id}-rightLegInner)`} />
+        <path d="M118 68 L168 172 L154 172 L114 76 Z" fill={`url(#${id}-rightLegOuter)`} />
       </g>
 
-      {/* 3. Upward-Right Arrow & Left Leg of 'A' */}
+      {/* 3. Arrow & Left Leg */}
       <g>
-        <path
-          d="M119 42L83 58L93.5 63.5L49 135C54.5 130.5 61 127.5 68.5 125.5L108.5 60.5L119 42Z"
-          fill={`url(#${id}-arrowLeft)`}
-        />
-        <path
-          d="M119 42L119 88L108.5 79L81 123C76.5 123.8 72.5 124.5 68.5 125.5L108.5 60.5L119 42Z"
-          fill={`url(#${id}-arrowRight)`}
-        />
-        <path
-          d="M119 42L108.5 60.5L68.5 125.5"
-          stroke={`url(#${id}-arrowRidge)`}
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
+        <path d="M114 26 L84 46 L93 52 L34 172 L48 172 L106 60 Z" fill={`url(#${id}-arrowLeft)`} />
+        <path d="M114 26 L106 60 L118 58 L128 48 Z" fill={`url(#${id}-arrowRight)`} />
+        <path d="M106 60 L48 172 L62 172 L101 72 Z" fill="#312E81" />
+        <path d="M114 26 L106 60 L48 172" stroke="#FFFFFF" strokeWidth="1.2" strokeOpacity="0.85" />
       </g>
 
-      {/* 4. Inner Upper Curl of the Ribbon Behind the Apex */}
+      {/* 4. Ribbon */}
       <path
-        d="M96 119C101 107 106 96 111 86C118.5 94.5 120 111 108 123.5C104 122 100 120.5 96 119Z"
-        fill={`url(#${id}-ribbonCurl)`}
-      />
-
-      {/* 5. Underside Curl of Ribbon Over Right Leg */}
-      <path
-        d="M112 91C121 102.5 123.5 121.5 111.5 135C108 131 106 123 111 110C113 103 112 95 112 91Z"
-        fill={`url(#${id}-ribbonUnderside)`}
-      />
-
-      {/* 6. Main Sweeping S-Wave Ribbon Across Center */}
-      <path
-        d="M28 172C37 151 51 133 83 128.5C105 125.5 116.5 114.5 112 91C121 102.5 123.5 121.5 111.5 135C100.5 147 81 147.5 70 154.5C62.5 159.5 60 172 48.5 172H28Z"
+        d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C170 108 168 124 154 136 C136 150 112 152 90 144 C68 136 50 142 36 148 Z"
         fill={`url(#${id}-ribbonBody)`}
+        stroke="#060B14"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
       />
       <path
-        d="M44 144C57 129 77 126 95 124C110 122 118 112 113 91C116.5 101 115 115 102 121C86 128 62 128 44 144Z"
+        d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C162 100 152 108 138 114 C120 120 106 116 86 106 C58 92 45 104 36 128 Z"
         fill={`url(#${id}-ribbonHighlight)`}
       />
     </svg>

@@ -38,9 +38,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-16 sm:space-y-24">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-16 sm:space-y-24">
       {/* 1. About Hero */}
-      <section className="pt-4 sm:pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
+      <section className="pt-4 sm:pt-8 lg:pb-0 grid grid-cols-1 lg:grid-cols-12   items-center">
         <div className="lg:col-span-8">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -48,7 +48,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             transition={{ duration: 0.45 }}
             className="text-xs font-mono text-[#5CE1E6] mb-4"
           >
-            04 · ABOUT AKVIORA TECHNOLOGIES
+            05 · ABOUT AKVIORA TECHNOLOGIES
           </motion.div>
           <KineticHeadline
             text="Design the experience. Automate the work. Build what's next."
@@ -79,7 +79,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             alt="Three-tier metallic architecture representing UI/UX design, full-stack engineering, and AI automation"
             fallbackTitle="Akviora Engineering Studio"
             removeBackground
-            className="w-full h-[280px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)]"
+            className="w-full h-[280px] sm:h-[420px] lg:h-[480px] aspect-[3/4] object-contain bg-transparent drop-shadow-[0_24px_56px_rgba(92,225,230,0.2)] hidden lg:block"
           />
         </motion.div>
       </section>

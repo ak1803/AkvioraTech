@@ -1,99 +1,54 @@
-<svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="favBgGlow" cx="90" cy="90" r="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#5CE1E6" stop-opacity="0.22"/>
-      <stop offset="60%" stop-color="#7A86FF" stop-opacity="0.10"/>
+    <radialGradient id="favBgGlow" cx="100" cy="100" r="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#5CE1E6" stop-opacity="0.06"/>
       <stop offset="100%" stop-color="#060B14" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="favBorder" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#5CE1E6" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#7A86FF" stop-opacity="0.65"/>
+    <linearGradient id="favBorder" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#5CE1E6" stop-opacity="0.25"/>
     </linearGradient>
-    <radialGradient id="favStarGlow" cx="126" cy="27" r="24" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#5CE1E6" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="#38BDF8" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#5CE1E6" stop-opacity="0"/>
+    <radialGradient id="favStarGlow" cx="146" cy="38" r="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="favStarFill" cx="126" cy="27" r="16" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="50%" stop-color="#E0F7FA"/>
-      <stop offset="100%" stop-color="#5CE1E6"/>
-    </radialGradient>
-    <linearGradient id="favArrowLeft" x1="65" y1="135" x2="119" y2="42" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#4338CA"/>
-      <stop offset="30%" stop-color="#3B82F6"/>
-      <stop offset="65%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#5CE1E6"/>
-    </linearGradient>
-    <linearGradient id="favArrowRight" x1="119" y1="42" x2="95" y2="115" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#7A86FF"/>
-      <stop offset="40%" stop-color="#6366F1"/>
-      <stop offset="80%" stop-color="#4F46E5"/>
-      <stop offset="100%" stop-color="#312E81"/>
-    </linearGradient>
-    <linearGradient id="favRightLegInner" x1="105" y1="137" x2="135" y2="172" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0284C7"/>
-      <stop offset="50%" stop-color="#0369A1"/>
-      <stop offset="100%" stop-color="#075985"/>
-    </linearGradient>
-    <linearGradient id="favRightLegOuter" x1="120" y1="110" x2="155" y2="172" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0369A1"/>
-      <stop offset="50%" stop-color="#0C4A6E"/>
-      <stop offset="100%" stop-color="#082F49"/>
-    </linearGradient>
-    <linearGradient id="favRibbonBody" x1="28" y1="150" x2="124" y2="115" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="20%" stop-color="#5CE1E6"/>
-      <stop offset="50%" stop-color="#5CE1E6"/>
-      <stop offset="78%" stop-color="#7A86FF"/>
-      <stop offset="100%" stop-color="#6366F1"/>
-    </linearGradient>
-    <linearGradient id="favRibbonHighlight" x1="44" y1="144" x2="115" y2="105" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#A5F3FC"/>
-      <stop offset="45%" stop-color="#FFFFFF"/>
-      <stop offset="80%" stop-color="#5CE1E6"/>
-      <stop offset="100%" stop-color="#C7D2FE"/>
-    </linearGradient>
-    <linearGradient id="favRibbonUnderside" x1="110" y1="95" x2="125" y2="135" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#7A86FF"/>
-      <stop offset="45%" stop-color="#4F46E5"/>
-      <stop offset="100%" stop-color="#1E1B4B"/>
-    </linearGradient>
-    <linearGradient id="favRibbonCurl" x1="96" y1="119" x2="115" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1E1B4B"/>
-      <stop offset="55%" stop-color="#312E81"/>
-      <stop offset="100%" stop-color="#6366F1"/>
-    </linearGradient>
   </defs>
 
-  <!-- Dark Background Container with Glowing Rim -->
-  <rect width="180" height="180" rx="42" fill="#060B14"/>
-  <rect width="180" height="180" rx="42" fill="url(#favBgGlow)"/>
-  <rect x="2" y="2" width="176" height="176" rx="40" stroke="url(#favBorder)" stroke-width="3.5"/>
+  <!-- Dark Background Container -->
+  <rect width="200" height="200" rx="46" fill="#060B14"/>
+  <rect width="200" height="200" rx="46" fill="url(#favBgGlow)"/>
+  <rect x="2" y="2" width="196" height="196" rx="44" stroke="url(#favBorder)" stroke-width="3"/>
 
-  <!-- Top-Right Star & Radiant Flares -->
-  <circle cx="126" cy="27" r="22" fill="url(#favStarGlow)"/>
-  <path d="M126 9C126 23.2 129.8 27 144 27C129.8 27 126 30.8 126 45C126 30.8 122.2 27 108 27C122.2 27 126 23.2 126 9Z" fill="url(#favStarFill)"/>
-  <line x1="113" y1="14" x2="117.5" y2="18.5" stroke="#5CE1E6" stroke-width="2.6" stroke-linecap="round"/>
-  <line x1="139" y1="14" x2="134.5" y2="18.5" stroke="#5CE1E6" stroke-width="2.6" stroke-linecap="round"/>
-  <line x1="139" y1="40" x2="134.5" y2="35.5" stroke="#5CE1E6" stroke-width="2.6" stroke-linecap="round"/>
-  <line x1="113" y1="40" x2="117.5" y2="35.5" stroke="#5CE1E6" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- Top-Right 4-Point Star & Radiant Flares -->
+  <circle cx="146" cy="38" r="18" fill="url(#favStarGlow)"/>
+  <path d="M146 22 C146 32.5 150.5 38 162 38 C150.5 38 146 43.5 146 54 C146 43.5 141.5 38 130 38 C141.5 38 146 32.5 146 22 Z" fill="#FFFFFF"/>
+  <line x1="133" y1="25" x2="138" y2="30" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="159" y1="25" x2="154" y2="30" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="159" y1="51" x2="154" y2="46" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="133" y1="51" x2="138" y2="46" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"/>
 
-  <!-- Right Leg of 'A' -->
-  <path d="M101 146L117 137L143 172L127 172C120.5 172 115.5 168.5 112 163L101 146Z" fill="url(#favRightLegInner)"/>
-  <path d="M121.5 109L159 172L141.5 172L114.5 129.5C118 123.5 120.5 116.5 121.5 109Z" fill="url(#favRightLegOuter)"/>
+  <!-- Lower-Right Leg of 'A' -->
+  <path d="M118 68 L114 76 L154 172 L140 172 L108 88 Z" fill="#CBD5E1"/>
+  <path d="M118 68 L168 172 L154 172 L114 76 Z" fill="#E2E8F0"/>
 
-  <!-- Arrow & Left Leg of 'A' -->
-  <path d="M119 42L83 58L93.5 63.5L49 135C54.5 130.5 61 127.5 68.5 125.5L108.5 60.5L119 42Z" fill="url(#favArrowLeft)"/>
-  <path d="M119 42L119 88L108.5 79L81 123C76.5 123.8 72.5 124.5 68.5 125.5L108.5 60.5L119 42Z" fill="url(#favArrowRight)"/>
+  <!-- Upward Arrow & Left Leg of 'A' -->
+  <path d="M114 26 L84 46 L93 52 L34 172 L48 172 L106 60 Z" fill="#FFFFFF"/>
+  <path d="M114 26 L106 60 L118 58 L128 48 Z" fill="#CBD5E1"/>
+  <path d="M106 60 L48 172 L62 172 L101 72 Z" fill="#CBD5E1"/>
+  <path d="M114 26 L106 60 L48 172" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Inner Ribbon Curl -->
-  <path d="M96 119C101 107 106 96 111 86C118.5 94.5 120 111 108 123.5C104 122 100 120.5 96 119Z" fill="url(#favRibbonCurl)"/>
-
-  <!-- Underside Ribbon Shadow -->
-  <path d="M112 91C121 102.5 123.5 121.5 111.5 135C108 131 106 123 111 110C113 103 112 95 112 91Z" fill="url(#favRibbonUnderside)"/>
-
-  <!-- Sweeping S-Wave Ribbon -->
-  <path d="M28 172C37 151 51 133 83 128.5C105 125.5 116.5 114.5 112 91C121 102.5 123.5 121.5 111.5 135C100.5 147 81 147.5 70 154.5C62.5 159.5 60 172 48.5 172H28Z" fill="url(#favRibbonBody)"/>
-  <path d="M44 144C57 129 77 126 95 124C110 122 118 112 113 91C116.5 101 115 115 102 121C86 128 62 128 44 144Z" fill="url(#favRibbonHighlight)"/>
+  <!-- Ribbon Crossbar in Pure White -->
+  <path
+    d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C170 108 168 124 154 136 C136 150 112 152 90 144 C68 136 50 142 36 148 Z"
+    fill="#F8FAFC"
+    stroke="#060B14"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M36 128 C45 110 58 98 86 112 C106 122 120 126 138 120 C154 114 162 104 166 96 C162 100 152 108 138 114 C120 120 106 116 86 106 C58 92 45 104 36 128 Z"
+    fill="#FFFFFF"
+  />
 </svg>

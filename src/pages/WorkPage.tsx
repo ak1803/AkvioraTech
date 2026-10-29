@@ -44,7 +44,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto space-y-14 sm:space-y-20">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto space-y-14 sm:space-y-20">
       {/* Header */}
       <section className="pt-4 sm:pt-8 space-y-6 sm:space-y-8">
         <div className="space-y-4 sm:space-y-5">
@@ -54,7 +54,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             transition={{ duration: 0.45 }}
             className="text-xs font-mono text-[#5CE1E6]"
           >
-            03 · SELECTED WORK &amp; PRODUCTION SYSTEMS
+            04 · SELECTED WORK &amp; PRODUCTION SYSTEMS
           </motion.div>
           <KineticHeadline
             text="Products and systems shaped around real workflows."
@@ -69,13 +69,16 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             Explore real-world SaaS platforms, AI automation systems, and enterprise workflow architectures designed and shipped by Akviora Technologies.
           </motion.p>
         </div>
+      </section>
 
-        {/* Interactive Filter Tabs placed after page heading */}
+
+
+   {/* Interactive Filter Tabs placed after page heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.11)] w-full sm:w-fit"
+          className="flex flex-col lg:flex-row gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-[rgba(255,255,255,0.1)] w-full lg:w-fit mb-6"
         >
           {[
             { id: 'all', label: 'All Systems' },
@@ -92,7 +95,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({
                 onClick={() =>
                   setFilter(tab.id as 'all' | 'saas' | 'ai' | 'operations' | 'retail')
                 }
-                className={`relative px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
+                className={`relative w-full lg:w-auto px-4 py-2.5 sm:py-3 lg:py-2.5 rounded-xl text-sm font-medium transition-colors cursor-pointer text-center flex items-center justify-center ${
                   isActive
                     ? 'text-[#060B14]'
                     : 'text-[#8EA6B4] hover:text-[#EAF4F8]'
@@ -114,7 +117,9 @@ export const WorkPage: React.FC<WorkPageProps> = ({
             );
           })}
         </motion.div>
-      </section>
+
+
+
 
       {/* Bento Case Study Cards Grid */}
       <motion.section

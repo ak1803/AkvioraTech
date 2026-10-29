@@ -146,7 +146,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({
           >
             <span className="sm:hidden">Design ROI Plan with AI</span>
             <span className="hidden sm:inline">
-              Design This ROI Plan with Akviora AI
+              Design ROI Plan with Akviora AI
             </span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </MagneticButton>
