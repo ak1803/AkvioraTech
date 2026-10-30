@@ -81,13 +81,13 @@ const WhyAkvioraSection: React.FC = () => {
 
   return (
     <section
-      className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-6 sm:gap-8 md:gap-6 lg:gap-[6vw] max-w-[1320px] mx-auto py-12 sm:py-14 md:py-10 lg:py-[14vh] px-4 sm:px-8 lg:px-12"
+      className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-6 sm:gap-8 md:gap-6 lg:gap-[6vw] max-w-[1440px] mx-auto py-12 sm:py-14 md:py-10 lg:py-[14vh] px-4 sm:px-8 lg:px-12"
     >
       {/* Sticky Left Column (pinned on scroll without transform clipping) */}
       <div className="lg:sticky lg:top-[20vh] lg:self-start space-y-6 md:space-y-4 lg:space-y-6">
         <div className="flex items-center gap-3">
           <span className="text-xs font-mono text-[#5CE1E6] tracking-wider uppercase">
-            04 · PRINCIPLES &amp; CLARITY
+             PRINCIPLES &amp; CLARITY
           </span>
           <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.03] text-[11px] font-mono text-[#8EA6B4]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#5CE1E6] animate-pulse" />
@@ -876,7 +876,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. STATEMENT & PAIN POINTS */}
       <section
         ref={statementSectionRef}
-        className="min-h-[65vh] sm:min-h-[75vh] md:min-h-0 lg:min-h-[75vh] flex items-center py-14 sm:py-16 md:py-10 lg:py-[14vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
+        className="min-h-[65vh] sm:min-h-[75vh] md:min-h-0 lg:min-h-[75vh] flex items-center py-14 sm:py-16 md:py-10 lg:pt-[14vh] lg:pb-[3vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -1001,7 +1001,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 5. AI SOLUTIONS BENTO SHOWCASE */}
       <section
         id="ai"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto"
+        className="pt-12 pb-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[3vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto"
       >
         <FadeUpReveal>
           <KineticHeadline
@@ -1274,7 +1274,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 7. SELECTED WORK / CASE STUDIES LIST */}
       <section
         id="work"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
+        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <FadeUpReveal className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <KineticHeadline
@@ -1341,7 +1341,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 8. ATTRIBUTABLE CLIENT OUTCOMES */}
-      <section className="py-12 sm:py-14 md:py-10 lg:py-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden">
+      <section className="py-12 sm:py-14 md:py-10 lg:py-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden">
         <motion.div
           variants={STAGGER_CONTAINER_VARIANTS}
           initial="hidden"
@@ -1380,7 +1380,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 9. 8-STEP TIMELINE PROCESS */}
       <section
         id="process"
-        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto overflow-hidden"
+        className="pt-12 sm:pt-14 md:pt-10 md:pb-8 lg:pt-[12vh] lg:pb-[10vh] px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto overflow-hidden"
       >
         <KineticHeadline
           as="h2"
@@ -1393,12 +1393,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 10. CLOSING CONVERSION CTA */}
       <section
         id="contact"
-        className="min-h-[60svh] sm:min-h-[70svh] md:min-h-0 lg:min-h-[85svh] flex flex-col justify-center items-start px-4 sm:px-8 lg:px-12 max-w-[1320px] mx-auto py-12 sm:py-16 md:py-10 lg:py-20"
+        className="min-h-[60svh] sm:min-h-[70svh] md:min-h-0 lg:min-h-[85svh] flex flex-col justify-center items-start px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto py-12 sm:py-16 md:py-10 lg:py-20"
       >
         <KineticHeadline
           as="h2"
           text="Have an idea, problem or process worth improving?"
-          className="font-display font-bold text-[clamp(34px,7.2vw,112px)] max-w-[14ch] leading-[1.02] text-[#EAF4F8] break-words"
+          className="font-display font-bold text-[clamp(34px,7.2vw,112px)] max-w-[18ch] leading-[1.02] text-[#EAF4F8] break-words"
         />
         <FadeUpReveal delay={0.12} className="w-full">
           <p className="max-w-[52ch] mt-5 sm:mt-7 md:mt-4 lg:mt-7 text-[#b8cdd8] text-base sm:text-lg">
