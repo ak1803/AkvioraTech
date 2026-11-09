@@ -499,7 +499,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {PRICING_BUNDLES.map((bundle, idx) => {
             const isCurrentlySelected =
               bundle.serviceIds.every((id) => selectedServiceIds.includes(id)) &&
@@ -810,7 +810,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredServices.map((svc) => {
               const IconComp = svc.icon;

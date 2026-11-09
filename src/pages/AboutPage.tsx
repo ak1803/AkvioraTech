@@ -66,6 +66,24 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             full-stack engineering, and practical AI automation together in a
             single connected workflow.
           </motion.p>
+          <motion.div
+             initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.22 }}
+            className='mt-6'
+            >
+            <MagneticButton
+                        variant="gradient"
+                        onClick={() => 
+                  window.open(
+      "src/assets/Akviora_Brand_guideline.pdf",
+      "_blank"
+    )}
+                        className="w-full sm:w-auto px-5 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base"
+                      >
+                        Discover Our Design Standards
+                      </MagneticButton>
+            </motion.div>
         </div>
 
         <motion.div
